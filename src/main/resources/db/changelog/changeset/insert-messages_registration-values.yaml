@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 21
+      id: 22
       author: vsevolod schetov
       changes:
         - insert:
@@ -43,6 +43,54 @@ databaseChangeLog:
               - column:
                   name: text
                   value: |
+                    Программа вебинара 04.10
+              - column:
+                  name: dialog
+                  value: 2
+              - column:
+                  name: file
+                  value: 3
+        - insert:
+            tableName: messages
+            columns:
+              - column:
+                  name: number
+                  value: 3
+              - column:
+                  name: text
+                  value: |
+                    Программа вебинара 05.10
+              - column:
+                  name: dialog
+                  value: 2
+              - column:
+                  name: file
+                  value: 4
+        - insert:
+            tableName: messages
+            columns:
+              - column:
+                  name: number
+                  value: 4
+              - column:
+                  name: text
+                  value: |
+                    Программа вебинара 06.10
+              - column:
+                  name: dialog
+                  value: 2
+              - column:
+                  name: file
+                  value: 5
+        - insert:
+            tableName: messages
+            columns:
+              - column:
+                  name: number
+                  value: 5
+              - column:
+                  name: text
+                  value: |
                     Забирай обещанный подарок за регистрацию: Полный файл по подготовке и поступлению в Австрию 🎁 (прикрепить файл)
                     - нюансы поступления на бакалавриат и магистратуру
                     - этапы подготовки к поступлению
@@ -58,7 +106,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: number
-                  value: 3
+                  value: 6
               - column:
                   name: text
                   value: |
@@ -76,7 +124,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: number
-                  value: 4
+                  value: 7
               - column:
                   name: text
                   value: |
@@ -103,7 +151,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: number
-                  value: 5
+                  value: 8
               - column:
                   name: text
                   value: |
@@ -121,7 +169,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: number
-                  value: 6
+                  value: 9
               - column:
                   name: text
                   value: |

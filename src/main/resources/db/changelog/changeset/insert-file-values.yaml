@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 22
+      id: 21
       author: vsevolod schetov
       changes:
         - insert:
@@ -21,3 +21,30 @@ databaseChangeLog:
               - column:
                   name: type
                   value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: 01.png
+              - column:
+                  name: type
+                  value: PHOTO
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: 02.png
+              - column:
+                  name: type
+                  value: PHOTO
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: 03.png
+              - column:
+                  name: type
+                  value: PHOTO

@@ -44,6 +44,6 @@ databaseChangeLog:
   - include:
       file: db/changelog/changeset/insert-conference-values.yaml
   - include:
-      file: db/changelog/changeset/insert-messages_registration-values.yaml
-  - include:
       file: db/changelog/changeset/insert-file-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-messages_registration-values.yaml

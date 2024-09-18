@@ -134,9 +134,6 @@ public class MainBotController extends TelegramLongPollingBot {
                                 DialogState.DialogStates.REGISTRATION,
                                 3
                         ));
-
-                    }
-                    else {
                         startCommandReceived(mainBotService.getStandardMessage(
                                 chatId,
                                 DialogState.DialogStates.REGISTRATION,
@@ -152,10 +149,58 @@ public class MainBotController extends TelegramLongPollingBot {
                                 DialogState.DialogStates.REGISTRATION,
                                 6
                         ));
+                    }
+                    else {
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                7
+                        ));
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                2
+                        ));
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                3
+                        ));
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                4
+                        ));
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                8
+                        ));
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                9
+                        ));
                         registrationService.createOldNotification(chatId);
                     }
+                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
                 case "search_repeat":
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.REGISTRATION,
+                            7
+                    ));
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.REGISTRATION,
+                            2
+                    ));
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.REGISTRATION,
+                            3
+                    ));
                     startCommandReceived(mainBotService.getStandardMessage(
                             chatId,
                             DialogState.DialogStates.REGISTRATION,
@@ -164,13 +209,15 @@ public class MainBotController extends TelegramLongPollingBot {
                     startCommandReceived(mainBotService.getStandardMessage(
                             chatId,
                             DialogState.DialogStates.REGISTRATION,
-                            5
+                            8
                     ));
                     startCommandReceived(mainBotService.getStandardMessage(
                             chatId,
                             DialogState.DialogStates.REGISTRATION,
-                            6
+                            9
                     ));
+                    registrationService.createOldNotification(chatId);
+                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
             }
         }

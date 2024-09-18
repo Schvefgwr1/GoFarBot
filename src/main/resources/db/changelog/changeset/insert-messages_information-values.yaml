@@ -36,7 +36,10 @@ databaseChangeLog:
                   value: 3
               - column:
                   name: text
-                  value: Тут текст про Австрию
+                  value: |
+                    Лови информацию про Австрию
+                    
+                    Планируешь поступать? Заполняй анкету и приходи на бесплатную консультацию по поступлению - https://forms.gle/4229Xqs9WS53RY447
               - column:
                   name: dialog
                   value: 3
@@ -67,7 +70,9 @@ databaseChangeLog:
                   value: 4
               - column:
                   name: text
-                  value: Тут текст про Германию
+                  value: |
+                    Лови информацию про Германию
+                    Планируешь поступать? Заполняй анкету и приходи на бесплатную консультацию по поступлению - https://forms.gle/4229Xqs9WS53RY447
               - column:
                   name: dialog
                   value: 3
@@ -98,7 +103,9 @@ databaseChangeLog:
                   value: 5
               - column:
                   name: text
-                  value: Тут текст про Италию
+                  value: |
+                    Лови информацию про Италию
+                    Планируешь поступать? Заполняй анкету и приходи на бесплатную консультацию по поступлению - https://forms.gle/4229Xqs9WS53RY447
               - column:
                   name: dialog
                   value: 3
@@ -129,7 +136,20 @@ databaseChangeLog:
                   value: 6
               - column:
                   name: text
-                  value: Вот наши прекрасные соц. сети
+                  value: |
+                    GoFar - помощь с поступлением в вузы Европы:
+                    Сайт - https://letsgofar.eu/
+                    Instagram - https://www.instagram.com/gofar_ru?igsh=ZXVjbW5zamw5aXc4
+                    Telegram-канал - https://t.me/gofareu
+                    Telegram-чат - https://t.me/gofarchat
+                    YouTube - https://www.youtube.com/@letsgofaryt
+                    ВКонтакете - https://vk.com/letsgofar
+
+                    Школа подготовки к сдаче языковых экзаменов GoLearn:
+                    Instagram - https://www.instagram.com/golearn_eu?igsh=MXZ1N3lvYTc3cXMxag==
+                    Telegram-канал - https://t.me/gofareu
+                    Telegram-чат - 
+                    ВКонтакте - https://vk.com/golearn_eu
               - column:
                   name: dialog
                   value: 3
@@ -169,42 +189,6 @@ databaseChangeLog:
               - column:
                   name: value
                   value: Это ссылка на ВК
-        - insert:
-            tableName: messages_links_rel
-            columns:
-              - column:
-                  name: message
-                  value: 7
-              - column:
-                  name: link
-                  value: 4
-        - insert:
-            tableName: messages_links_rel
-            columns:
-              - column:
-                  name: message
-                  value: 7
-              - column:
-                  name: link
-                  value: 5
-        - insert:
-            tableName: messages_links_rel
-            columns:
-              - column:
-                  name: message
-                  value: 7
-              - column:
-                  name: link
-                  value: 6
-        - insert:
-            tableName: messages_links_rel
-            columns:
-              - column:
-                  name: message
-                  value: 7
-              - column:
-                  name: link
-                  value: 7
         #Задать вопрос
         - insert:
             tableName: messages
@@ -214,25 +198,20 @@ databaseChangeLog:
                   value: 7
               - column:
                   name: text
-                  value: Задай нам вопрос в прекрасном тг Чате
+                  value: |
+                    GoFar - помощь с поступлением в вузы Европы:
+                    Сайт - https://letsgofar.eu/
+                    Instagram - https://www.instagram.com/gofar_ru?igsh=ZXVjbW5zamw5aXc4
+                    Telegram-канал - https://t.me/gofareu
+                    Telegram-чат - https://t.me/gofarchat
+                    YouTube - https://www.youtube.com/@letsgofaryt
+                    ВКонтакете - https://vk.com/letsgofar
+
+                    Школа подготовки к сдаче языковых экзаменов GoLearn:
+                    Instagram - https://www.instagram.com/golearn_eu?igsh=MXZ1N3lvYTc3cXMxag==
+                    Telegram-канал - https://t.me/gofareu
+                    Telegram-чат - 
+                    ВКонтакте - https://vk.com/golearn_eu
               - column:
                   name: dialog
                   value: 3
-        - insert:
-            tableName: links
-            columns:
-              - column:
-                  name: type
-                  value: 2
-              - column:
-                  name: value
-                  value: Это ссылка на тг Чат
-        - insert:
-            tableName: messages_links_rel
-            columns:
-              - column:
-                  name: message
-                  value: 8
-              - column:
-                  name: link
-                  value: 8

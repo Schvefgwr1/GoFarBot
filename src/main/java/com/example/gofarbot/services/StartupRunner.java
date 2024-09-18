@@ -39,46 +39,14 @@ public class StartupRunner implements ApplicationRunner {
         log.info("Successful creating of notifications to actual conferences in  database");
 
         try {
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
-                    .bucket(minioConfig.getDocumentsBucket())
-                    .build()
-            );
-            if (!found) {
-                minioClient.makeBucket(MakeBucketArgs.builder()
-                        .bucket(minioConfig.getDocumentsBucket())
-                        .build()
-                );
-                System.out.println("Bucket created successfully");
-            } else {
-                System.out.println("Bucket already exists.");
-            }
-        } catch (Exception e) {
-            System.err.println("Error occurred: " + e.getMessage());
-        }
+            ClassPathResource resource1 = new ClassPathResource("static/Resume.pdf");
+            ClassPathResource resource2 = new ClassPathResource("static/TestImage.png");
+            ClassPathResource resource3 = new ClassPathResource("static/01.png");
+            ClassPathResource resource4 = new ClassPathResource("static/02.png");
+            ClassPathResource resource5 = new ClassPathResource("static/03.png");
 
-        try {
-            boolean found = minioClient.bucketExists(BucketExistsArgs.builder()
-                    .bucket(minioConfig.getPhotosBucket())
-                    .build()
-            );
-            if (!found) {
-                minioClient.makeBucket(MakeBucketArgs.builder()
-                        .bucket(minioConfig.getPhotosBucket())
-                        .build()
-                );
-                System.out.println("Bucket created successfully");
-            } else {
-                System.out.println("Bucket already exists.");
-            }
-        } catch (Exception e) {
-            System.err.println("Error occurred: " + e.getMessage());
-        }
 
-        try {
-            ClassPathResource resource = new ClassPathResource("static/Resume.pdf");
-            ClassPathResource resource1 = new ClassPathResource("static/TestImage.png");
-
-            try (InputStream fileInputStream = resource.getInputStream()) {
+            try (InputStream fileInputStream = resource1.getInputStream()) {
                 minioClient.putObject(
                         PutObjectArgs.builder()
                                 .bucket(minioConfig.getDocumentsBucket())
@@ -87,10 +55,8 @@ public class StartupRunner implements ApplicationRunner {
                                 .contentType("application/pdf")
                                 .build()
                 );
-
             }
-
-            try (InputStream fileInputStream = resource1.getInputStream()) {
+            try (InputStream fileInputStream = resource2.getInputStream()) {
                 minioClient.putObject(
                         PutObjectArgs.builder()
                                 .bucket(minioConfig.getPhotosBucket())
@@ -99,7 +65,36 @@ public class StartupRunner implements ApplicationRunner {
                                 .contentType("application/png")
                                 .build()
                 );
-
+            }
+            try (InputStream fileInputStream = resource3.getInputStream()) {
+                minioClient.putObject(
+                        PutObjectArgs.builder()
+                                .bucket(minioConfig.getPhotosBucket())
+                                .object("01.png")
+                                .stream(fileInputStream, fileInputStream.available(), -1)
+                                .contentType("application/png")
+                                .build()
+                );
+            }
+            try (InputStream fileInputStream = resource4.getInputStream()) {
+                minioClient.putObject(
+                        PutObjectArgs.builder()
+                                .bucket(minioConfig.getPhotosBucket())
+                                .object("02.png")
+                                .stream(fileInputStream, fileInputStream.available(), -1)
+                                .contentType("application/png")
+                                .build()
+                );
+            }
+            try (InputStream fileInputStream = resource4.getInputStream()) {
+                minioClient.putObject(
+                        PutObjectArgs.builder()
+                                .bucket(minioConfig.getPhotosBucket())
+                                .object("03.png")
+                                .stream(fileInputStream, fileInputStream.available(), -1)
+                                .contentType("application/png")
+                                .build()
+                );
             }
 
             log.info("Upload successful!");

@@ -14,7 +14,7 @@ databaseChangeLog:
                   value: Это тестовое имя конференции
               - column:
                   name: time_of_conference
-                  value: 2024-09-18 23:30:00
+                  value: 2024-09-20 03:30:00
         - insert:
             tableName: conferences_notifications_rel
             columns:
