@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 7
       author: vsevolod schetov
       changes:
         - createTable:
@@ -15,7 +15,12 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: user_id
-                  type: VARCHAR(255)
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: chat_id
+                  type: BIGINT
                   constraints:
                     nullable: false
               - column:
@@ -23,23 +28,23 @@ databaseChangeLog:
                   type: BIGINT
                   constraints:
                     nullable: true
-              - addForeignKeyConstraint:
-                  baseTableName: users
-                  baseColumnNames: state
-                  constraintName: fk_user_dialog_state
-                  referencedTableName: dialog_state
-                  referencedColumnNames: id
-                  onDelete: SET NULL
-                  onUpdate: CASCADE
               - column:
                   name: created_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-                    defaultValueComputed: CURRENT_TIMESTAMP
+                  defaultValue: NOW()
               - column:
                   name: updated_at
                   type: TIMESTAMP
                   constraints:
                     nullable: false
-                    defaultValueComputed: CURRENT_TIMESTAMP
+                  defaultValue: NOW()
+        - addForeignKeyConstraint:
+            baseTableName: users
+            baseColumnNames: state
+            constraintName: fk_user_messages
+            referencedTableName: messages
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE

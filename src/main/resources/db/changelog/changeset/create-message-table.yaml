@@ -1,0 +1,57 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: messages
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: number
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+              - column:
+                  name: text
+                  type: VARCHAR(5000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: dialog
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: file
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                  defaultValue: NOW()
+        - addForeignKeyConstraint:
+            baseTableName: messages
+            baseColumnNames: dialog
+            constraintName: fk_messages_dialog_state
+            referencedTableName: dialog_states
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: messages
+            baseColumnNames: file
+            constraintName: fk_messages_files
+            referencedTableName: files
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: CASCADE

@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: vsevolod schetov
+      changes:
+        - insert:
+              tableName: dialog_states
+              columns:
+                - column:
+                    name: state
+                    value: FIRST_MESSAGE
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: REGISTRATION
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: INFORMATION
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: CONSULTATION
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: GO_LEARN
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: CONTACTS
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: NOTIFICATION

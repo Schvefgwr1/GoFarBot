@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 13
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: conferences_users_rel
+            columns:
+              - column:
+                  name: conference
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: conferences_users_rel
+            baseColumnNames: conference
+            constraintName: fk_conferences_users_rel
+            referencedTableName: conferences
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: conferences_users_rel
+            baseColumnNames: user_id
+            constraintName: fk_users_conferences_rel
+            referencedTableName: users
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE

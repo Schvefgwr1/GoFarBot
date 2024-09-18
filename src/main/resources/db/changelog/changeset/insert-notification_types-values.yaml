@@ -1,6 +1,41 @@
 databaseChangeLog:
   - changeSet:
-      id: 0
-      author: admin
+      id: 18
+      author: vsevolod schetov
       changes:
-        -
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: BEFORE_DAY
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: TWELVE_O_CLOCK
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: BEFORE_HOUR
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: IN_TIME
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: AFTER_ONE_AND_HALF_OUR
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: AFTER_TWO_HOURS

@@ -13,12 +13,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "images")
-public class Image {
+@Table(name = "files")
+public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
     private String link;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private FileType type;
+
+    public enum FileType {
+        PHOTO, DOCUMENT
+    }
 }

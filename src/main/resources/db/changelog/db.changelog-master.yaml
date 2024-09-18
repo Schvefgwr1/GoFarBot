@@ -1,5 +1,49 @@
 databaseChangeLog:
+  #Create tables
+  - include:
+      file: db/changelog/changeset/create-file-table.yaml
+  - include:
+      file: db/changelog/changeset/create-type_link-table.yaml
+  - include:
+      file: db/changelog/changeset/create-link-table.yaml
   - include:
       file: db/changelog/changeset/create-dialog_state-table.yaml
   - include:
+      file: db/changelog/changeset/create-message-table.yaml
+  - include:
+      file: db/changelog/changeset/create-message_link_rel-table.yaml
+  - include:
       file: db/changelog/changeset/create-user-table.yaml
+  #Insert values
+  - include:
+      file: db/changelog/changeset/insert-dialog_state-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-messages_first-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-types_link-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-messages_information-values.yaml
+  #Create Conferences tables
+  - include:
+      file: db/changelog/changeset/create-conference-table.yaml
+  - include:
+      file: db/changelog/changeset/create-conference_user_rel-table.yaml
+  - include:
+      file: db/changelog/changeset/create-notification_type-table.yaml
+  - include:
+      file: db/changelog/changeset/create-notification-table.yaml
+  - include:
+      file: db/changelog/changeset/create-notification_link_rel-table.yaml
+  - include:
+      file: db/changelog/changeset/create-conference_notification_rel-table.yaml
+  #Insert values
+  - include:
+      file: db/changelog/changeset/insert-notification_types-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-notification-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-conference-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-messages_registration-values.yaml
+  - include:
+      file: db/changelog/changeset/insert-file-values.yaml

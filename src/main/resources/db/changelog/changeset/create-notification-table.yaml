@@ -1,34 +1,46 @@
 databaseChangeLog:
   - changeSet:
-      id: 14
+      id: 15
       author: vsevolod schetov
       changes:
         - createTable:
-            tableName: conferences_messages_rel
+            tableName: notifications
             columns:
               - column:
-                  name: conference
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: text
+                  type: VARCHAR(5000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
                   type: BIGINT
                   constraints:
                     nullable: false
               - column:
-                  name: message
+                  name: file
                   type: BIGINT
                   constraints:
-                    nullable: false
+                    nullable: true
         - addForeignKeyConstraint:
-            baseTableName: conferences_messages_rel
-            baseColumnNames: conference
-            constraintName: fk_conferences_messages_rel
-            referencedTableName: conferences
+            baseTableName: notifications
+            baseColumnNames: file
+            constraintName: fk_notifications_files
+            referencedTableName: files
             referencedColumnNames: id
-            onDelete: CASCADE
+            onDelete: SET NULL
             onUpdate: CASCADE
         - addForeignKeyConstraint:
-            baseTableName: conferences_messages_rel
-            baseColumnNames: message
-            constraintName: fk_messages_conferences_rel
-            referencedTableName: messages
+            baseTableName: notifications
+            baseColumnNames: type
+            constraintName: fk_notifications_types_rel
+            referencedTableName: notification_types
             referencedColumnNames: id
             onDelete: CASCADE
             onUpdate: CASCADE

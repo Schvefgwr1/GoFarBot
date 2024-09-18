@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: 22
+      author: vsevolod schetov
+      changes:
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: TestImage.png
+              - column:
+                  name: type
+                  value: PHOTO
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: Resume.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT

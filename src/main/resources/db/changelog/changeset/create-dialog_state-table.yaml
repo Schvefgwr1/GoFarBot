@@ -1,10 +1,10 @@
 databaseChangeLog:
   - changeSet:
-      id: 1
+      id: 4
       author: vsevolod schetov
       changes:
         - createTable:
-            tableName: dialog_state
+            tableName: dialog_states
             columns:
               - column:
                   name: id

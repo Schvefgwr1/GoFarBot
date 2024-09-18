@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 10
+      author: vsevolod schetov
+      changes:
+        - insert:
+            tableName: types_link
+            columns:
+              - column:
+                  name: type
+                  value: YOUTUBE
+        - insert:
+            tableName: types_link
+            columns:
+              - column:
+                  name: type
+                  value: TELEGRAM
+        - insert:
+            tableName: types_link
+            columns:
+              - column:
+                  name: type
+                  value: INSTAGRAM
+        - insert:
+            tableName: types_link
+            columns:
+              - column:
+                  name: type
+                  value: VK

@@ -1,6 +1,71 @@
 databaseChangeLog:
   - changeSet:
-      id: 0
-      author: admin
+      id: 20
+      author: vsevolod schetov
       changes:
-        -
+        - insert:
+            tableName: conferences
+            columns:
+              - column:
+                  name: link
+                  value: Это тестовая ссылка на конференцию
+              - column:
+                  name: name
+                  value: Это тестовое имя конференции
+              - column:
+                  name: time_of_conference
+                  value: 2024-09-18 23:30:00
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 1
+              - column:
+                  name: notification
+                  value: 1
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 1
+              - column:
+                  name: notification
+                  value: 2
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 1
+              - column:
+                  name: notification
+                  value: 3
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 1
+              - column:
+                  name: notification
+                  value: 4
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 1
+              - column:
+                  name: notification
+                  value: 5
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 1
+              - column:
+                  name: notification
+                  value: 6

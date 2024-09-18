@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9
+      author: vsevolod schetov
+      changes:
+        - insert:
+            tableName: messages
+            columns:
+              - column:
+                  name: number
+                  value: 1
+              - column:
+                  name: text
+                  value: Что тебя интересует?
+              - column:
+                  name: dialog
+                  value: 1

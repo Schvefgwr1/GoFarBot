@@ -4,7 +4,7 @@ databaseChangeLog:
       author: vsevolod schetov
       changes:
         - createTable:
-            tableName: images
+            tableName: files
             columns:
               - column:
                   name: id
@@ -15,6 +15,11 @@ databaseChangeLog:
                     nullable: false
               - column:
                   name: link
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type
                   type: VARCHAR(255)
                   constraints:
                     nullable: false

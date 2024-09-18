@@ -1,1 +1,32 @@
-spring.application.name=GoFarBot
+spring:
+  application:
+    name:
+      GoFarBot
+  data:
+    mongodb:
+      database: gofar
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gofar
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+bot:
+  name:
+    goFarBot_test-development-version
+  token:
+    7365748376:AAHTagw_pBibRMuUmEsI_drRzvyFp3a0eKU
+minio:
+  url: http://localhost:9000
+  access:
+    name: ZYPRYMQmxFdH4KmWQwtW
+    secret: MCLskXbhNiHLfqAweJpwQB4QYnhDsBvIvTBl9ZUm
+  buckets:
+    documents: documents
+    photos: photos
+logging:
+  file:
+    path: classpath
+    name: Logging.log
+  level:
+    root: INFO
+    org.springframework.security: DEBUG

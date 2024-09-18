@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @AllArgsConstructor
-public class ScheduledExecutorService{
+public class NotificationService{
 
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
