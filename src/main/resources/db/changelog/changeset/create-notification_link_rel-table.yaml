@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - changeSet:
+      id: 17
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: notifications_links_rel
+            columns:
+              - column:
+                  name: notification
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: link
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: notifications_links_rel
+            baseColumnNames: notification
+            constraintName: fk_notifications_links_rel
+            referencedTableName: notifications
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: notifications_links_rel
+            baseColumnNames: link
+            constraintName: fk_links_notifications_rel
+            referencedTableName: links
+            referencedColumnNames: id
+            onDelete: CASCADE
+            onUpdate: CASCADE

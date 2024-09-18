@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: state
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+              - addForeignKeyConstraint:
+                  baseTableName: users
+                  baseColumnNames: state
+                  constraintName: fk_user_dialog_state
+                  referencedTableName: dialog_state
+                  referencedColumnNames: id
+                  onDelete: SET NULL
+                  onUpdate: CASCADE
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                    defaultValueComputed: CURRENT_TIMESTAMP
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+                    defaultValueComputed: CURRENT_TIMESTAMP
