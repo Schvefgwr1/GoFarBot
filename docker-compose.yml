@@ -18,8 +18,8 @@ services:
     image: minio/minio
     container_name: minio
     environment:
-      MINIO_ACCESS_KEY: minioadmin
-      MINIO_SECRET_KEY: minioadmin
+      MINIO_ROOT_USER: dlh1763GsdJGHasdT135!
+      MINIO_ROOT_PASSWORD: hghjhjfhdf46t45t4HFGhjfj3R56bdff5!
     command: server /data
     ports:
       - "9000:9000"
@@ -38,10 +38,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gofar
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
       MINIO_URL: http://minio:9000
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: dlh1763GsdJGHasdT135!
+      MINIO_ROOT_PASSWORD: hghjhjfhdf46t45t4HFGhjfj3R56bdff5!
       TG_BOT_NAME: goFarBot_test-development-version
       TG_BOT_TOKEN: 7365748376:AAHTagw_pBibRMuUmEsI_drRzvyFp3a0eKU
     depends_on:
