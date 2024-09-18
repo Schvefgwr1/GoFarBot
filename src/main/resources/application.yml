@@ -2,24 +2,24 @@ spring:
   application:
     name:
       GoFarBot
-  data:
-    mongodb:
-      database: gofar
   datasource:
-    url: jdbc:postgresql://localhost:5432/gofar
+    url: ${SPRING_DATASOURCE_URL}
     driverClassName: org.postgresql.Driver
-    username: postgres
-    password: postgres
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
 bot:
   name:
-    goFarBot_test-development-version
+    ${TG_BOT_NAME}
   token:
-    7365748376:AAHTagw_pBibRMuUmEsI_drRzvyFp3a0eKU
+    ${TG_BOT_TOKEN}
 minio:
-  url: http://localhost:9000
+  url: ${MINIO_URL}
   access:
-    name: ZYPRYMQmxFdH4KmWQwtW
-    secret: MCLskXbhNiHLfqAweJpwQB4QYnhDsBvIvTBl9ZUm
+    name: ${MINIO_ACCESS_KEY}
+    secret: ${MINIO_SECRET_KEY}
   buckets:
     documents: documents
     photos: photos
