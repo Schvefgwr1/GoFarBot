@@ -32,6 +32,10 @@ public class StartupRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+
+        log.error(minioConfig.getAccessKey() + " AAAAA");
+        log.error(minioConfig.getAccessSecret() + " BBBBB");
+
         List<Conference> conferenceList = conferenceRepository.findAllAfterTime(LocalDateTime.now());
         for(Conference conference : conferenceList) {
             dynamicNotificationService.scheduleNotificationForConference(conference.getTimeOfConference());

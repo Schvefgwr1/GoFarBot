@@ -13,8 +13,10 @@ public  class  MinioConfig {
     @Value("${minio.url}")
     private String url;
     @Value("${minio.access.name}")
+    @Getter
     private String accessKey;
     @Value("${minio.access.secret}")
+    @Getter
     private String accessSecret;
 
     @Bean
