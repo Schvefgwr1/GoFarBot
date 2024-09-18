@@ -17,10 +17,11 @@ services:
   minio:
     image: minio/minio
     container_name: minio
+
     environment:
       MINIO_ROOT_USER: dlh1763GsdJGHasdT135!
       MINIO_ROOT_PASSWORD: hghjhjfhdf46t45t4HFGhjfj3R56bdff5!
-    command: server /data
+    command: server --console-address ":9001" /data
     ports:
       - "9000:9000"
       - "9001:9001"
