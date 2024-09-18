@@ -18,8 +18,8 @@ bot:
 minio:
   url: ${MINIO_URL}
   access:
-    name: ${MINIO_ACCESS_KEY}
-    secret: ${MINIO_SECRET_KEY}
+    name: ${MINIO_ROOT_USER}
+    secret: ${MINIO_ROOT_PASSWORD}
   buckets:
     documents: documents
     photos: photos
