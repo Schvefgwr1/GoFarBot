@@ -41,8 +41,10 @@ public class RegistrationService {
         if(user.isPresent()) {
             for(Conference conference: conferences) {
                 List<User> users = conference.getUsers();
-                users.add(user.get());
-                conference.setUsers(users);
+                if(!users.contains(user.get())) {
+                    users.add(user.get());
+                    conference.setUsers(users);
+                }
             }
             conferenceRepository.saveAll(conferences);
         }

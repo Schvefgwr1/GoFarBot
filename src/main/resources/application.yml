@@ -15,8 +15,8 @@ bot:
 minio:
   url: http://localhost:9000
   access:
-    name: ZYPRYMQmxFdH4KmWQwtW
-    secret: MCLskXbhNiHLfqAweJpwQB4QYnhDsBvIvTBl9ZUm
+    name: ${MINIO_ACCESS_KEY}
+    secret: ${MINIO_SECRET_KEY}
   buckets:
     documents: documents
     photos: photos
