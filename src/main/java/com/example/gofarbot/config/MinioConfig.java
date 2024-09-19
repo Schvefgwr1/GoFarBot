@@ -16,19 +16,15 @@ public class MinioConfig {
     @Value("${minio.url}")
     private String url;
 
-    private final MinioCredentialsProvider credentialsProvider;
-
-    @Autowired
-    public MinioConfig(MinioCredentialsProvider credentialsProvider) {
-        this.credentialsProvider = credentialsProvider;
-    }
+    private final String accessKey = System.getenv("MINIO_ACCESS_KEY");
+    private final String secretKey = System.getenv("MINIO_SECRET_KEY");
 
     @Bean
     public MinioClient minioClient() {
         log.info("Minio URL: {}", url);
         return MinioClient.builder()
                 .endpoint(url)
-                .credentialsProvider(credentialsProvider)
+                .credentials(accessKey, secretKey)
                 .build();
     }
 
