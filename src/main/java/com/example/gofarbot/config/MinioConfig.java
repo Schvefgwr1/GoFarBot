@@ -15,9 +15,10 @@ public class MinioConfig {
 
     @Value("${minio.url}")
     private String url;
-
-    private final String accessKey = System.getenv("MINIO_ACCESS_KEY");
-    private final String secretKey = System.getenv("MINIO_SECRET_KEY");
+    @Value("${minio.access.name}")
+    private String accessKey;
+    @Value("${minio.access.secret}")
+    private String secretKey;
 
     @Bean
     public MinioClient minioClient() {
