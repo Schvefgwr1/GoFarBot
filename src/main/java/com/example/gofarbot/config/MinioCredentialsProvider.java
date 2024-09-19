@@ -9,9 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class MinioCredentialsProvider implements Provider {
 
-    private final String accessKey = System.getenv("MINIO_ROOT_USER");
+    @Value("${minio.access.name}")
+    private String accessKey;
 
-    private final String accessSecret = System.getenv("MINIO_ROOT_PASSWORD");
+    @Value("${minio.access.secret}")
+    private String accessSecret;
 
     @Override
     public Credentials fetch() {
