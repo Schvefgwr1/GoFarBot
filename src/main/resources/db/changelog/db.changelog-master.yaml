@@ -16,6 +16,8 @@ databaseChangeLog:
       file: db/changelog/changeset/create-user-table.yaml
   #Insert values
   - include:
+      file: db/changelog/changeset/insert-file-values.yaml
+  - include:
       file: db/changelog/changeset/insert-dialog_state-values.yaml
   - include:
       file: db/changelog/changeset/insert-messages_first-values.yaml
@@ -43,7 +45,5 @@ databaseChangeLog:
       file: db/changelog/changeset/insert-notification-values.yaml
   - include:
       file: db/changelog/changeset/insert-conference-values.yaml
-  - include:
-      file: db/changelog/changeset/insert-file-values.yaml
   - include:
       file: db/changelog/changeset/insert-messages_registration-values.yaml

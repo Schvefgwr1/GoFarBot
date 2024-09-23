@@ -8,13 +8,13 @@ databaseChangeLog:
             columns:
               - column:
                   name: link
-                  value: Это тестовая ссылка на конференцию
+                  value: Это тестовая ссылка на конференцию 04.10
               - column:
                   name: name
                   value: Это тестовое имя конференции
               - column:
                   name: time_of_conference
-                  value: 2024-09-25 03:30:00
+                  value: 2024-10-04 18:00:00
         - insert:
             tableName: conferences_notifications_rel
             columns:
@@ -60,12 +60,92 @@ databaseChangeLog:
               - column:
                   name: notification
                   value: 5
+
+        - insert:
+            tableName: conferences
+            columns:
+              - column:
+                  name: link
+                  value: Это тестовая ссылка на конференцию 05.10
+              - column:
+                  name: name
+                  value: Это тестовое имя конференции 2
+              - column:
+                  name: time_of_conference
+                  value: 2024-10-05 18:00:00
         - insert:
             tableName: conferences_notifications_rel
             columns:
               - column:
                   name: conference
-                  value: 1
+                  value: 2
               - column:
                   name: notification
                   value: 6
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 2
+              - column:
+                  name: notification
+                  value: 7
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 2
+              - column:
+                  name: notification
+                  value: 8
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 2
+              - column:
+                  name: notification
+                  value: 9
+
+        - insert:
+            tableName: conferences
+            columns:
+              - column:
+                  name: link
+                  value: Это тестовая ссылка на конференцию 06.10
+              - column:
+                  name: name
+                  value: Это тестовое имя конференции 3
+              - column:
+                  name: time_of_conference
+                  value: 2024-10-06 18:00:00
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 3
+              - column:
+                  name: notification
+                  value: 10
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 3
+              - column:
+                  name: notification
+                  value: 11
+        - insert:
+            tableName: conferences_notifications_rel
+            columns:
+              - column:
+                  name: conference
+                  value: 3
+              - column:
+                  name: notification
+                  value: 12

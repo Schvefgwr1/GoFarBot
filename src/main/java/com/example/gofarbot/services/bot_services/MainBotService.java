@@ -12,6 +12,7 @@ import com.example.gofarbot.models.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -47,6 +48,7 @@ public class MainBotService {
             }
             return SendMessage.builder()
                     .chatId(chatId)
+                    .parseMode(ParseMode.HTML)
                     .text(messageService.getTextMessage(message))
                     .replyMarkup(keyboardsService.getKeyboard(DialogStates.FIRST_MESSAGE, 1))
                     .build();
