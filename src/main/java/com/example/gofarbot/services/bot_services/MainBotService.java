@@ -1,8 +1,11 @@
 package com.example.gofarbot.services.bot_services;
 
 
+import com.example.gofarbot.data.ConferenceRepository;
 import com.example.gofarbot.data.UserRepository;
 import com.example.gofarbot.dto.ExceptionMessage;
+import com.example.gofarbot.exceptions.DialogStateException;
+import com.example.gofarbot.exceptions.MessageException;
 import com.example.gofarbot.models.DialogState.DialogStates;
 import com.example.gofarbot.models.Message;
 import com.example.gofarbot.models.User;
@@ -24,6 +27,7 @@ public class MainBotService {
     private final UserRepository userRepository;
     private final MessageService messageService;
     private final KeyboardsService keyboardsService;
+    private final ConferenceRepository conferenceRepository;
 
     public SendMessage getStartMessage(long chatId, long userId) {
         User user;
@@ -38,6 +42,9 @@ public class MainBotService {
                         .build()
                 );
             });
+            if(conferenceRepository.findCountOfUserConferences(userId) != 0) {
+                return this.getStartAfterRegistrationMessage(chatId);
+            }
             return SendMessage.builder()
                     .chatId(chatId)
                     .text(messageService.getTextMessage(message))
@@ -121,6 +128,20 @@ public class MainBotService {
                     .build();
         }
         catch (Exception e) {
+            log.error(e.getMessage());
+            return new ExceptionMessage(chatId);
+        }
+    }
+
+    private SendMessage getStartAfterRegistrationMessage(long chatId) {
+        try {
+            Message message = messageService.getMessageObject(DialogStates.FIRST_MESSAGE, 2);
+            return SendMessage.builder()
+                    .chatId(chatId)
+                    .text(message.getText())
+                    .replyMarkup(keyboardsService.getKeyboard(DialogStates.FIRST_MESSAGE, 2))
+                    .build();
+        } catch (Exception e) {
             log.error(e.getMessage());
             return new ExceptionMessage(chatId);
         }

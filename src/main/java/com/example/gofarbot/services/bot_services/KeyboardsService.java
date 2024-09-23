@@ -17,7 +17,12 @@ public class KeyboardsService {
     public InlineKeyboardMarkup getKeyboard(DialogState.DialogStates dialogStateE, int numberMessage) {
         switch (dialogStateE) {
             case FIRST_MESSAGE:
-                return getStartMessageKeyboardMarkup();
+                switch(numberMessage) {
+                    case 1:
+                        return getStartMessageKeyboardMarkup();
+                    case 2:
+                        return getStartMessage2KeyboardMarkup();
+                }
             case INFORMATION:
                 switch (numberMessage) {
                     case 1:
@@ -35,6 +40,19 @@ public class KeyboardsService {
         }
     }
 
+    private InlineKeyboardMarkup getStartMessage2KeyboardMarkup() {
+        InlineKeyboardButton button = InlineKeyboardButton.builder()
+                .text("Больше о поступлении в Европу")
+                .callbackData("information")
+                .build();
+        List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
+        keyboard.add(new ArrayList<>(Collections.singletonList(button)));
+
+        return InlineKeyboardMarkup.builder()
+                .keyboard(keyboard)
+                .build();
+    }
+
     private InlineKeyboardMarkup getInformation2KeyboardMarkup() {
         InlineKeyboardButton button1 = InlineKeyboardButton.builder()
                 .text("Австрия")
@@ -49,7 +67,7 @@ public class KeyboardsService {
                 .callbackData("information_italy")
                 .build();
         InlineKeyboardButton button4 = InlineKeyboardButton.builder()
-                .text("На шаг назад")
+                .text("Назад")
                 .callbackData("back_button")
                 .build();
 
@@ -78,7 +96,7 @@ public class KeyboardsService {
                 .callbackData("information_question")
                 .build();
         InlineKeyboardButton button4 = InlineKeyboardButton.builder()
-                .text("На шаг назад")
+                .text("Назад")
                 .callbackData("back_button")
                 .build();
 
@@ -100,7 +118,7 @@ public class KeyboardsService {
                 .callbackData("registration")
                 .build();
         InlineKeyboardButton button2 = InlineKeyboardButton.builder()
-                .text("Хочу узнать больше о поступлении в европу")
+                .text("Больше о поступлении в Европу")
                 .callbackData("information")
                 .build();
 //        InlineKeyboardButton button3 = InlineKeyboardButton.builder()
@@ -131,7 +149,7 @@ public class KeyboardsService {
     public InlineKeyboardMarkup getLastNotificationKeyboardMarkup() {
         InlineKeyboardButton button = InlineKeyboardButton.builder()
                 .text("Посмотреть повтор")
-                .callbackData("search_repeat")
+                .callbackData("show_repeat")
                 .build();
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
         keyboard.add(new ArrayList<>(Collections.singletonList(button)));

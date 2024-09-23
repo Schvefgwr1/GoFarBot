@@ -41,12 +41,4 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-//    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Conference.class)
-//    @JoinTable(
-//            name = "conferences_users_rel",
-//            joinColumns = {@JoinColumn(name = "user_id")},
-//            inverseJoinColumns = {@JoinColumn(name = "conference")}
-//    )
-//    private List<Conference> conferences;
-
 }

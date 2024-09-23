@@ -59,63 +59,76 @@ public class MainBotController extends TelegramLongPollingBot {
             String call_data = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
             switch (call_data) {
-                case "back_button":
-                    startCommandReceived(mainBotService.getBackMessage(chatId));
-                    break;
+//                case "back_button":
+//                    startCommandReceived(mainBotService.getBackMessage(chatId));
+//                    break;
+//                case "information":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            1)
+//                    );
+//                    break;
+//                case "information_countries":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            2
+//                    ));
+//                    break;
+//                case "information_austria":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            3
+//                    ));
+//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+//                    break;
+//                case "information_germany":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            4
+//                    ));
+//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+//                    break;
+//                case "information_italy":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            5
+//                    ));
+//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+//                    break;
+//                case "information_contacts":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            6
+//                    ));
+//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+//                    break;
+//                case "information_question":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.INFORMATION,
+//                            7
+//                    ));
+//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+//                    break;
+                /*временное решение*/
+
                 case "information":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            1)
+                    startCommandReceived(SendMessage.builder()
+                            .chatId(chatId)
+                            .text("""
+                                    Скоро тут появится подробная информация о поступлении и странах. Следи за обновлениями!
+                                    """)
+                            .build()
                     );
-                    break;
-                case "information_countries":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            2
-                    ));
-                    break;
-                case "information_austria":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            3
-                    ));
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
-                case "information_germany":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            4
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case "information_italy":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            5
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case "information_contacts":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            6
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case "information_question":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.INFORMATION,
-                            7
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
+
                 case "registration":
                     if(registrationService.haveActiveConference()) {
                         registrationService.registerUserToAllConference(chatId);
@@ -134,6 +147,8 @@ public class MainBotController extends TelegramLongPollingBot {
                                 DialogState.DialogStates.REGISTRATION,
                                 3
                         ));
+                    }
+                    else {
                         startCommandReceived(mainBotService.getStandardMessage(
                                 chatId,
                                 DialogState.DialogStates.REGISTRATION,
@@ -149,76 +164,44 @@ public class MainBotController extends TelegramLongPollingBot {
                                 DialogState.DialogStates.REGISTRATION,
                                 6
                         ));
-                    }
-                    else {
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                7
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                2
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                3
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                4
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                8
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                9
-                        ));
                         registrationService.createOldNotification(chatId);
                     }
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
-                case "search_repeat":
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            7
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            2
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            3
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            4
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            8
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            9
-                    ));
-                    registrationService.createOldNotification(chatId);
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
+//                case "show_repeat":
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.REGISTRATION,
+//                            7
+//                    ));
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.REGISTRATION,
+//                            2
+//                    ));
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.REGISTRATION,
+//                            3
+//                    ));
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.REGISTRATION,
+//                            4
+//                    ));
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.REGISTRATION,
+//                            8
+//                    ));
+//                    startCommandReceived(mainBotService.getStandardMessage(
+//                            chatId,
+//                            DialogState.DialogStates.REGISTRATION,
+//                            9
+//                    ));
+//                    registrationService.createOldNotification(chatId);
+//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+//                    break;
             }
         }
 

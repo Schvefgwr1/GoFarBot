@@ -48,3 +48,75 @@ databaseChangeLog:
               - column:
                   name: type
                   value: PHOTO
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: full.png
+              - column:
+                  name: type
+                  value: PHOTO
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: PrepareCurses.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: MotivateLetters.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: WebinarsInformation.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: PreparationGuide.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: Austria.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: Italy.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT
+        - insert:
+            tableName: files
+            columns:
+              - column:
+                  name: link
+                  value: Germany.pdf
+              - column:
+                  name: type
+                  value: DOCUMENT

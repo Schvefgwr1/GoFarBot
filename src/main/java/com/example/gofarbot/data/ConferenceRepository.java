@@ -38,4 +38,13 @@ public interface ConferenceRepository extends CrudRepository<Conference, Long> {
     List<Conference> findAllAfterTime(@Param("time") LocalDateTime dateTime);
 
     Optional<Conference> findById(long id);
+
+    @Query(value = """
+        SELECT COUNT(cur)
+        FROM users u
+        JOIN conferences_users_rel cur on u.id = cur.user_id
+        JOIN conferences c on c.id = cur.conference
+        WHERE u.id = :userId
+    """, nativeQuery = true)
+    long findCountOfUserConferences(@Param("userId") long userId);
 }

@@ -9,9 +9,9 @@ spring:
     password: postgres
 bot:
   name:
-    goFarBot_test-development-version
+    goFarBot_localtest
   token:
-    7365748376:AAHTagw_pBibRMuUmEsI_drRzvyFp3a0eKU
+    7552669377:AAGUcPS0aZRQ2EfMHG9VyS7I71Eog9NAtlk
 minio:
   url: http://localhost:9000
   access:

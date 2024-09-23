@@ -54,10 +54,12 @@ public class DynamicNotificationService {
                         .findAllByDate(LocalDate.now()).stream().findFirst();
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
-                    messageNotificationService.sendConferenceNotification(
-                            conference,
-                            NotificationType.NotificationTypes.TWELVE_O_CLOCK
-                    );
+                    if(conference.getTimeOfConference().getHour() > 12) {
+                        messageNotificationService.sendConferenceNotification(
+                                conference,
+                                NotificationType.NotificationTypes.TWELVE_O_CLOCK
+                        );
+                    }
                 }
                 else {
                     log.warn("(TWELVE_O_CLOCK) Incorrect planing to conference in time: {}", LocalDateTime.now());

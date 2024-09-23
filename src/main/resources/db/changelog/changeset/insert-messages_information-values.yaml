@@ -43,6 +43,9 @@ databaseChangeLog:
               - column:
                   name: dialog
                   value: 3
+              - column:
+                  name: file
+                  value: 11
         - insert:
             tableName: links
             columns:
@@ -76,6 +79,9 @@ databaseChangeLog:
               - column:
                   name: dialog
                   value: 3
+              - column:
+                  name: file
+                  value: 13
         - insert:
             tableName: links
             columns:
@@ -109,6 +115,9 @@ databaseChangeLog:
               - column:
                   name: dialog
                   value: 3
+              - column:
+                  name: file
+                  value: 12
         - insert:
             tableName: links
             columns:
@@ -161,7 +170,7 @@ databaseChangeLog:
                   value: 1
               - column:
                   name: value
-                  value: Это ссылка на ютуб канал
+                  value: https://www.youtube.com/@letsgofaryt
         - insert:
             tableName: links
             columns:
@@ -170,7 +179,7 @@ databaseChangeLog:
                   value: 2
               - column:
                   name: value
-                  value: Это ссылка на тг канал
+                  value: https://t.me/gofareu
         - insert:
             tableName: links
             columns:
@@ -179,7 +188,7 @@ databaseChangeLog:
                   value: 3
               - column:
                   name: value
-                  value: Это ссылка на инсту
+                  value: https://www.instagram.com/gofar_ru
         - insert:
             tableName: links
             columns:
@@ -188,7 +197,7 @@ databaseChangeLog:
                   value: 4
               - column:
                   name: value
-                  value: Это ссылка на ВК
+                  value: https://vk.com/letsgofar
         #Задать вопрос
         - insert:
             tableName: messages
@@ -201,14 +210,14 @@ databaseChangeLog:
                   value: |
                     GoFar - помощь с поступлением в вузы Европы:
                     Сайт - https://letsgofar.eu/
-                    Instagram - https://www.instagram.com/gofar_ru?igsh=ZXVjbW5zamw5aXc4
+                    Instagram - https://www.instagram.com/gofar_ru
                     Telegram-канал - https://t.me/gofareu
                     Telegram-чат - https://t.me/gofarchat
                     YouTube - https://www.youtube.com/@letsgofaryt
                     ВКонтакете - https://vk.com/letsgofar
 
                     Школа подготовки к сдаче языковых экзаменов GoLearn:
-                    Instagram - https://www.instagram.com/golearn_eu?igsh=MXZ1N3lvYTc3cXMxag==
+                    Instagram - https://www.instagram.com/golearn_eu
                     Telegram-канал - https://t.me/gofareu
                     Telegram-чат - 
                     ВКонтакте - https://vk.com/golearn_eu
