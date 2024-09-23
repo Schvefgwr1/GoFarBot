@@ -1,6 +1,7 @@
 package com.example.gofarbot.controllers.bot_controllers;
 
 import com.example.gofarbot.config.BotConfig;
+import com.example.gofarbot.config.MainBotControllerConfig;
 import com.example.gofarbot.models.DialogState;
 import com.example.gofarbot.services.bot_services.MainBotService;
 import com.example.gofarbot.services.bot_services.registration.RegistrationService;
@@ -19,6 +20,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 @AllArgsConstructor
 public class MainBotController extends TelegramLongPollingBot {
     private final BotConfig botConfig;
+    private final MainBotControllerConfig mainBotControllerConfig;
     private final MainBotService mainBotService;
     private final RegistrationService registrationService;
 
@@ -58,25 +60,25 @@ public class MainBotController extends TelegramLongPollingBot {
         } else if(update.hasCallbackQuery()) {
             String call_data = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
-            switch (call_data) {
-//                case "back_button":
+            switch (mainBotControllerConfig.getValue(call_data)) {
+//                case 0:
 //                    startCommandReceived(mainBotService.getBackMessage(chatId));
 //                    break;
-//                case "information":
+//                case 1:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
 //                            1)
 //                    );
 //                    break;
-//                case "information_countries":
+//                case 2:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
 //                            2
 //                    ));
 //                    break;
-//                case "information_austria":
+//                case 3:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
@@ -84,7 +86,7 @@ public class MainBotController extends TelegramLongPollingBot {
 //                    ));
 //                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
 //                    break;
-//                case "information_germany":
+//                case 4:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
@@ -92,7 +94,7 @@ public class MainBotController extends TelegramLongPollingBot {
 //                    ));
 //                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
 //                    break;
-//                case "information_italy":
+//                case 5:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
@@ -100,7 +102,7 @@ public class MainBotController extends TelegramLongPollingBot {
 //                    ));
 //                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
 //                    break;
-//                case "information_contacts":
+//                case 6:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
@@ -108,7 +110,7 @@ public class MainBotController extends TelegramLongPollingBot {
 //                    ));
 //                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
 //                    break;
-//                case "information_question":
+//                case 7:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.INFORMATION,
@@ -116,9 +118,9 @@ public class MainBotController extends TelegramLongPollingBot {
 //                    ));
 //                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
 //                    break;
-                /*временное решение*/
 
-                case "information":
+                /*временное решение*/
+                case 1:
                     startCommandReceived(SendMessage.builder()
                             .chatId(chatId)
                             .text("""
@@ -129,7 +131,7 @@ public class MainBotController extends TelegramLongPollingBot {
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
 
-                case "registration":
+                case 8:
                     if(registrationService.haveActiveConference()) {
                         registrationService.registerUserToAllConference(chatId);
                         startCommandReceived(mainBotService.getStandardMessage(
@@ -168,7 +170,7 @@ public class MainBotController extends TelegramLongPollingBot {
                     }
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
-//                case "show_repeat":
+//                case 9:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
 //                            DialogState.DialogStates.REGISTRATION,

@@ -12,6 +12,7 @@ import com.example.gofarbot.services.web_services.FileService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -39,6 +40,7 @@ public class MessageService {
                 log.error("Can't send file in message: {}", message.getId());
                 return SendMessage.builder()
                         .chatId(chatId)
+                        .parseMode(ParseMode.HTML)
                         .text(text)
                         .build();
             }
@@ -46,6 +48,7 @@ public class MessageService {
                 if(message.getFile().getType() == File.FileType.DOCUMENT) {
                     return SendDocument.builder()
                             .chatId(chatId)
+                            .parseMode(ParseMode.HTML)
                             .document(inputFile)
                             .caption(text)
                             .build();
@@ -53,6 +56,7 @@ public class MessageService {
                 else {
                     return SendPhoto.builder()
                             .chatId(chatId)
+                            .parseMode(ParseMode.HTML)
                             .photo(inputFile)
                             .caption(text)
                             .build();
@@ -62,6 +66,7 @@ public class MessageService {
         else {
             return SendMessage.builder()
                     .chatId(chatId)
+                    .parseMode(ParseMode.HTML)
                     .text(text)
                     .build();
         }

@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -37,8 +38,7 @@ public class MessageNotificationService {
                         .chatId(user.getChatId())
                         .text("""
                         Остались вопросы по поступлению? Приходи на бесплатную консультацию (ссылка на анкету)
-                        Если тебе интересно узнать больше о подготовке вместе с командой GoLearn, то переходи по кнопке ниже и оставляй заявку на бесплатную консультацию по
-                        подготовке к поступлению у методиста (добавить кнопку "Бесплатная консультация от методиста GoLearn"
+                        Если тебе интересно узнать больше о подготовке вместе с командой GoLearn, то переходи по кнопке ниже и оставляй заявку на бесплатную консультацию по подготовке к поступлению у методиста
                         """)
                         .replyMarkup(keyboardsService.getLastNotificationKeyboardMarkup())
                         .build()
@@ -98,6 +98,7 @@ public class MessageNotificationService {
             mainBotController.startCommandReceived(
                     SendMessage.builder()
                             .chatId(user.getChatId())
+                            .parseMode(ParseMode.HTML)
                             .text(getNotificationMessage(notification))
                             .build()
             );
@@ -109,6 +110,7 @@ public class MessageNotificationService {
             mainBotController.startCommandReceived(
                     SendDocument.builder()
                             .chatId(user.getChatId())
+                            .parseMode(ParseMode.HTML)
                             .document(file)
                             .caption(getNotificationMessage(notification))
                             .build()
@@ -121,6 +123,7 @@ public class MessageNotificationService {
             mainBotController.startCommandReceived(
                     SendPhoto.builder()
                             .chatId(user.getChatId())
+                            .parseMode(ParseMode.HTML)
                             .photo(file)
                             .caption(getNotificationMessage(notification))
                             .build()

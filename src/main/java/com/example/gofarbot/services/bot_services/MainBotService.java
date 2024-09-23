@@ -43,7 +43,7 @@ public class MainBotService {
                         .build()
                 );
             });
-            if(conferenceRepository.findCountOfUserConferences(userId) != 0) {
+            if(conferenceRepository.findCountOfUserConferences(chatId) != 0) {
                 return this.getStartAfterRegistrationMessage(chatId);
             }
             return SendMessage.builder()
@@ -125,6 +125,7 @@ public class MainBotService {
             userRepository.save(user);
             return SendMessage.builder()
                     .chatId(chatId)
+                    .parseMode(ParseMode.HTML)
                     .text(message.getText())
                     .replyMarkup(keyboardsService.getKeyboard(message.getDialog().getState(), message.getNumber()))
                     .build();
@@ -140,6 +141,7 @@ public class MainBotService {
             Message message = messageService.getMessageObject(DialogStates.FIRST_MESSAGE, 2);
             return SendMessage.builder()
                     .chatId(chatId)
+                    .parseMode(ParseMode.HTML)
                     .text(message.getText())
                     .replyMarkup(keyboardsService.getKeyboard(DialogStates.FIRST_MESSAGE, 2))
                     .build();
