@@ -14,7 +14,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**") // Разрешить CORS для всех путей
-                        .allowedOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3001") // Разрешить только с localhost:3000 и localhost:3001
+                        .allowedOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002") // Разрешить только с localhost:3000 и localhost:3001
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Разрешить определенные HTTP методы
                         .allowedHeaders("*") // Разрешить любые заголовки
                         .allowCredentials(true); // Разрешить передачу учетных данных (куки)
