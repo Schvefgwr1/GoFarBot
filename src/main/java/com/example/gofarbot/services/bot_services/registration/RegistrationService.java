@@ -26,9 +26,7 @@ public class RegistrationService {
     private final ApplicationEventPublisher eventPublisher;
 
     private final String message = """
-        Остались вопросы по поступлению? Приходи на бесплатную консультацию (ссылка на анкету)
-        Если тебе интересно узнать больше о подготовке вместе с командой GoLearn, то переходи по кнопке ниже и оставляй заявку на бесплатную консультацию по
-        подготовке к поступлению у методиста (добавить кнопку "Бесплатная консультация от методиста GoLearn"
+        Остались вопросы по поступлению? Приходи на бесплатную консультацию https://letsgofar.eu/
     """;
 
     public boolean haveActiveConference() {

@@ -47,3 +47,6 @@ databaseChangeLog:
       file: db/changelog/changeset/insert-conference-values.yaml
   - include:
       file: db/changelog/changeset/insert-messages_registration-values.yaml
+  #Create handle messages to API
+  - include:
+      file: db/changelog/changeset/create-handle-messages.yaml

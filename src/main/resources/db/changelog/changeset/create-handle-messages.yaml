@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 22
+      author: vsevolod schetov
+      changes:
+        - insert:
+            tableName: dialog_states
+            columns:
+              - column:
+                  name: state
+                  value: HANDLE
+        - addDefaultValue:
+            columnName: dialog
+            tableName: messages
+            defaultValue: 8

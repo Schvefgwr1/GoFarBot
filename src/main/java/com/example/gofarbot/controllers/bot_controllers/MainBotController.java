@@ -61,9 +61,9 @@ public class MainBotController extends TelegramLongPollingBot {
             String call_data = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
             switch (mainBotControllerConfig.getValue(call_data)) {
-//                case 0:
-//                    startCommandReceived(mainBotService.getBackMessage(chatId));
-//                    break;
+                case 0:
+                    startCommandReceived(mainBotService.getBackMessage(chatId));
+                    break;
 //                case 1:
 //                    startCommandReceived(mainBotService.getStandardMessage(
 //                            chatId,
@@ -119,7 +119,7 @@ public class MainBotController extends TelegramLongPollingBot {
 //                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
 //                    break;
 
-                /*временное решение*/
+//                /*временное решение*/
                 case 1:
                     startCommandReceived(SendMessage.builder()
                             .chatId(chatId)
@@ -170,40 +170,20 @@ public class MainBotController extends TelegramLongPollingBot {
                     }
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
-//                case 9:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.REGISTRATION,
-//                            7
-//                    ));
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.REGISTRATION,
-//                            2
-//                    ));
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.REGISTRATION,
-//                            3
-//                    ));
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.REGISTRATION,
-//                            4
-//                    ));
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.REGISTRATION,
-//                            8
-//                    ));
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.REGISTRATION,
-//                            9
-//                    ));
-//                    registrationService.createOldNotification(chatId);
-//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-//                    break;
+                case 9:
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.REGISTRATION,
+                            5
+                    ));
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.REGISTRATION,
+                            6
+                    ));
+                    registrationService.createOldNotification(chatId);
+                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+                    break;
             }
         }
 

@@ -1,6 +1,7 @@
 package com.example.gofarbot.data;
 
 import com.example.gofarbot.models.Conference;
+import com.example.gofarbot.models.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -47,4 +48,11 @@ public interface ConferenceRepository extends CrudRepository<Conference, Long> {
         WHERE u.chat_id = :userId
     """, nativeQuery = true)
     long findCountOfUserConferences(@Param("userId") long userId);
+
+    @Query("""
+        SELECT conf.users
+        FROM Conference conf
+        WHERE conf.id = :conferenceId
+    """)
+    List<User> findUsersOfConference(@Param("conferenceId") long conferenceId);
 }

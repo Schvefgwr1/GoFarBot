@@ -1,9 +1,11 @@
 package com.example.gofarbot.models;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "conferences")
@@ -35,6 +38,7 @@ public class Conference {
             joinColumns = {@JoinColumn(name = "conference")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")}
     )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Notification.class)
@@ -43,5 +47,6 @@ public class Conference {
             joinColumns = {@JoinColumn(name = "conference")},
             inverseJoinColumns = {@JoinColumn(name = "notification")}
     )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Notification> notifications;
 }
