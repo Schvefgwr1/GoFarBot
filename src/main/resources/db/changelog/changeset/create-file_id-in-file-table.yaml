@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2024-10-04-add-file-id-column
+      author: Vsevolod Schetov
+      changes:
+        - addColumn:
+            tableName: files
+            columns:
+              - column:
+                  name: file_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: true

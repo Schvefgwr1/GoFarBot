@@ -26,7 +26,7 @@ public class RegistrationService {
     private final ApplicationEventPublisher eventPublisher;
 
     private final String message = """
-        Остались вопросы по поступлению? Приходи на бесплатную консультацию https://letsgofar.eu/
+        Остались вопросы по поступлению? Приходи на бесплатную консультацию https://forms.gle/isF2behHdD1y2viG9
     """;
 
     public boolean haveActiveConference() {

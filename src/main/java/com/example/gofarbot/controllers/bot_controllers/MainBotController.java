@@ -12,6 +12,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -187,6 +188,14 @@ public class MainBotController extends TelegramLongPollingBot {
             }
         }
 
+    }
+
+    public Message executeDocument(SendDocument sendDocument) throws TelegramApiException {
+        return execute(sendDocument);
+    }
+
+    public Message executePhoto(SendPhoto sendPhoto) throws TelegramApiException {
+        return execute(sendPhoto);
     }
 
     public void startCommandReceived(Object command) {

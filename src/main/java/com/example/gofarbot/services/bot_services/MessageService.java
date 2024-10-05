@@ -32,35 +32,29 @@ public class MessageService {
         Message message = this.getMessageObject(dialogStateE, numberMessage);
         String text = getTextMessage(message);
         if(message.getFile() != null) {
-            InputFile inputFile = fileService.getFile(
-                    message.getFile().getLink(),
-                    message.getFile().getType()
-            );
-            if(inputFile == null) {
-                log.error("Can't send file in message: {}", message.getId());
+            if (message.getFile().getFileId() != null) {
+                if (message.getFile().getType() == File.FileType.DOCUMENT) {
+                    return SendDocument.builder()
+                            .chatId(chatId)
+                            .parseMode(ParseMode.HTML)
+                            .document(new InputFile(message.getFile().getFileId()))
+                            .caption(text)
+                            .build();
+                } else {
+                    return SendPhoto.builder()
+                            .chatId(chatId)
+                            .parseMode(ParseMode.HTML)
+                            .photo(new InputFile(message.getFile().getFileId()))
+                            .caption(text)
+                            .build();
+                }
+            } else {
+                log.warn("Not indexing file: {}", message.getFile());
                 return SendMessage.builder()
                         .chatId(chatId)
                         .parseMode(ParseMode.HTML)
                         .text(text)
                         .build();
-            }
-            else {
-                if(message.getFile().getType() == File.FileType.DOCUMENT) {
-                    return SendDocument.builder()
-                            .chatId(chatId)
-                            .parseMode(ParseMode.HTML)
-                            .document(inputFile)
-                            .caption(text)
-                            .build();
-                }
-                else {
-                    return SendPhoto.builder()
-                            .chatId(chatId)
-                            .parseMode(ParseMode.HTML)
-                            .photo(inputFile)
-                            .caption(text)
-                            .build();
-                }
             }
         }
         else {

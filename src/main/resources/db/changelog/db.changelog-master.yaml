@@ -50,3 +50,6 @@ databaseChangeLog:
   #Create handle messages to API
   - include:
       file: db/changelog/changeset/create-handle-messages.yaml
+  #Create file id
+  - include:
+      file: db/changelog/changeset/create-file_id-in-file-table.yaml
