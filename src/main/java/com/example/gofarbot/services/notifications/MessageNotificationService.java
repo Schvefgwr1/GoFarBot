@@ -42,7 +42,7 @@ public class MessageNotificationService {
                         .chatId(user.getChatId())
                         .text("""
                         Пропустил вебинар? Мы ценим твою заинтересованность!
-                        Повтор видео-встречи можешь посмотреть по закрытой ссылке на нашем YouTube-канале
+                        Повтор видео-встречи можешь посмотреть по ссылке, нажав на кнопку
                         """)
                         .replyMarkup(keyboardsService.getLastNotificationKeyboardMarkup())
                         .build()
