@@ -33,7 +33,7 @@ public class MessageNotificationService {
     private final UserRepository userRepository;
     private final FileRepository fileRepository;
 
-    @Scheduled(cron = "0 0 18 7 10 *")
+    @Scheduled(cron = "0 30 10 9 10 *")
     public void scheduledTask() {
         if (LocalDateTime.now().getYear() == 2024) {
             Iterable<User> users = userRepository.findAll();
