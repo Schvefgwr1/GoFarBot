@@ -143,7 +143,7 @@ public class MainBotService {
                     .chatId(chatId)
                     .parseMode(ParseMode.HTML)
                     .text(message.getText())
-                    .replyMarkup(keyboardsService.getKeyboard(DialogStates.FIRST_MESSAGE, 2))
+                    .replyMarkup(keyboardsService.getKeyboard(DialogStates.FIRST_MESSAGE, 1))
                     .build();
         } catch (Exception e) {
             log.error(e.getMessage());
