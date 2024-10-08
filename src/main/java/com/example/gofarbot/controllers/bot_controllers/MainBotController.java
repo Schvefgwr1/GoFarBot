@@ -185,6 +185,22 @@ public class MainBotController extends TelegramLongPollingBot {
                     registrationService.createOldNotification(chatId);
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
+                case 10:
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.CONSULTATION,
+                            1
+                    ));
+                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+                    break;
+                case 11:
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.CONTACTS,
+                            1
+                    ));
+                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+                    break;
             }
         }
 

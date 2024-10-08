@@ -114,32 +114,32 @@ public class KeyboardsService {
     private InlineKeyboardMarkup getStartMessageKeyboardMarkup() {
         // Создаем кнопку
         InlineKeyboardButton button1 = InlineKeyboardButton.builder()
-                .text("Регистрация на вебинар")
+                .text("Записи вебинаров")
                 .callbackData("registration")
                 .build();
-        InlineKeyboardButton button2 = InlineKeyboardButton.builder()
-                .text("Больше о поступлении в Европу")
-                .callbackData("information")
-                .build();
-//        InlineKeyboardButton button3 = InlineKeyboardButton.builder()
-//                .text("Хочу записаться на бесплатную консультацию")
-//                .callbackData("consultation")
+//        InlineKeyboardButton button2 = InlineKeyboardButton.builder()
+//                .text("Больше о поступлении в Европу")
+//                .callbackData("information")
 //                .build();
+        InlineKeyboardButton button2 = InlineKeyboardButton.builder()
+                .text("Хочу записаться на бесплатную консультацию")
+                .callbackData("consultation")
+                .build();
 //        InlineKeyboardButton button4 = InlineKeyboardButton.builder()
 //                .text("Подготовка к обучению с GoLearn")
 //                .callbackData("go_learn")
 //                .build();
-//        InlineKeyboardButton button5 = InlineKeyboardButton.builder()
-//                .text("Связаться с нами")
-//                .callbackData("contacts")
-//                .build();
+        InlineKeyboardButton button5 = InlineKeyboardButton.builder()
+                .text("Наши контакты")
+                .callbackData("contacts")
+                .build();
 
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
         keyboard.add(new ArrayList<>(Collections.singletonList(button1)));
         keyboard.add(new ArrayList<>(Collections.singletonList(button2)));
 //        keyboard.add(new ArrayList<>(Collections.singletonList(button3)));
 //        keyboard.add(new ArrayList<>(Collections.singletonList(button4)));
-//        keyboard.add(new ArrayList<>(Collections.singletonList(button5)));
+        keyboard.add(new ArrayList<>(Collections.singletonList(button5)));
 
         return InlineKeyboardMarkup.builder()
                 .keyboard(keyboard)
