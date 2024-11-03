@@ -42,21 +42,18 @@ public class MainBotController extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
             long userId = update.getMessage().getFrom().getId();
 
-            switch (messageText) {
-                case "/start":
-                    try {
-                        startCommandReceived(mainBotService.getStartMessage(chatId, userId));
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                    break;
-                default:
-                    startCommandReceived(SendMessage.builder()
-                            .chatId(chatId)
-                            .text("Неправильная команда. Введите /start .")
-                            .build()
-                    );
-
+            if (messageText.equals("/start")) {
+                try {
+                    startCommandReceived(mainBotService.getStartMessage(chatId, userId));
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                startCommandReceived(SendMessage.builder()
+                        .chatId(chatId)
+                        .text("Неправильная команда. Введите /start .")
+                        .build()
+                );
             }
         } else if(update.hasCallbackQuery()) {
             String call_data = update.getCallbackQuery().getData();
@@ -198,6 +195,19 @@ public class MainBotController extends TelegramLongPollingBot {
                             chatId,
                             DialogState.DialogStates.CONTACTS,
                             1
+                    ));
+                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+                    break;
+                case 12:
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.GUIDE,
+                            1
+                    ));
+                    startCommandReceived(mainBotService.getStandardMessage(
+                            chatId,
+                            DialogState.DialogStates.GUIDE,
+                            2
                     ));
                     startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;

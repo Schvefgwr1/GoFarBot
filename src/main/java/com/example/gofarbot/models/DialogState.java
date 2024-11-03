@@ -20,6 +20,6 @@ public class DialogState {
     private DialogStates state;
 
     public enum DialogStates {
-        FIRST_MESSAGE, REGISTRATION, INFORMATION, CONSULTATION, GO_LEARN, CONTACTS, HANDLE
+        FIRST_MESSAGE, REGISTRATION, INFORMATION, CONSULTATION, GO_LEARN, CONTACTS, GUIDE, HANDLE
     }
 }
