@@ -117,6 +117,10 @@ public class KeyboardsService {
                 .text("Записи вебинаров")
                 .callbackData("registration")
                 .build();
+        InlineKeyboardButton button6 = InlineKeyboardButton.builder()
+                .text("Скачать краткий гайд о поступлении в Европу")
+                .callbackData("guide")
+                .build();
 //        InlineKeyboardButton button2 = InlineKeyboardButton.builder()
 //                .text("Больше о поступлении в Европу")
 //                .callbackData("information")
@@ -140,6 +144,7 @@ public class KeyboardsService {
 //        keyboard.add(new ArrayList<>(Collections.singletonList(button3)));
 //        keyboard.add(new ArrayList<>(Collections.singletonList(button4)));
         keyboard.add(new ArrayList<>(Collections.singletonList(button5)));
+        keyboard.add(new ArrayList<>(Collections.singletonList(button6)));
 
         return InlineKeyboardMarkup.builder()
                 .keyboard(keyboard)
