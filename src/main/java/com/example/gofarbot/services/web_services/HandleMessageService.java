@@ -7,10 +7,7 @@ import com.example.gofarbot.controllers.web_controllers.dto.files.UploadFileResp
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToAllUsersRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToRegUsersRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToUsersResponse;
-import com.example.gofarbot.data.ConferenceRepository;
-import com.example.gofarbot.data.DialogStateRepository;
-import com.example.gofarbot.data.MessageRepository;
-import com.example.gofarbot.data.UserRepository;
+import com.example.gofarbot.data.*;
 import com.example.gofarbot.exceptions.DialogStateException;
 import com.example.gofarbot.models.DialogState;
 import com.example.gofarbot.models.File;
@@ -24,6 +21,7 @@ import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
+import org.telegram.telegrambots.meta.api.objects.InputFile;
 
 import java.util.HashSet;
 import java.util.List;
@@ -32,12 +30,14 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class HandleMessageService {
+    private final Long fatherUserId = 411240604L;
     private final MessageRepository messageRepository;
     private final ConferenceRepository conferenceRepository;
     private final UserRepository userRepository;
     private final MainBotController mainBotController;
     private final DialogStateRepository dialogStateRepository;
     private final FileService fileService;
+    private final FileRepository fileRepository;
 
     public SendHandleMessageToUsersResponse sendToRegUsers(@NotNull SendHandleMessageToRegUsersRequest request) {
         HashSet<Long> chatIds = new HashSet<>();
@@ -67,6 +67,7 @@ public class HandleMessageService {
             if(uploadFileRequest != null) {
                 UploadFileResponse uploadFileResponse = fileService.uploadFile(uploadFileRequest);
                 if (uploadFileResponse.getCode() == (short) 200) {
+                    String fileId;
                     try {
                         messageRepository.save(Message.builder()
                                 .text(message)
@@ -81,53 +82,65 @@ public class HandleMessageService {
                                 .file(uploadFileResponse.getFile())
                                 .build()
                         );
-                    } catch (Exception e) {
-                        log.error(e.toString());
-                    }
-                    for (long chatId : chatIds) {
                         if (uploadFileResponse.getFile().getType() == File.FileType.DOCUMENT) {
-                            mainBotController.startCommandReceived(SendDocument.builder()
-                                    .chatId(chatId)
-                                    .parseMode(ParseMode.HTML)
+                            fileId = mainBotController.executeDocument(SendDocument.builder()
+                                    .chatId(fatherUserId)
                                     .document(fileService.getFile(
                                             uploadFileResponse.getFile().getLink(),
                                             File.FileType.DOCUMENT)
                                     )
-                                    .caption(message)
                                     .build()
-                            );
+                            ).getDocument().getFileId();
                         } else {
-                            mainBotController.startCommandReceived(SendPhoto.builder()
-                                    .chatId(chatId)
-                                    .parseMode(ParseMode.HTML)
+                            fileId = mainBotController.executePhoto(SendPhoto.builder()
+                                    .chatId(fatherUserId)
                                     .photo(fileService.getFile(
                                             uploadFileResponse.getFile().getLink(),
                                             File.FileType.PHOTO)
                                     )
-                                    .caption(message)
                                     .build()
-                            );
+                            ).getPhoto().get(0).getFileId();
                         }
+                    } catch (Exception e) {
+                        log.error(e.getMessage());
+                        fileId = null;
+                    }
+                    if(fileId != null) {
+                        uploadFileResponse.getFile().setFileId(fileId);
+                        File saveFile = fileRepository.save(uploadFileResponse.getFile());
+                        log.info("Successful save of file: {}", saveFile);
+                        for (long chatId : chatIds) {
+                            if (uploadFileResponse.getFile().getType() == File.FileType.DOCUMENT) {
+                                mainBotController.startCommandReceived(SendDocument.builder()
+                                        .chatId(chatId)
+                                        .parseMode(ParseMode.HTML)
+                                        .document(new InputFile(fileId))
+                                        .caption(message)
+                                        .build()
+                                );
+                            } else {
+                                mainBotController.startCommandReceived(SendPhoto.builder()
+                                        .chatId(chatId)
+                                        .parseMode(ParseMode.HTML)
+                                        .photo(new InputFile(fileId))
+                                        .caption(message)
+                                        .build()
+                                );
+                            }
+                        }
+                    }
+                    else {
+                        log.warn("Null fileId of File: {}", uploadFileResponse.getFile());
                     }
                 } else {
                     log.warn("Error of upload file in handle message: {}", uploadFileRequest.getFileName());
                     for (long chatId : chatIds) {
-                        mainBotController.startCommandReceived(SendMessage.builder()
-                                .chatId(chatId)
-                                .parseMode(ParseMode.HTML)
-                                .text(message)
-                                .build()
-                        );
+                        SendTextMessageToUsers(chatId, message);
                     }
                 }
             } else {
                 for (long chatId : chatIds) {
-                    mainBotController.startCommandReceived(SendMessage.builder()
-                            .chatId(chatId)
-                            .parseMode(ParseMode.HTML)
-                            .text(message)
-                            .build()
-                    );
+                    SendTextMessageToUsers(chatId, message);
                 }
                 try {
                     messageRepository.save(Message.builder()
@@ -158,5 +171,14 @@ public class HandleMessageService {
                     .message("Incorrect input data")
                     .build();
         }
+    }
+
+    private void SendTextMessageToUsers(long chatId, String message) {
+        mainBotController.startCommandReceived(SendMessage.builder()
+                .chatId(chatId)
+                .parseMode(ParseMode.HTML)
+                .text(message)
+                .build()
+        );
     }
 }

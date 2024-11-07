@@ -91,11 +91,11 @@ public class DynamicNotificationService {
         }
 
         long delayLink = LocalDateTime.now()
-                .until(conferenceTime, java.time.temporal.ChronoUnit.MILLIS);
+                .until(conferenceTime.minusMinutes(5), java.time.temporal.ChronoUnit.MILLIS);
         if (delayLink > 0) {
             Runnable task = () -> {
                 Optional<Conference> confContainer = conferenceRepository
-                        .findConferenceByTime(LocalDateTime.now());
+                        .findConferenceByTime(LocalDateTime.now().plusMinutes(5));
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
                     messageNotificationService.sendConferenceNotification(

@@ -21,6 +21,12 @@ public class MainBotControllerConfig {
 
        put("registration", (short) 8);
        put("show_repeat", (short) 9);
+
+        put("consultation", (short) 10);
+
+        put("contacts", (short) 11);
+
+        put("guide", (short) 12);
     }};
 
     public short getValue(String key) {

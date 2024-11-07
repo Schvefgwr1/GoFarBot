@@ -2,6 +2,7 @@ package com.example.gofarbot.services.notifications;
 
 
 import com.example.gofarbot.controllers.bot_controllers.MainBotController;
+import com.example.gofarbot.data.FileRepository;
 import com.example.gofarbot.data.UserRepository;
 import com.example.gofarbot.models.*;
 import com.example.gofarbot.services.bot_services.KeyboardsService;
@@ -15,6 +16,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDateTime;
 import java.util.LinkedList;
@@ -24,12 +26,14 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class MessageNotificationService {
+    private final Long fatherUserId = 411240604L;
     private final MainBotController mainBotController;
     private final FileService fileService;
     private final KeyboardsService keyboardsService;
     private final UserRepository userRepository;
+    private final FileRepository fileRepository;
 
-    @Scheduled(cron = "0 0 18 7 10 *")
+    @Scheduled(cron = "0 30 10 9 10 *")
     public void scheduledTask() {
         if (LocalDateTime.now().getYear() == 2024) {
             Iterable<User> users = userRepository.findAll();
@@ -37,8 +41,8 @@ public class MessageNotificationService {
                 mainBotController.startCommandReceived(SendMessage.builder()
                         .chatId(user.getChatId())
                         .text("""
-                        Остались вопросы по поступлению? Приходи на бесплатную консультацию (ссылка на анкету)
-                        Если тебе интересно узнать больше о подготовке вместе с командой GoLearn, то переходи по кнопке ниже и оставляй заявку на бесплатную консультацию по подготовке к поступлению у методиста
+                        Пропустил вебинар? Мы ценим твою заинтересованность!
+                        Повтор видео-встречи можешь посмотреть по ссылке, нажав на кнопку
                         """)
                         .replyMarkup(keyboardsService.getLastNotificationKeyboardMarkup())
                         .build()
@@ -60,18 +64,54 @@ public class MessageNotificationService {
                 if (notification.getFile() == null) {
                     sendTextMessage(conference.getUsers(), notification);
                 } else {
-                    InputFile inputFile = fileService.getFile(
-                            notification.getFile().getLink(),
-                            notification.getFile().getType()
-                    );
-                    if (inputFile == null) {
-                        log.error("Can't send file");
-                        sendTextMessage(conference.getUsers(), notification);
-                    } else {
+                    if(notification.getFile().getFileId() != null) {
                         if (notification.getFile().getType() == File.FileType.DOCUMENT) {
-                            sendFileMessage(conference.getUsers(), notification, inputFile);
+                            sendFileMessage(conference.getUsers(), notification, notification.getFile().getFileId());
                         } else {
-                            sendPhotoMessage(conference.getUsers(), notification, inputFile);
+                            sendPhotoMessage(conference.getUsers(), notification, notification.getFile().getFileId());
+                        }
+                    }
+                    else {
+                        File file = notification.getFile();
+                        InputFile inputFile = fileService.getFile(
+                                notification.getFile().getLink(),
+                                notification.getFile().getType()
+                        );
+                        if (inputFile == null) {
+                            log.error("Can't send file: {}", notification.getFile());
+                            sendTextMessage(conference.getUsers(), notification);
+                            return;
+                        }
+                        try {
+                            String fileId;
+                            if (file.getType() == File.FileType.DOCUMENT) {
+                                org.telegram.telegrambots.meta.api.objects.Message message = mainBotController.executeDocument(SendDocument.builder()
+                                        .chatId(fatherUserId)
+                                        .document(inputFile)
+                                        .build()
+                                );
+                                fileId = message.getDocument().getFileId();
+                            }
+                            else {
+                                org.telegram.telegrambots.meta.api.objects.Message message = mainBotController.executePhoto(SendPhoto.builder()
+                                        .chatId(fatherUserId)
+                                        .photo(inputFile)
+                                        .build()
+                                );
+                                fileId = message.getPhoto().get(0).getFileId();
+                            }
+                            file.setFileId(fileId);
+                            File saveFile = fileRepository.save(file);
+                            log.info("Successful indexing file: {}", saveFile);
+                            if (saveFile.getType() == File.FileType.DOCUMENT) {
+                                sendFileMessage(conference.getUsers(), notification, fileId);
+                            } else {
+                                sendPhotoMessage(conference.getUsers(), notification, fileId);
+                            }
+                        } catch (TelegramApiException e) {
+                            log.error("Error of tg API in startupRunner: {}", e.getMessage());
+                        } catch (Exception e) {
+                            log.error("Unsupported exception: {}", e.getMessage());
                         }
                     }
                 }
@@ -105,26 +145,26 @@ public class MessageNotificationService {
         }
     }
 
-    private void sendFileMessage(List<User> users, Notification notification, InputFile file) {
+    private void sendFileMessage(List<User> users, Notification notification, String fileId) {
         for(User user: users) {
             mainBotController.startCommandReceived(
                     SendDocument.builder()
                             .chatId(user.getChatId())
                             .parseMode(ParseMode.HTML)
-                            .document(file)
+                            .document(new InputFile(fileId))
                             .caption(getNotificationMessage(notification))
                             .build()
             );
         }
     }
 
-    private void sendPhotoMessage(List<User> users, Notification notification, InputFile file) {
+    private void sendPhotoMessage(List<User> users, Notification notification, String fileId) {
         for(User user: users) {
             mainBotController.startCommandReceived(
                     SendPhoto.builder()
                             .chatId(user.getChatId())
                             .parseMode(ParseMode.HTML)
-                            .photo(file)
+                            .photo(new InputFile(fileId))
                             .caption(getNotificationMessage(notification))
                             .build()
             );

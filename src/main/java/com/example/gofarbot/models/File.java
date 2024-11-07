@@ -3,6 +3,7 @@ package com.example.gofarbot.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Null;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,6 +22,10 @@ public class File {
 
     @NotNull
     private String link;
+
+    @Column(name = "file_id")
+    @Null
+    private String fileId;
 
     @NotNull
     @Enumerated(EnumType.STRING)
