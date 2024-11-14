@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 28
+      author: vsevolod schetov
+      changes:
+        - dropTable:
+            tableName: notifications_links_rel
+        - dropTable:
+            tableName: messages_links_rel
+        - dropTable:
+            tableName: links
+        - dropTable:
+            tableName: types_link

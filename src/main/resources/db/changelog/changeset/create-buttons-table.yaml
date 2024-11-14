@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 25
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: buttons
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: text
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false

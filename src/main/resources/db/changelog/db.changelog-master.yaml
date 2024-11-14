@@ -53,3 +53,16 @@ databaseChangeLog:
   #Create file id
   - include:
       file: db/changelog/changeset/create-file_id-in-file-table.yaml
+  #Create dynamic structure of messages and buttons
+  - include:
+      file: db/changelog/changeset/create-buttons-table.yaml
+  - include:
+      file: db/changelog/changeset/create-update-for-messages-table.yaml
+  - include:
+      file: db/changelog/changeset/create_buttons_messages_rel_table.yaml
+  #Drop links to
+  - include:
+      file: db/changelog/changeset/drop-links-table.yaml
+  #Create handle notifications
+  - include:
+      file: db/changelog/changeset/create-handle-notifications.yaml

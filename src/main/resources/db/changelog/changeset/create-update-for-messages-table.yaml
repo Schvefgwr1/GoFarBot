@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - changeSet:
+      id: 26
+      author: vsevolod schetov
+      changes:
+        - addColumn:
+            tableName: messages
+            columns:
+              - column:
+                  name: code
+                  type: VARCHAR(255)
+              - column:
+                  name: next_message
+                  type: BIGINT
+                  constraints:
+                    nullable: true

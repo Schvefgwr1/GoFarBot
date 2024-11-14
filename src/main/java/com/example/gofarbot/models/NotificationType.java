@@ -20,6 +20,6 @@ public class NotificationType {
     private NotificationTypes type;
 
     public enum NotificationTypes {
-        BEFORE_DAY, TWELVE_O_CLOCK, BEFORE_HOUR, IN_TIME, AFTER_ONE_AND_HALF_OUR, AFTER_TWO_HOURS
+        BEFORE_DAY, TWELVE_O_CLOCK, BEFORE_HOUR, IN_TIME, AFTER_ONE_AND_HALF_OUR, AFTER_TWO_HOURS, IN_HANDLE_TIME
     }
 }

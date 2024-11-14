@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface MessageRepository extends CrudRepository<Message, Long> {
     Optional<Message> findByNumberAndDialog(Integer number, DialogState dialogState);
+    Optional<Message> findByCode(String code);
 }

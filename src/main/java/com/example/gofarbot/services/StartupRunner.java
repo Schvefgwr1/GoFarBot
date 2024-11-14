@@ -25,7 +25,6 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class StartupRunner implements ApplicationRunner {
-    private final Long fatherUserId = 411240604L;
     private final DynamicNotificationService dynamicNotificationService;
     private final ConferenceRepository conferenceRepository;
     private final FileRepository fileRepository;
@@ -45,6 +44,7 @@ public class StartupRunner implements ApplicationRunner {
             if(file.getFileId() == null) {
                 try {
                     String fileId;
+                    Long fatherUserId = 411240604L;
                     if (file.getType() == File.FileType.DOCUMENT) {
                         Message message = mainBotController.executeDocument(SendDocument.builder()
                                 .chatId(fatherUserId)

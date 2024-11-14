@@ -3,13 +3,10 @@ package com.example.gofarbot.services.notifications;
 
 import com.example.gofarbot.controllers.bot_controllers.MainBotController;
 import com.example.gofarbot.data.FileRepository;
-import com.example.gofarbot.data.UserRepository;
 import com.example.gofarbot.models.*;
-import com.example.gofarbot.services.bot_services.KeyboardsService;
 import com.example.gofarbot.services.web_services.FileService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -26,39 +23,37 @@ import java.util.List;
 @AllArgsConstructor
 @Slf4j
 public class MessageNotificationService {
-    private final Long fatherUserId = 411240604L;
     private final MainBotController mainBotController;
     private final FileService fileService;
-    private final KeyboardsService keyboardsService;
-    private final UserRepository userRepository;
     private final FileRepository fileRepository;
 
-    @Scheduled(cron = "0 30 10 9 10 *")
-    public void scheduledTask() {
-        if (LocalDateTime.now().getYear() == 2024) {
-            Iterable<User> users = userRepository.findAll();
-            users.forEach(user ->
-                mainBotController.startCommandReceived(SendMessage.builder()
-                        .chatId(user.getChatId())
-                        .text("""
-                        Пропустил вебинар? Мы ценим твою заинтересованность!
-                        Повтор видео-встречи можешь посмотреть по ссылке, нажав на кнопку
-                        """)
-                        .replyMarkup(keyboardsService.getLastNotificationKeyboardMarkup())
-                        .build()
-                )
-            );
-        }
-    }
-
-
-    public void sendConferenceNotification(Conference conference, NotificationType.NotificationTypes type) {
+    public void sendPlaningConferenceNotification(Conference conference, NotificationType.NotificationTypes type) {
         List<Notification> notifications = new LinkedList<>();
         for(Notification not: conference.getNotifications()) {
             if(not.getType().getType() == type) {
                notifications.add(not);
             }
         }
+        sendNotificationsToUsers(conference, notifications, type);
+    }
+
+    public void sendHandleConferenceNotification(Conference conference, LocalDateTime notificationTime) {
+        List<Notification> notifications = new LinkedList<>();
+        for(Notification not: conference.getNotifications()) {
+            if(not.getType().getType() == NotificationType.NotificationTypes.IN_HANDLE_TIME &&
+               not.getTime() == notificationTime
+            ) {
+                notifications.add(not);
+            }
+        }
+        sendNotificationsToUsers(conference, notifications, NotificationType.NotificationTypes.IN_HANDLE_TIME);
+    }
+
+    private void sendNotificationsToUsers(
+            Conference conference,
+            List<Notification> notifications,
+            NotificationType.NotificationTypes type
+    ) {
         for(Notification notification: notifications) {
             if (notification != null) {
                 if (notification.getFile() == null) {
@@ -84,6 +79,7 @@ public class MessageNotificationService {
                         }
                         try {
                             String fileId;
+                            Long fatherUserId = 411240604L;
                             if (file.getType() == File.FileType.DOCUMENT) {
                                 org.telegram.telegrambots.meta.api.objects.Message message = mainBotController.executeDocument(SendDocument.builder()
                                         .chatId(fatherUserId)
@@ -122,15 +118,7 @@ public class MessageNotificationService {
     }
 
     private String getNotificationMessage(Notification notification) {
-        StringBuilder str = new StringBuilder();
-        str.append(notification.getText());
-        if(notification.getLinks() != null && !notification.getLinks().isEmpty()) {
-            str.append("\n");
-            for (Link link : notification.getLinks()) {
-                str.append(link.getValue()).append("\n");
-            }
-        }
-        return str.toString();
+        return notification.getText();
     }
 
     private void sendTextMessage(List<User> users, Notification notification) {

@@ -2,25 +2,26 @@ package com.example.gofarbot.models;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
-@Table(name = "types_link")
-public class TypeLink {
+@Table(name = "buttons")
+public class Button {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "type")
-    private TypesLink state;
+    @NotNull
+    private String text;
 
-    public enum TypesLink {
-        YOUTUBE, TELEGRAM, INSTAGRAM, VK
-    }
+    @NotNull
+    private String code;
 }

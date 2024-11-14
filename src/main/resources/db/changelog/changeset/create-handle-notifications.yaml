@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      id: 29
+      author: vsevolod schetov
+      changes:
+        - addColumn:
+            tableName: notifications
+            columns:
+              - column:
+                  name: time
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: true
+        - insert:
+            tableName: notification_types
+            columns:
+              - column:
+                  name: type
+                  value: IN_HANDLE_TIME

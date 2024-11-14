@@ -1,9 +1,7 @@
 package com.example.gofarbot.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 public class ExceptionMessage extends SendMessage {
     private static final String exceptionMessage = """
