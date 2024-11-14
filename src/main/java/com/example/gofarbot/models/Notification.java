@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -22,6 +22,9 @@ public class Notification {
     private String text;
 
     @Nullable
+    private LocalDateTime time;
+
+    @Nullable
     @ManyToOne
     @JoinColumn(name = "file")
     private File file;
@@ -30,13 +33,4 @@ public class Notification {
     @ManyToOne
     @JoinColumn(name = "type")
     private NotificationType type;
-
-    @Nullable
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Link.class)
-    @JoinTable(
-            name = "notifications_links_rel",
-            joinColumns = {@JoinColumn(name = "notification")},
-            inverseJoinColumns = {@JoinColumn(name = "link")}
-    )
-    private List<Link> links;
 }

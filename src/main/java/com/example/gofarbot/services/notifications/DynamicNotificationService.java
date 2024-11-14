@@ -3,6 +3,7 @@ package com.example.gofarbot.services.notifications;
 
 import com.example.gofarbot.data.ConferenceRepository;
 import com.example.gofarbot.models.Conference;
+import com.example.gofarbot.models.Notification;
 import com.example.gofarbot.models.NotificationType;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,40 @@ public class DynamicNotificationService {
     private final MessageNotificationService messageNotificationService;
 
     public void scheduleNotificationForConference(LocalDateTime conferenceTime) {
+
+        Optional<Conference> conferenceInTime = conferenceRepository.findConferenceByTime(conferenceTime);
+        if(conferenceInTime.isPresent()) {
+            List<Notification> notifications = conferenceInTime.get().getNotifications();
+            for(Notification notification: notifications) {
+                if(notification.getType() != null &&
+                   notification.getType().getType() == NotificationType.NotificationTypes.IN_HANDLE_TIME
+                ) {
+                    if(notification.getTime() != null) {
+                        long delayHandle = LocalDateTime.now().until(notification.getTime(), java.time.temporal.ChronoUnit.MILLIS);
+                        if(delayHandle > 0) {
+                            Runnable task = () -> {
+                                Optional<Conference> confContainer = conferenceRepository
+                                        .findConferenceByTime(conferenceTime);
+                                if(confContainer.isPresent()) {
+                                    Conference conference = confContainer.get();
+                                    messageNotificationService.sendHandleConferenceNotification(
+                                            conference,
+                                            notification.getTime()
+                                    );
+                                }
+                                else {
+                                    log.warn("(IN_HANDLE_TIME) Incorrect planing to conference in time: {}",
+                                            conferenceTime
+                                    );
+                                }
+                            };
+                            notificationService.scheduleTask(task, delayHandle, TimeUnit.MILLISECONDS);
+                        }
+                    }
+                }
+            }
+        }
+
         long delayADay = LocalDateTime.now().until(conferenceTime.minusDays(1), java.time.temporal.ChronoUnit.MILLIS);
         List<Conference> conferences = conferenceRepository.findAllByDate(conferenceTime.minusDays(1).toLocalDate());
         if (delayADay > 0 && conferences.isEmpty()) {
@@ -32,7 +67,7 @@ public class DynamicNotificationService {
                         .findConferenceByTime(LocalDateTime.now().plusDays(1));
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
-                    messageNotificationService.sendConferenceNotification(
+                    messageNotificationService.sendPlaningConferenceNotification(
                             conference,
                             NotificationType.NotificationTypes.BEFORE_DAY
                     );
@@ -55,7 +90,7 @@ public class DynamicNotificationService {
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
                     if(conference.getTimeOfConference().getHour() > 12) {
-                        messageNotificationService.sendConferenceNotification(
+                        messageNotificationService.sendPlaningConferenceNotification(
                                 conference,
                                 NotificationType.NotificationTypes.TWELVE_O_CLOCK
                         );
@@ -76,7 +111,7 @@ public class DynamicNotificationService {
                         .findConferenceByTime(LocalDateTime.now().plusHours(1));
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
-                    messageNotificationService.sendConferenceNotification(
+                    messageNotificationService.sendPlaningConferenceNotification(
                             conference,
                             NotificationType.NotificationTypes.BEFORE_HOUR
                     );
@@ -98,7 +133,7 @@ public class DynamicNotificationService {
                         .findConferenceByTime(LocalDateTime.now().plusMinutes(5));
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
-                    messageNotificationService.sendConferenceNotification(
+                    messageNotificationService.sendPlaningConferenceNotification(
                             conference,
                             NotificationType.NotificationTypes.IN_TIME
                     );
@@ -118,7 +153,7 @@ public class DynamicNotificationService {
                         .findConferenceByTime(LocalDateTime.now().minusHours(1).minusMinutes(30));
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
-                    messageNotificationService.sendConferenceNotification(
+                    messageNotificationService.sendPlaningConferenceNotification(
                             conference,
                             NotificationType.NotificationTypes.AFTER_ONE_AND_HALF_OUR
                     );
@@ -140,7 +175,7 @@ public class DynamicNotificationService {
                         .findConferenceByTime(LocalDateTime.now().minusHours(2));
                 if(confContainer.isPresent()) {
                     Conference conference = confContainer.get();
-                    messageNotificationService.sendConferenceNotification(
+                    messageNotificationService.sendPlaningConferenceNotification(
                             conference,
                             NotificationType.NotificationTypes.AFTER_TWO_HOURS
                     );

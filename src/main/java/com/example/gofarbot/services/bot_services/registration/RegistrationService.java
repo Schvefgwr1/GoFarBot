@@ -2,8 +2,11 @@ package com.example.gofarbot.services.bot_services.registration;
 
 
 import com.example.gofarbot.data.ConferenceRepository;
+import com.example.gofarbot.data.MessageRepository;
 import com.example.gofarbot.data.UserRepository;
+import com.example.gofarbot.exceptions.MessageException;
 import com.example.gofarbot.models.Conference;
+import com.example.gofarbot.models.Message;
 import com.example.gofarbot.models.User;
 import com.example.gofarbot.services.notifications.NotificationService;
 import lombok.AllArgsConstructor;
@@ -22,12 +25,9 @@ import java.util.concurrent.TimeUnit;
 public class RegistrationService {
     private final ConferenceRepository conferenceRepository;
     private final UserRepository userRepository;
+    private final MessageRepository messageRepository;
     private final NotificationService notificationService;
     private final ApplicationEventPublisher eventPublisher;
-
-    private final String message = """
-        Остались вопросы по поступлению? Приходи на бесплатную консультацию https://forms.gle/isF2behHdD1y2viG9
-    """;
 
     public boolean haveActiveConference() {
         return !conferenceRepository.findAllAfterTime(LocalDateTime.now()).isEmpty();
@@ -52,11 +52,17 @@ public class RegistrationService {
     }
 
     public void createOldNotification(long chatId) {
-        long delay = LocalDateTime.now().until(LocalDateTime.now().plusHours(2), java.time.temporal.ChronoUnit.MILLIS);
-        Runnable task = () -> {
-            eventPublisher.publishEvent(new SendMessageEvent(this, chatId, message));
-        };
-        notificationService.scheduleTask(task, delay, TimeUnit.MILLISECONDS);
-        log.info("Successful creating old notification to send message: {}", chatId);
+        try {
+            long delay = LocalDateTime.now().until(LocalDateTime.now().plusHours(2), java.time.temporal.ChronoUnit.MILLIS);
+            Message message = messageRepository.findByCode("old_notification")
+                    .orElseThrow(() -> new MessageException("Message not found in DB for code: old_notification"));
+            Runnable task = () -> {
+                eventPublisher.publishEvent(new SendMessageEvent(this, chatId, message.getText()));
+            };
+            notificationService.scheduleTask(task, delay, TimeUnit.MILLISECONDS);
+            log.info("Successful creating old notification to send message: {}", chatId);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 }

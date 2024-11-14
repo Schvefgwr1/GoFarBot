@@ -1,9 +1,8 @@
 package com.example.gofarbot.controllers.bot_controllers;
 
 import com.example.gofarbot.config.BotConfig;
-import com.example.gofarbot.config.MainBotControllerConfig;
-import com.example.gofarbot.models.DialogState;
 import com.example.gofarbot.services.bot_services.MainBotService;
+import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
 import com.example.gofarbot.services.bot_services.registration.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,12 +15,13 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.Objects;
+
 @Component
 @Slf4j
 @AllArgsConstructor
 public class MainBotController extends TelegramLongPollingBot {
     private final BotConfig botConfig;
-    private final MainBotControllerConfig mainBotControllerConfig;
     private final MainBotService mainBotService;
     private final RegistrationService registrationService;
 
@@ -42,178 +42,34 @@ public class MainBotController extends TelegramLongPollingBot {
             long chatId = update.getMessage().getChatId();
             long userId = update.getMessage().getFrom().getId();
 
-            if (messageText.equals("/start")) {
-                try {
-                    startCommandReceived(mainBotService.getStartMessage(chatId, userId));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            } else {
-                startCommandReceived(SendMessage.builder()
-                        .chatId(chatId)
-                        .text("Неправильная команда. Введите /start .")
-                        .build()
-                );
-            }
+            sendMessagesForCommand(chatId, messageText);
+
         } else if(update.hasCallbackQuery()) {
             String call_data = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
-            switch (mainBotControllerConfig.getValue(call_data)) {
-                case 0:
-                    startCommandReceived(mainBotService.getBackMessage(chatId));
-                    break;
-//                case 1:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            1)
-//                    );
-//                    break;
-//                case 2:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            2
-//                    ));
-//                    break;
-//                case 3:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            3
-//                    ));
-//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-//                    break;
-//                case 4:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            4
-//                    ));
-//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-//                    break;
-//                case 5:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            5
-//                    ));
-//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-//                    break;
-//                case 6:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            6
-//                    ));
-//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-//                    break;
-//                case 7:
-//                    startCommandReceived(mainBotService.getStandardMessage(
-//                            chatId,
-//                            DialogState.DialogStates.INFORMATION,
-//                            7
-//                    ));
-//                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-//                    break;
 
-//                /*временное решение*/
-                case 1:
-                    startCommandReceived(SendMessage.builder()
-                            .chatId(chatId)
-                            .text("""
-                                    Скоро тут появится подробная информация о поступлении и странах. Следи за обновлениями!
-                                    """)
-                            .build()
-                    );
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-
-                case 8:
-                    if(registrationService.haveActiveConference()) {
-                        registrationService.registerUserToAllConference(chatId);
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                1
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                2
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                3
-                        ));
-                    }
-                    else {
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                4
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                5
-                        ));
-                        startCommandReceived(mainBotService.getStandardMessage(
-                                chatId,
-                                DialogState.DialogStates.REGISTRATION,
-                                6
-                        ));
-                        registrationService.createOldNotification(chatId);
-                    }
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case 9:
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            5
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.REGISTRATION,
-                            6
-                    ));
+            if(Objects.equals(call_data, "registration")) {
+                if(registrationService.haveActiveConference()) {
+                    registrationService.registerUserToAllConference(chatId);
+                }
+                else {
+                    call_data = "null_registration";
                     registrationService.createOldNotification(chatId);
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case 10:
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.CONSULTATION,
-                            1
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case 11:
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.CONTACTS,
-                            1
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
-                case 12:
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.GUIDE,
-                            1
-                    ));
-                    startCommandReceived(mainBotService.getStandardMessage(
-                            chatId,
-                            DialogState.DialogStates.GUIDE,
-                            2
-                    ));
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
-                    break;
+                }
             }
+
+            sendMessagesForCommand(chatId, call_data);
         }
 
+    }
+
+    private void sendMessagesForCommand(long chatId, String command) {
+        MessageServiceDTO messageServiceDTO = mainBotService.getStandardMessage(chatId, command);
+        startCommandReceived(messageServiceDTO.getMessage());
+        while(messageServiceDTO.getNextMessageId() != null) {
+            messageServiceDTO = mainBotService.getStandardMessage(chatId, messageServiceDTO.getNextMessageId());
+            startCommandReceived(messageServiceDTO.getMessage());
+        }
     }
 
     public Message executeDocument(SendDocument sendDocument) throws TelegramApiException {

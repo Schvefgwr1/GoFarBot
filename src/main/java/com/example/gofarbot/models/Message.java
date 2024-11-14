@@ -1,5 +1,6 @@
 package com.example.gofarbot.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,18 +37,26 @@ public class Message {
     private DialogState dialog;
 
     @Nullable
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Link.class)
-    @JoinTable(
-            name = "messages_links_rel",
-            joinColumns = {@JoinColumn(name = "message")},
-            inverseJoinColumns = {@JoinColumn(name = "link")}
-    )
-    private List<Link> links;
-
-    @Nullable
     @ManyToOne
     @JoinColumn(name = "file")
     private File file;
+
+    @NotNull
+    private String code;
+
+    @Nullable
+    @Column(name = "next_message")
+    private Long nextMessageId;
+
+    @Nullable
+    @ManyToMany(fetch = FetchType.EAGER, targetEntity = Button.class)
+    @JoinTable(
+            name = "buttons_messages_rel",
+            joinColumns = {@JoinColumn(name = "message_id")},
+            inverseJoinColumns = {@JoinColumn(name = "button_id")}
+    )
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    private List<Button> buttons;
 
     @LastModifiedDate
     @Column(name = "updated_at")
