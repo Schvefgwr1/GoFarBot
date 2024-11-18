@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +40,15 @@ public class RegistrationService {
         if(user.isPresent()) {
             for(Conference conference: conferences) {
                 List<User> users = conference.getUsers();
-                if(!users.contains(user.get())) {
+                boolean userInConf = false;
+                User ourUser = user.get();
+                for(User confUser: users) {
+                    if(Objects.equals(confUser.getChatId(), ourUser.getChatId())) {
+                        userInConf = true;
+                        break;
+                    }
+                }
+                if(!userInConf) {
                     users.add(user.get());
                     conference.setUsers(users);
                 }
