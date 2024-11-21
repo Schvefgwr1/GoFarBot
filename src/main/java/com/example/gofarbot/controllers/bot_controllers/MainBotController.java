@@ -37,16 +37,28 @@ public class MainBotController extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageText = update.getMessage().getText();
+        boolean haveRegisterParam = false;
+
+        if (update.hasMessage()) {
+
             long chatId = update.getMessage().getChatId();
             long userId = update.getMessage().getFrom().getId();
 
-            if (messageText.equals("/start")) {
-                try {
-                    startCommandReceived(mainBotService.getStartMessage(chatId, userId));
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
+            Message message = update.getMessage();
+            if (message.hasText() && message.getText().startsWith("/start")) {
+                String[] parts = message.getText().split(" ");
+                String parameter = parts.length > 1 ? parts[1] : null;
+
+                if(parameter != null) {
+                    if(parameter.equals("registration")) {
+                        haveRegisterParam = true;
+                    }
+                } else {
+                    try {
+                        startCommandReceived(mainBotService.getStartMessage(chatId, userId));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             } else {
                 startCommandReceived(SendMessage.builder()
@@ -55,9 +67,21 @@ public class MainBotController extends TelegramLongPollingBot {
                         .build()
                 );
             }
-        } else if(update.hasCallbackQuery()) {
-            String call_data = update.getCallbackQuery().getData();
-            long chatId = update.getCallbackQuery().getMessage().getChatId();
+        }
+        if(update.hasCallbackQuery() || haveRegisterParam) {
+            String call_data;
+            if(!haveRegisterParam) {
+                call_data = update.getCallbackQuery().getData();
+            }
+            else {
+                call_data = "registration";
+            }
+            long chatId;
+            if(update.hasCallbackQuery()) {
+                chatId = update.getCallbackQuery().getMessage().getChatId();
+            } else {
+                chatId = update.getMessage().getChatId();
+            }
             switch (mainBotControllerConfig.getValue(call_data)) {
                 case 0:
                     startCommandReceived(mainBotService.getBackMessage(chatId));
