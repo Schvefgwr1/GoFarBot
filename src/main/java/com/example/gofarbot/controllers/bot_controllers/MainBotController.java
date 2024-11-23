@@ -155,7 +155,6 @@ public class MainBotController extends TelegramLongPollingBot {
 
                 case 8:
                     if(registrationService.haveActiveConference()) {
-                        registrationService.registerUserToAllConference(chatId);
                         startCommandReceived(mainBotService.getStandardMessage(
                                 chatId,
                                 DialogState.DialogStates.REGISTRATION,
@@ -171,6 +170,8 @@ public class MainBotController extends TelegramLongPollingBot {
                                 DialogState.DialogStates.REGISTRATION,
                                 3
                         ));
+                        startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
+                        registrationService.registerUserToAllConference(chatId);
                     }
                     else {
                         startCommandReceived(mainBotService.getStandardMessage(
@@ -189,8 +190,8 @@ public class MainBotController extends TelegramLongPollingBot {
                                 6
                         ));
                         registrationService.createOldNotification(chatId);
+                        startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     }
-                    startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                     break;
                 case 9:
                     startCommandReceived(mainBotService.getStandardMessage(
