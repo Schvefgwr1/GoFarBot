@@ -114,7 +114,7 @@ public class KeyboardsService {
     private InlineKeyboardMarkup getStartMessageKeyboardMarkup() {
         // Создаем кнопку
         InlineKeyboardButton button1 = InlineKeyboardButton.builder()
-                .text("Вебинар Италия")
+                .text("Регистрация вебинары Австрия 21 и 22 декабря")
                 .callbackData("registration")
                 .build();
         InlineKeyboardButton button6 = InlineKeyboardButton.builder()
