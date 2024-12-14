@@ -48,6 +48,11 @@ public class MainBotController extends TelegramLongPollingBot {
             String call_data = update.getCallbackQuery().getData();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
 
+            if(Objects.equals(call_data, "back_button")) {
+                sendMessagesForCommand(chatId, "back_button");
+                return;
+            }
+
             if(Objects.equals(call_data, "registration")) {
                 if(registrationService.haveActiveConference()) {
                     registrationService.registerUserToAllConference(chatId);
@@ -64,7 +69,13 @@ public class MainBotController extends TelegramLongPollingBot {
     }
 
     private void sendMessagesForCommand(long chatId, String command) {
-        MessageServiceDTO messageServiceDTO = mainBotService.getStandardMessage(chatId, command);
+        MessageServiceDTO messageServiceDTO;
+        if(Objects.equals(command, "back_button")) {
+            messageServiceDTO = mainBotService.getBackMessage(chatId);
+        }
+        else {
+            messageServiceDTO = mainBotService.getStandardMessage(chatId, command);
+        }
         startCommandReceived(messageServiceDTO.getMessage());
         while(messageServiceDTO.getNextMessageId() != null) {
             messageServiceDTO = mainBotService.getStandardMessage(chatId, messageServiceDTO.getNextMessageId());

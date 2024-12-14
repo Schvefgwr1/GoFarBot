@@ -18,6 +18,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -40,8 +41,8 @@ public class MessageNotificationService {
     public void sendHandleConferenceNotification(Conference conference, LocalDateTime notificationTime) {
         List<Notification> notifications = new LinkedList<>();
         for(Notification not: conference.getNotifications()) {
-            if(not.getType().getType() == NotificationType.NotificationTypes.IN_HANDLE_TIME &&
-               not.getTime() == notificationTime
+            if(Objects.requireNonNull(not.getType()).getType() == NotificationType.NotificationTypes.IN_HANDLE_TIME &&
+               Objects.requireNonNull(not.getTime()).isEqual(notificationTime)
             ) {
                 notifications.add(not);
             }

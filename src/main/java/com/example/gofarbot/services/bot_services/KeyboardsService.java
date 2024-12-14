@@ -2,8 +2,6 @@ package com.example.gofarbot.services.bot_services;
 
 
 import com.example.gofarbot.models.Button;
-import com.example.gofarbot.models.DialogState;
-import com.example.gofarbot.models.Message;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

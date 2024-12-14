@@ -2,9 +2,12 @@ package com.example.gofarbot.services.bot_services;
 
 import com.example.gofarbot.data.MessageRepository;
 import com.example.gofarbot.data.UserRepository;
+import com.example.gofarbot.exceptions.BackMessageException;
 import com.example.gofarbot.exceptions.MessageException;
+import com.example.gofarbot.exceptions.UserException;
 import com.example.gofarbot.models.File;
 import com.example.gofarbot.models.Message;
+import com.example.gofarbot.models.User;
 import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -25,6 +30,38 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final KeyboardsService keyboardsService;
     private final UserRepository userRepository;
+
+    public MessageServiceDTO getBackMessageToUser(long chatId) throws UserException, BackMessageException {
+        User user = userRepository.findUserByChatId(chatId)
+                .orElseThrow(() -> new UserException("User isn't found in DB with id: ", chatId));
+        if(user.getMessage() != null) {
+            String actualCode = user.getMessage().getCode();
+            while(actualCode == null) {
+                String finalActualCode = actualCode;
+                Message message = messageRepository.findPreviousMessageInChain(user.getMessage().getId())
+                        .orElseThrow(() -> new BackMessageException(
+                                "Can't find previous message in chain to message: ",
+                                user.getMessage().getId(),
+                                finalActualCode,
+                                0
+                        ));
+                actualCode = message.getCode();
+            }
+            List<Message> messages = messageRepository.findBackMessages(actualCode);
+            if(messages.size() != 1) {
+                throw new BackMessageException(
+                        "Can't find individual back message to message: ",
+                        user.getMessage().getId(),
+                        actualCode,
+                        messages.size()
+                );
+            }
+            else {
+                return getMessageDTO(messages.get(0), chatId);
+            }
+        }
+        else throw new UserException("User don't have correct state: ", chatId);
+    }
 
     public MessageServiceDTO getMessage(long messageId, long chatId) throws MessageException {
         Message message = this.getMessageObject(messageId);
@@ -37,7 +74,7 @@ public class MessageService {
     }
 
     private @NotNull MessageServiceDTO getMessageDTO(@NotNull Message message, long chatId) {
-        userRepository.updateUserState(chatId, message.getDialog().getState().name(), message.getNumber());
+        userRepository.updateUserState(chatId, message.getId());
         InlineKeyboardMarkup keyboard = null;
         if(message.getButtons() != null) {
             keyboard = keyboardsService.getKeyboard(message.getButtons());
