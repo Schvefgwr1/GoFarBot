@@ -1,6 +1,5 @@
 package com.example.gofarbot.exceptions;
 
-import com.example.gofarbot.models.DialogState;
 import com.example.gofarbot.models.File;
 
 public class FileException extends Exception {

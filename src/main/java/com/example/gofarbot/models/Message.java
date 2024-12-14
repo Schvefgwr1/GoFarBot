@@ -27,14 +27,7 @@ public class Message {
     private Long id;
 
     @NotNull
-    private Integer number;
-
-    @NotNull
     private String text;
-
-    @ManyToOne
-    @JoinColumn(name = "dialog")
-    private DialogState dialog;
 
     @Nullable
     @ManyToOne

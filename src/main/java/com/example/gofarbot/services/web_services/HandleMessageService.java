@@ -8,8 +8,6 @@ import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.Send
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToRegUsersRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToUsersResponse;
 import com.example.gofarbot.data.*;
-import com.example.gofarbot.exceptions.DialogStateException;
-import com.example.gofarbot.models.DialogState;
 import com.example.gofarbot.models.File;
 import com.example.gofarbot.models.Message;
 import com.example.gofarbot.models.User;
@@ -35,7 +33,6 @@ public class HandleMessageService {
     private final ConferenceRepository conferenceRepository;
     private final UserRepository userRepository;
     private final MainBotController mainBotController;
-    private final DialogStateRepository dialogStateRepository;
     private final FileService fileService;
     private final FileRepository fileRepository;
 
@@ -71,14 +68,6 @@ public class HandleMessageService {
                     try {
                         messageRepository.save(Message.builder()
                                 .text(message)
-                                .number(-1)
-                                .dialog(dialogStateRepository
-                                        .findDialogStateByState(DialogState.DialogStates.HANDLE)
-                                        .orElseThrow(() -> new DialogStateException(
-                                                "No dialogState in DB",
-                                                DialogState.DialogStates.HANDLE
-                                        ))
-                                )
                                 .file(uploadFileResponse.getFile())
                                 .build()
                         );
@@ -145,14 +134,6 @@ public class HandleMessageService {
                 try {
                     messageRepository.save(Message.builder()
                             .text(message)
-                            .number(-1)
-                            .dialog(dialogStateRepository
-                                    .findDialogStateByState(DialogState.DialogStates.HANDLE)
-                                    .orElseThrow(() -> new DialogStateException(
-                                            "No dialogState in DB",
-                                            DialogState.DialogStates.HANDLE
-                                    ))
-                            )
                             .build()
                     );
                 } catch (Exception e) {
