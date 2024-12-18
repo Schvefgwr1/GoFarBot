@@ -165,6 +165,12 @@ public class MainBotController extends TelegramLongPollingBot {
                                 DialogState.DialogStates.REGISTRATION,
                                 2
                         ));
+                        startCommandReceived(mainBotService.getStandardMessage(
+                                chatId,
+                                DialogState.DialogStates.REGISTRATION,
+                                3
+                        ));
+
                         startCommandReceived(mainBotService.getStartMessage(chatId, chatId));
                         registrationService.registerUserToAllConference(chatId);
                     }
