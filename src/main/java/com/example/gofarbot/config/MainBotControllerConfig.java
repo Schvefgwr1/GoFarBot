@@ -27,6 +27,7 @@ public class MainBotControllerConfig {
         put("contacts", (short) 11);
 
         put("guide", (short) 12);
+        put("go_learn", (short) 13);
     }};
 
     public short getValue(String key) {

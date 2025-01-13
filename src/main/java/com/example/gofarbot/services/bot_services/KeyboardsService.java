@@ -113,9 +113,13 @@ public class KeyboardsService {
 
     private InlineKeyboardMarkup getStartMessageKeyboardMarkup() {
         // Создаем кнопку
+//        InlineKeyboardButton button1 = InlineKeyboardButton.builder()
+//                .text("Регистрация вебинары Австрия 21 и 22 декабря")
+//                .callbackData("registration")
+//                .build();
         InlineKeyboardButton button1 = InlineKeyboardButton.builder()
-                .text("Регистрация вебинары Австрия 21 и 22 декабря")
-                .callbackData("registration")
+                .text("Скачать расширенный гайд по поступлению в Австрию")
+                .callbackData("go_learn")
                 .build();
         InlineKeyboardButton button6 = InlineKeyboardButton.builder()
                 .text("Скачать краткий гайд о поступлении в Европу")
