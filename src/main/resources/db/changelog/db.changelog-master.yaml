@@ -66,3 +66,12 @@ databaseChangeLog:
   #Create handle notifications
   - include:
       file: db/changelog/changeset/create-handle-notifications.yaml
+  #Create stat table
+  - include:
+      file: db/changelog/changeset/create-stat-table.yaml
+  #Create queues of notifications
+  - include:
+      file: db/changelog/changeset/create-notification-numbers.yaml
+  #Update messages constrains of dialog and number
+  - include:
+      file: db/changelog/changeset/update-messages-table-constrains.yaml

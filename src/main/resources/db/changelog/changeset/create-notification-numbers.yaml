@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: 31
+      author: vsevolod schetov
+      changes:
+        - addColumn:
+            tableName: notifications
+            columns:
+              - column:
+                  name: number
+                  type: BIGINT
+                  constraints:
+                    nullable: true

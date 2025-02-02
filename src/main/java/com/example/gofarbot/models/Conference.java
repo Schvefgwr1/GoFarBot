@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -32,14 +33,10 @@ public class Conference {
     @NotNull
     private LocalDateTime timeOfConference;
 
-    @ManyToMany(fetch = FetchType.EAGER, targetEntity = User.class)
-    @JoinTable(
-            name = "conferences_users_rel",
-            joinColumns = {@JoinColumn(name = "conference")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")}
-    )
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "conference")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
-    private List<User> users;
+    private List<UserRegistration> registrations;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Notification.class)
     @JoinTable(
@@ -49,4 +46,13 @@ public class Conference {
     )
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private List<Notification> notifications;
+
+    public List<User> getUsers() {
+        List<UserRegistration> registrations = this.registrations;
+        List<User> users = new ArrayList<>();
+        for(UserRegistration registration: registrations) {
+            users.add(registration.getUser());
+        }
+        return users;
+    }
 }

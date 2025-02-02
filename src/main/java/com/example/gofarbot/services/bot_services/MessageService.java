@@ -22,6 +22,7 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -65,13 +66,37 @@ public class MessageService {
 
     public MessageServiceDTO getMessage(long messageId, long chatId) throws MessageException {
         Message message = this.getMessageObject(messageId);
+        checkAndSaveUser(message, chatId);
         return getMessageDTO(message, chatId);
     }
 
     public MessageServiceDTO getMessage(String code, long chatId) throws MessageException {
         Message message = this.getMessageObject(code);
+        checkAndSaveUser(message, chatId);
         return getMessageDTO(message, chatId);
     }
+
+    private void checkAndSaveUser(Message message, long chatID) {
+        try {
+            Optional<User> optionalUser = userRepository.findUserByChatId(chatID);
+
+            if (optionalUser.isPresent()) {
+                User user = optionalUser.get();
+                user.setMessage(message);
+                userRepository.save(user);
+            } else {
+                User newUser = User.builder()
+                        .userId(chatID)
+                        .chatId(chatID)
+                        .message(message)
+                        .build();
+                userRepository.save(newUser);
+            }
+        } catch (Exception e) {
+            log.error("Error in DB: {}", e.getMessage());
+        }
+    }
+
 
     private @NotNull MessageServiceDTO getMessageDTO(@NotNull Message message, long chatId) {
         userRepository.updateUserState(chatId, message.getId());

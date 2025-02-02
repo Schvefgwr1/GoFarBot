@@ -1,19 +1,26 @@
 package com.example.gofarbot.dto;
 
 
+import com.example.gofarbot.config.SpecialMessages;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
-public class ExceptionMessage extends SendMessage {
-    private static final String exceptionMessage = """
-            Дорогой друг! В боте возникли техническое проблемы.
-            Мы уже исправляем ситуацию. Попробуй через
-            некоторое время еще раз ввести команду /start .
-            
-            Если это не поможет, обратись к команде GoFar в соц. сетях! @gofar_ru
-            Спасибо, что остаешься с нами!
-            """;
+@Component
+public class ExceptionMessage {
+    @Autowired
+    public ExceptionMessage(SpecialMessages specialMessages) {
+        exceptionMessage = specialMessages.getErrorMessage();
+    }
 
-    public ExceptionMessage(long chatId) {
-        super(String.valueOf(chatId), exceptionMessage);
+    private final String exceptionMessage;
+
+    public SendMessage getExceptionMessage(long chatId) {
+        return SendMessage.builder()
+                .chatId(chatId)
+                .text(exceptionMessage)
+                .parseMode(ParseMode.HTML)
+                .build();
     }
 }

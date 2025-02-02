@@ -1,6 +1,7 @@
 package com.example.gofarbot.controllers.bot_controllers;
 
 import com.example.gofarbot.config.BotConfig;
+import com.example.gofarbot.config.SpecialMessages;
 import com.example.gofarbot.services.bot_services.MainBotService;
 import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
 import com.example.gofarbot.services.bot_services.registration.RegistrationService;
@@ -24,6 +25,7 @@ public class MainBotController extends TelegramLongPollingBot {
     private final BotConfig botConfig;
     private final MainBotService mainBotService;
     private final RegistrationService registrationService;
+    private final SpecialMessages specialMessages;
 
     @Override
     public String getBotUsername() {
@@ -38,6 +40,7 @@ public class MainBotController extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         boolean haveRegisterParam = false;
+        String statParam = "";
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             long chatId = update.getMessage().getChatId();
@@ -50,8 +53,10 @@ public class MainBotController extends TelegramLongPollingBot {
                 String parameter = parts.length > 1 ? parts[1] : null;
 
                 if(parameter != null) {
-                    if(parameter.equals("registration")) {
+                    if(parameter.startsWith("registration")) {
                         haveRegisterParam = true;
+                        String[] partsParam = parameter.split("_");
+                        statParam = partsParam.length > 1 ? partsParam[1] : "";
                     }
                 } else {
                     try {
@@ -63,7 +68,7 @@ public class MainBotController extends TelegramLongPollingBot {
             } else {
                 startCommandReceived(SendMessage.builder()
                         .chatId(chatId)
-                        .text("Неправильная команда. Введите /start .")
+                        .text(specialMessages.getUnsupportedCommandMessage())
                         .build()
                 );
             }
@@ -85,7 +90,7 @@ public class MainBotController extends TelegramLongPollingBot {
 
             if(Objects.equals(call_data, "registration")) {
                 if(registrationService.haveActiveConference()) {
-                    registrationService.registerUserToAllConference(chatId);
+                    registrationService.registerUserToAllConference(chatId, statParam);
                 }
                 else {
                     call_data = "null_registration";

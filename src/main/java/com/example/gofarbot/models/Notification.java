@@ -30,6 +30,9 @@ public class Notification {
     private File file;
 
     @Nullable
+    private Long number;
+
+    @Nullable
     @ManyToOne
     @JoinColumn(name = "type")
     private NotificationType type;

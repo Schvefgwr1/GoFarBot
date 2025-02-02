@@ -2,6 +2,7 @@ package com.example.gofarbot.data;
 
 import com.example.gofarbot.models.Conference;
 import com.example.gofarbot.models.User;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -49,10 +50,11 @@ public interface ConferenceRepository extends CrudRepository<Conference, Long> {
     """, nativeQuery = true)
     long findCountOfUserConferences(@Param("userId") long userId);
 
-    @Query("""
-        SELECT conf.users
-        FROM Conference conf
-        WHERE conf.id = :conferenceId
-    """)
+    @Query(value = """
+        SELECT u.*
+        FROM users u
+        JOIN conferences_users_rel ur ON u.id = ur.user_id
+        WHERE ur.conference = :conferenceId
+    """, nativeQuery = true)
     List<User> findUsersOfConference(@Param("conferenceId") long conferenceId);
 }

@@ -3,12 +3,14 @@ package com.example.gofarbot.controllers.web_controllers;
 
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToAllUsersRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToRegUsersRequest;
+import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToUserListRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToUsersResponse;
 import com.example.gofarbot.services.web_services.HandleMessageService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,14 @@ import java.util.Objects;
 @Slf4j
 public class HandleMessagesController {
     private final HandleMessageService handleMessageService;
+
+    @PostMapping("/list")
+    public ResponseEntity<SendHandleMessageToUsersResponse> sendHandleMessageToUserList(
+            @RequestBody @Valid SendHandleMessageToUserListRequest request
+    ) {
+        SendHandleMessageToUsersResponse response = handleMessageService.sendToUserList(request);
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf((response.getCode())));
+    }
 
     @PostMapping("/reg")
     public ResponseEntity<SendHandleMessageToUsersResponse> sendHandleMessageToRegUsers(
