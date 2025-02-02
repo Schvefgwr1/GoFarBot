@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 @Slf4j
 @AllArgsConstructor
 public class MainBotService {
+    private final ExceptionMessage exceptionMessage;
     private final MessageService messageService;
 
     public MessageServiceDTO getBackMessage(long chatId) {
@@ -26,7 +27,7 @@ public class MainBotService {
         catch(UserException e) {
             log.error(e.toString());
             return MessageServiceDTO.builder()
-                    .message(new ExceptionMessage(chatId))
+                    .message(exceptionMessage.getExceptionMessage(chatId))
                     .build();
         }
         catch(BackMessageException e) {
@@ -44,13 +45,13 @@ public class MainBotService {
                 !(messageDTO.getMessage() instanceof SendDocument)
             ) {
                 log.error("Incorrect type of message in {}", this.getClass().getName());
-                messageDTO.setMessage(new ExceptionMessage(chatId));
+                messageDTO.setMessage(exceptionMessage.getExceptionMessage(chatId));
             }
             return messageDTO;
         } catch (Exception e) {
             log.error(e.toString());
             return MessageServiceDTO.builder()
-                    .message(new ExceptionMessage(chatId))
+                    .message(exceptionMessage.getExceptionMessage(chatId))
                     .build();
         }
     }
@@ -63,13 +64,13 @@ public class MainBotService {
                 !(messageDTO.getMessage() instanceof SendDocument)
             ) {
                 log.error("Incorrect type of message in {}", this.getClass().getName());
-                messageDTO.setMessage(new ExceptionMessage(chatId));
+                messageDTO.setMessage(exceptionMessage.getExceptionMessage(chatId));
             }
             return messageDTO;
         } catch (Exception e) {
             log.error(e.toString());
             return MessageServiceDTO.builder()
-                    .message(new ExceptionMessage(chatId))
+                    .message(exceptionMessage.getExceptionMessage(chatId))
                     .build();
         }
     }

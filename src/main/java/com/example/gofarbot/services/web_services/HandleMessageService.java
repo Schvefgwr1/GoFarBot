@@ -6,6 +6,7 @@ import com.example.gofarbot.controllers.web_controllers.dto.files.UploadFileRequ
 import com.example.gofarbot.controllers.web_controllers.dto.files.UploadFileResponse;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToAllUsersRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToRegUsersRequest;
+import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToUserListRequest;
 import com.example.gofarbot.controllers.web_controllers.dto.handle_messages.SendHandleMessageToUsersResponse;
 import com.example.gofarbot.data.*;
 import com.example.gofarbot.models.File;
@@ -35,6 +36,17 @@ public class HandleMessageService {
     private final MainBotController mainBotController;
     private final FileService fileService;
     private final FileRepository fileRepository;
+
+    public SendHandleMessageToUsersResponse sendToUserList(@NotNull SendHandleMessageToUserListRequest request) {
+        HashSet<Long> chatIds = new HashSet<>();
+        request.getUsersIds().forEach(userId -> {
+            if(userRepository.findUserByChatId(userId).isPresent()) {
+                chatIds.add(userId);
+            }
+        });
+
+        return sendMessage(chatIds, request.getUploadFileRequest(), request.getMessage());
+    }
 
     public SendHandleMessageToUsersResponse sendToRegUsers(@NotNull SendHandleMessageToRegUsersRequest request) {
         HashSet<Long> chatIds = new HashSet<>();

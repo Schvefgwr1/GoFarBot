@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: 32
+      author: vsevolod schetov
+      changes:
+        - dropNotNullConstraint:
+            tableName: messages
+            columnName: dialog
+        - dropNotNullConstraint:
+            tableName: messages
+            columnName: number

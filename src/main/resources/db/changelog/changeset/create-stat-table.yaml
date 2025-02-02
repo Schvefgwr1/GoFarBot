@@ -1,0 +1,51 @@
+databaseChangeLog:
+  - changeSet:
+      id: 30
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: stats
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: code
+                  type: VARCHAR(127)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: TEXT
+                  constraints:
+                    nullable: true
+        - addColumn:
+            tableName: conferences_users_rel
+            columns:
+              - column:
+                  name: stat_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        - addColumn:
+            tableName: conferences_users_rel
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+        - addForeignKeyConstraint:
+            baseTableName: conferences_users_rel
+            baseColumnNames: stat_id
+            constraintName: fk_users_stats
+            referencedTableName: stats
+            referencedColumnNames: id
+            onDelete: SET NULL
+            onUpdate: RESTRICT

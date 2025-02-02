@@ -1,5 +1,6 @@
 package com.example.gofarbot.services.notifications;
 
+import jakarta.annotation.PreDestroy;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,18 @@ public class NotificationService{
     public void cancelTask(ScheduledFuture<?> future) {
         if (future != null) {
             future.cancel(false);
+        }
+    }
+
+    @PreDestroy
+    public void shutdownScheduler() {
+        scheduler.shutdown();
+        try {
+            if (!scheduler.awaitTermination(1, TimeUnit.SECONDS)) {
+                scheduler.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduler.shutdownNow();
         }
     }
 }

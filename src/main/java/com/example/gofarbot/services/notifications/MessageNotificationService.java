@@ -7,6 +7,7 @@ import com.example.gofarbot.models.*;
 import com.example.gofarbot.services.web_services.FileService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
@@ -16,9 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.InputFile;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -35,6 +34,21 @@ public class MessageNotificationService {
                notifications.add(not);
             }
         }
+
+        // Сортировка по свойству number
+        notifications.sort((o1, o2) -> {
+            if((o1.getNumber() == null) && (o2.getNumber() == null)) {
+                return 1;
+            }
+            if(o1.getNumber() == null) {
+                return -1;
+            }
+            if(o2.getNumber() == null) {
+                return 1;
+            }
+            return Long.compare(o1.getNumber(), o2.getNumber());
+        });
+
         sendNotificationsToUsers(conference, notifications, type);
     }
 
@@ -55,6 +69,7 @@ public class MessageNotificationService {
             List<Notification> notifications,
             NotificationType.NotificationTypes type
     ) {
+        Hibernate.initialize(conference.getRegistrations());
         for(Notification notification: notifications) {
             if (notification != null) {
                 if (notification.getFile() == null) {

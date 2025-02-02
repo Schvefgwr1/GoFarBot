@@ -26,7 +26,7 @@ public class ConferenceService {
             Iterable<Conference> iterable = conferenceRepository.findAll();
             ArrayList<Conference> conferences = new ArrayList<>();
             iterable.forEach((conference) -> {
-                conference.setUsers(new ArrayList<>());
+                conference.setRegistrations(new ArrayList<>());
                 conference.setNotifications(new ArrayList<>());
                 conferences.add(conference);
             });
