@@ -1,10 +1,7 @@
 package com.example.gofarbot.services.web_services;
 
 
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.CreateConferenceRequest;
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.CreateConferenceResponse;
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.GetConferenceResponse;
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.GetConferencesResponse;
+import com.example.gofarbot.controllers.web_controllers.dto.conferences.*;
 import com.example.gofarbot.data.ConferenceRepository;
 import com.example.gofarbot.exceptions.ConferenceException;
 import com.example.gofarbot.exceptions.DatabaseException;
@@ -99,6 +96,41 @@ public class ConferenceService {
             return CreateConferenceResponse.builder()
                     .code((short) 400)
                     .message("Error of database operation")
+                    .build();
+        }
+    }
+
+    public UpdateConferenceResponse updateConference(UpdateConferenceRequest request, long id) {
+        try {
+            Conference conference = conferenceRepository.findById(id)
+                    .orElseThrow(() -> new ConferenceException("Can't find conference", id));
+            if(request.getName() != null) {
+                conference.setName(request.getName());
+            }
+            if(request.getLink() != null) {
+                conference.setLink(conference.getLink());
+            }
+            if(request.getTimeOfConference() != null) {
+                conference.setTimeOfConference(request.getTimeOfConference());
+            }
+            conference = conferenceRepository.save(conference);
+            return UpdateConferenceResponse.builder()
+                    .id(conference.getId())
+                    .name(conference.getName())
+                    .link(conference.getLink())
+                    .timeOfConference(conference.getTimeOfConference())
+                    .message("Successful operation")
+                    .code((short) 200)
+                    .build();
+        } catch (ConferenceException e) {
+            return UpdateConferenceResponse.builder()
+                    .message(e.getMessage())
+                    .code((short) 404)
+                    .build();
+        } catch (Exception e) {
+            return UpdateConferenceResponse.builder()
+                    .message(e.getMessage())
+                    .code((short) 400)
                     .build();
         }
     }
