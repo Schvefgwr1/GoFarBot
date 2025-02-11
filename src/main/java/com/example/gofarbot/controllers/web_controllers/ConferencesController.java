@@ -1,15 +1,13 @@
 package com.example.gofarbot.controllers.web_controllers;
 
 
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.CreateConferenceRequest;
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.CreateConferenceResponse;
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.GetConferenceResponse;
-import com.example.gofarbot.controllers.web_controllers.dto.conferences.GetConferencesResponse;
+import com.example.gofarbot.controllers.web_controllers.dto.conferences.*;
 import com.example.gofarbot.services.web_services.ConferenceService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -58,5 +56,14 @@ public class ConferencesController {
             httpStatus = HttpStatus.BAD_REQUEST;
         }
         return new ResponseEntity<>(response, httpStatus);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UpdateConferenceResponse> updateConference(
+            @PathVariable("id") long conferenceId,
+            @RequestBody UpdateConferenceRequest request
+    ) {
+        UpdateConferenceResponse response = conferenceService.updateConference(request, conferenceId);
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf((response.getCode())));
     }
 }

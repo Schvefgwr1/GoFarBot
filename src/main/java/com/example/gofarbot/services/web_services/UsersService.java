@@ -1,8 +1,12 @@
 package com.example.gofarbot.services.web_services;
 
 import com.example.gofarbot.controllers.web_controllers.dto.users.GetUsersByConferenceResponse;
+import com.example.gofarbot.data.ConferenceRepository;
 import com.example.gofarbot.data.UserRepository;
+import com.example.gofarbot.exceptions.ConferenceException;
+import com.example.gofarbot.models.Conference;
 import com.example.gofarbot.models.User;
+import com.example.gofarbot.models.UserRegistration;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -16,12 +20,24 @@ import java.util.List;
 @Slf4j
 public class UsersService {
     private final UserRepository userRepository;
+    private final ConferenceRepository conferenceRepository;
 
     public GetUsersByConferenceResponse getUsersByConferenceId(long conferenceId, Integer page, Integer limit) {
         if(page == null || limit == null) {
             return GetUsersByConferenceResponse.builder()
                     .code((short) 400)
                     .message("Incorrect page or limit param")
+                    .build();
+        }
+        try {
+            conferenceRepository.findById(conferenceId)
+                    .orElseThrow(() -> new ConferenceException("Incorrect conference id ", conferenceId));
+        } catch (ConferenceException e) {
+            return GetUsersByConferenceResponse.builder()
+                    .code((short) 400)
+                    .message(e.getMessage() + conferenceId)
+                    .limit(limit)
+                    .page(page)
                     .build();
         }
         try {

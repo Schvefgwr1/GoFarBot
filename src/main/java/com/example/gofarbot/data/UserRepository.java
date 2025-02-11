@@ -2,6 +2,7 @@ package com.example.gofarbot.data;
 
 
 import com.example.gofarbot.models.User;
+import com.example.gofarbot.models.UserRegistration;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
