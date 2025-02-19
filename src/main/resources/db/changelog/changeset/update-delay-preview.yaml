@@ -1,0 +1,28 @@
+databaseChangeLog:
+  - changeSet:
+      id: 33
+      author: vsevolod schetov
+      changes:
+        - addColumn:
+            tableName: messages
+            columns:
+              - column:
+                  name: preview_mode
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+                  defaultValue: true
+              - column:
+                  name: delay
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+        - addColumn:
+            tableName: notifications
+            columns:
+              - column:
+                  name: preview_mode
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+                  defaultValue: true

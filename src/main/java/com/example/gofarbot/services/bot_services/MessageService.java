@@ -108,6 +108,7 @@ public class MessageService {
         Long nextMessageId = message.getNextMessageId();
         MessageServiceDTO messageResponse = MessageServiceDTO.builder()
                 .nextMessageId(nextMessageId)
+                .delay(message.getDelay())
                 .build();
         if(message.getFile() != null) {
             if (message.getFile().getFileId() != null) {
@@ -141,6 +142,7 @@ public class MessageService {
                         .chatId(chatId)
                         .parseMode(ParseMode.HTML)
                         .text(text)
+                        .disableWebPagePreview(!message.isHavePreview())
                         .build();
                 if(keyboard != null) {
                     sendMessage.setReplyMarkup(keyboard);
@@ -153,6 +155,7 @@ public class MessageService {
                     .chatId(chatId)
                     .parseMode(ParseMode.HTML)
                     .text(text)
+                    .disableWebPagePreview(!message.isHavePreview())
                     .build();
             if(keyboard != null) {
                 sendMessage.setReplyMarkup(keyboard);

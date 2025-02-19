@@ -75,3 +75,6 @@ databaseChangeLog:
   #Update messages constrains of dialog and number
   - include:
       file: db/changelog/changeset/update-messages-table-constrains.yaml
+  #Add preview mode and delays for
+  - include:
+      file: db/changelog/changeset/update-delay-preview.yaml

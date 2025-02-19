@@ -144,6 +144,7 @@ public class MessageNotificationService {
                             .chatId(user.getChatId())
                             .parseMode(ParseMode.HTML)
                             .text(getNotificationMessage(notification))
+                            .disableWebPagePreview(!notification.isHavePreview())
                             .build()
             );
         }
