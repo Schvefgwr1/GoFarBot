@@ -32,6 +32,9 @@ public class Notification {
     @Nullable
     private Long number;
 
+    @Column(name = "preview_mode")
+    private boolean havePreview;
+
     @Nullable
     @ManyToOne
     @JoinColumn(name = "type")

@@ -8,4 +8,5 @@ import lombok.Data;
 public class MessageServiceDTO {
     private Long nextMessageId;
     private Object message;
+    private Long delay;
 }

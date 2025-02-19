@@ -41,6 +41,12 @@ public class Message {
     @Column(name = "next_message")
     private Long nextMessageId;
 
+    @Column(name = "preview_mode")
+    private boolean havePreview;
+
+    @Nullable
+    private Long delay;
+
     @Nullable
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Button.class)
     @JoinTable(

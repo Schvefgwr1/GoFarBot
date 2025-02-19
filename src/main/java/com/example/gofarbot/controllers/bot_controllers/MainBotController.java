@@ -5,10 +5,12 @@ import com.example.gofarbot.config.SpecialMessages;
 import com.example.gofarbot.services.bot_services.MainBotService;
 import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
 import com.example.gofarbot.services.bot_services.registration.RegistrationService;
+import com.example.gofarbot.services.notifications.NotificationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendDocument;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
@@ -17,6 +19,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 @Component
 @Slf4j
@@ -26,6 +29,7 @@ public class MainBotController extends TelegramLongPollingBot {
     private final MainBotService mainBotService;
     private final RegistrationService registrationService;
     private final SpecialMessages specialMessages;
+    private final NotificationService notificationService;
 
     @Override
     public String getBotUsername() {
@@ -68,6 +72,7 @@ public class MainBotController extends TelegramLongPollingBot {
             } else {
                 startCommandReceived(SendMessage.builder()
                         .chatId(chatId)
+                        .parseMode(ParseMode.HTML)
                         .text(specialMessages.getUnsupportedCommandMessage())
                         .build()
                 );
@@ -104,17 +109,28 @@ public class MainBotController extends TelegramLongPollingBot {
     }
 
     private void sendMessagesForCommand(long chatId, String command) {
-        MessageServiceDTO messageServiceDTO;
-        if(Objects.equals(command, "back_button")) {
-            messageServiceDTO = mainBotService.getBackMessage(chatId);
-        }
-        else {
-            messageServiceDTO = mainBotService.getStandardMessage(chatId, command);
-        }
-        startCommandReceived(messageServiceDTO.getMessage());
-        while(messageServiceDTO.getNextMessageId() != null) {
-            messageServiceDTO = mainBotService.getStandardMessage(chatId, messageServiceDTO.getNextMessageId());
-            startCommandReceived(messageServiceDTO.getMessage());
+        MessageServiceDTO messageServiceDTO = Objects.equals(command, "back_button")
+                ? mainBotService.getBackMessage(chatId)
+                : mainBotService.getStandardMessage(chatId, command);
+
+        long accumulatedDelay = 0;
+
+        while (messageServiceDTO != null) {
+            final MessageServiceDTO lambdaDTO = messageServiceDTO;
+
+            if (accumulatedDelay == 0) {
+                startCommandReceived(lambdaDTO.getMessage());
+            } else {
+                notificationService.scheduleTask(() -> startCommandReceived(lambdaDTO.getMessage()),
+                        accumulatedDelay, TimeUnit.MILLISECONDS);
+            }
+
+            if(lambdaDTO.getDelay() != null && lambdaDTO.getDelay() > 0) {
+                accumulatedDelay += lambdaDTO.getDelay();
+            }
+            messageServiceDTO = lambdaDTO.getNextMessageId() != null
+                    ? mainBotService.getStandardMessage(chatId, lambdaDTO.getNextMessageId())
+                    : null;
         }
     }
 
