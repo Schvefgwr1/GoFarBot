@@ -1,11 +1,13 @@
 package com.example.gofarbot.services.bot_services;
 
+import com.example.gofarbot.data.LinkMetricRepository;
 import com.example.gofarbot.data.MessageRepository;
 import com.example.gofarbot.data.UserRepository;
 import com.example.gofarbot.exceptions.BackMessageException;
 import com.example.gofarbot.exceptions.MessageException;
 import com.example.gofarbot.exceptions.UserException;
 import com.example.gofarbot.models.File;
+import com.example.gofarbot.models.LinkMetric;
 import com.example.gofarbot.models.Message;
 import com.example.gofarbot.models.User;
 import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
@@ -31,6 +33,7 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final KeyboardsService keyboardsService;
     private final UserRepository userRepository;
+    private final LinkMetricRepository linkMetricRepository;
 
     public MessageServiceDTO getBackMessageToUser(long chatId) throws UserException, BackMessageException {
         User user = userRepository.findUserByChatId(chatId)
@@ -62,6 +65,25 @@ public class MessageService {
             }
         }
         else throw new UserException("User don't have correct state: ", chatId);
+    }
+
+    public MessageServiceDTO getLinkMessage(String linkName, long chatId) throws MessageException {
+        List<Message> messages = messageRepository.findMessagesByLinkName(linkName);
+        if(messages.isEmpty()) {
+            return this.getMessage("/start", chatId);
+        } else {
+            if(messages.get(0).isAllowForLink()) {
+                checkAndSaveUser(messages.get(0), chatId);
+                linkMetricRepository.save(LinkMetric.builder()
+                        .userId(chatId)
+                        .linkName(linkName)
+                        .build()
+                );
+                return getMessageDTO(messages.get(0), chatId);
+            } else {
+                return this.getMessage("/start", chatId);
+            }
+        }
     }
 
     public MessageServiceDTO getMessage(long messageId, long chatId) throws MessageException {

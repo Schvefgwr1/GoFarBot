@@ -78,3 +78,9 @@ databaseChangeLog:
   #Add preview mode and delays for
   - include:
       file: db/changelog/changeset/update-delay-preview.yaml
+  #Add messages for link changes
+  - include:
+      file: db/changelog/changeset/update-messages-for-link.yaml
+  #Add links metric table
+  - include:
+      file: db/changelog/changeset/create-links-metric-table.yaml

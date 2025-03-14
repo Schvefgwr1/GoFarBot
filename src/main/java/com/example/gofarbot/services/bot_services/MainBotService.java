@@ -23,55 +23,48 @@ public class MainBotService {
     public MessageServiceDTO getBackMessage(long chatId) {
         try {
             return messageService.getBackMessageToUser(chatId);
-        }
-        catch(UserException e) {
+        } catch (UserException e) {
             log.error(e.toString());
-            return MessageServiceDTO.builder()
-                    .message(exceptionMessage.getExceptionMessage(chatId))
-                    .build();
-        }
-        catch(BackMessageException e) {
+            return buildExceptionMessage(chatId);
+        } catch (BackMessageException e) {
             log.error(e.toString());
-            //реализовать отправку мне в чат сообщения об ошибке
             return this.getStandardMessage(chatId, "/start");
         }
     }
 
+    public MessageServiceDTO getMessageForLink(long chatId, String link) {
+        return handleMessage(() -> messageService.getLinkMessage(link, chatId), chatId);
+    }
+
     public MessageServiceDTO getStandardMessage(long chatId, String code) {
-        try {
-            MessageServiceDTO messageDTO = messageService.getMessage(code, chatId);
-            if (!(messageDTO.getMessage() instanceof SendMessage) &&
-                !(messageDTO.getMessage() instanceof SendPhoto) &&
-                !(messageDTO.getMessage() instanceof SendDocument)
-            ) {
-                log.error("Incorrect type of message in {}", this.getClass().getName());
-                messageDTO.setMessage(exceptionMessage.getExceptionMessage(chatId));
-            }
-            return messageDTO;
-        } catch (Exception e) {
-            log.error(e.toString());
-            return MessageServiceDTO.builder()
-                    .message(exceptionMessage.getExceptionMessage(chatId))
-                    .build();
-        }
+        return handleMessage(() -> messageService.getMessage(code, chatId), chatId);
     }
 
     public MessageServiceDTO getStandardMessage(long chatId, Long id) {
+        return handleMessage(() -> messageService.getMessage(id, chatId), chatId);
+    }
+
+    private MessageServiceDTO handleMessage(MessageSupplier messageSupplier, long chatId) {
         try {
-            MessageServiceDTO messageDTO = messageService.getMessage(id, chatId);
-            if (!(messageDTO.getMessage() instanceof SendMessage) &&
-                !(messageDTO.getMessage() instanceof SendPhoto) &&
-                !(messageDTO.getMessage() instanceof SendDocument)
-            ) {
+            MessageServiceDTO messageDTO = messageSupplier.get();
+            if (!isValidMessageType(messageDTO.getMessage())) {
                 log.error("Incorrect type of message in {}", this.getClass().getName());
                 messageDTO.setMessage(exceptionMessage.getExceptionMessage(chatId));
             }
             return messageDTO;
         } catch (Exception e) {
             log.error(e.toString());
-            return MessageServiceDTO.builder()
-                    .message(exceptionMessage.getExceptionMessage(chatId))
-                    .build();
+            return buildExceptionMessage(chatId);
         }
+    }
+
+    private boolean isValidMessageType(Object message) {
+        return message instanceof SendMessage || message instanceof SendPhoto || message instanceof SendDocument;
+    }
+
+    private MessageServiceDTO buildExceptionMessage(long chatId) {
+        return MessageServiceDTO.builder()
+                .message(exceptionMessage.getExceptionMessage(chatId))
+                .build();
     }
 }
