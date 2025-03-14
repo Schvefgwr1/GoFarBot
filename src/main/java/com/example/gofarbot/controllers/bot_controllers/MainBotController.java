@@ -44,14 +44,16 @@ public class MainBotController extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         boolean haveRegisterParam = false;
+        boolean haveLinkParam = false;
         String statParam = "";
+        String linkParam = "";
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             long chatId = update.getMessage().getChatId();
             long userId = update.getMessage().getFrom().getId();
 
             Message message = update.getMessage();
-            if (message.hasText() && message.getText().startsWith("/start")) {
+            if (message.hasText() && message.getText().startsWith("/")) {
                 String messageT = message.getText();
                 String[] parts = message.getText().split(" ");
                 String parameter = parts.length > 1 ? parts[1] : null;
@@ -61,6 +63,18 @@ public class MainBotController extends TelegramLongPollingBot {
                         haveRegisterParam = true;
                         String[] partsParam = parameter.split("_");
                         statParam = partsParam.length > 1 ? partsParam[1] : "";
+                    }
+                    else {
+                        if (parameter.startsWith("link")) {
+                            haveLinkParam = true;
+                            linkParam = parameter;
+                        } else {
+                            try {
+                                sendMessagesForCommand(chatId, message.getText().split(" ")[0]);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
                     }
                 } else {
                     try {
@@ -78,13 +92,18 @@ public class MainBotController extends TelegramLongPollingBot {
                 );
             }
         }
-        if(update.hasCallbackQuery() || haveRegisterParam) {
+        if(update.hasCallbackQuery() || haveRegisterParam || haveLinkParam) {
             String call_data;
-            if(!haveRegisterParam) {
+            if(!haveRegisterParam && !haveLinkParam) {
                 call_data = update.getCallbackQuery().getData();
             }
             else {
-                call_data = "registration";
+                if(haveRegisterParam) {
+                    call_data = "registration";
+                }
+                else {
+                    call_data = linkParam;
+                }
             }
             long chatId;
             if(update.hasCallbackQuery()) {
@@ -105,13 +124,22 @@ public class MainBotController extends TelegramLongPollingBot {
 
             sendMessagesForCommand(chatId, call_data);
         }
-
     }
 
     private void sendMessagesForCommand(long chatId, String command) {
-        MessageServiceDTO messageServiceDTO = Objects.equals(command, "back_button")
-                ? mainBotService.getBackMessage(chatId)
-                : mainBotService.getStandardMessage(chatId, command);
+        MessageServiceDTO messageServiceDTO;
+        if(Objects.equals(command, "back_button")) {
+            messageServiceDTO = mainBotService.getBackMessage(chatId);
+        } else {
+            if(command.startsWith("link")) {
+                String[] partsParam = command.split("_");
+                messageServiceDTO = partsParam.length > 1 ?
+                    mainBotService.getMessageForLink(chatId, partsParam[1]) :
+                    mainBotService.getStandardMessage(chatId, "/start");
+            } else {
+                messageServiceDTO = mainBotService.getStandardMessage(chatId, command);
+            }
+        }
 
         long accumulatedDelay = 0;
 

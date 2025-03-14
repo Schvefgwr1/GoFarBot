@@ -1,10 +1,7 @@
 package com.example.gofarbot.services.bot_services.registration;
 
 
-import com.example.gofarbot.data.ConferenceRepository;
-import com.example.gofarbot.data.MessageRepository;
-import com.example.gofarbot.data.StatRepository;
-import com.example.gofarbot.data.UserRepository;
+import com.example.gofarbot.data.*;
 import com.example.gofarbot.exceptions.MessageException;
 import com.example.gofarbot.models.*;
 import com.example.gofarbot.services.notifications.NotificationService;
@@ -30,6 +27,7 @@ public class RegistrationService {
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
     private final StatRepository statRepository;
+    private final UserRegistrationRepository userRegistrationRepository;
     private final NotificationService notificationService;
     private final ApplicationEventPublisher eventPublisher;
 
@@ -51,24 +49,23 @@ public class RegistrationService {
             for(Conference conference: conferences) {
                 List<User> users = conference.getUsers();
                 if(!users.contains(user.get())) {
-                    if(stat != null) {
-                        UserRegistration newRegistration = UserRegistration.builder()
-                                .user(user.get())
-                                .conferenceId(conference.getId())
-                                .stat(stat)
-                                .build();
-                        conference.getRegistrations().add(newRegistration);
-                    } else {
-                        UserRegistration newRegistration = UserRegistration.builder()
-                                .user(user.get())
-                                .conferenceId(conference.getId())
-                                .build();
-                        conference.getRegistrations().add(newRegistration);
+                    UserRegistration newRegistration = UserRegistration.builder()
+                            .user(user.get())
+                            .conferenceId(conference.getId())
+                            .stat(stat)
+                            .build();
+                    try {
+                        userRegistrationRepository.save(newRegistration);
+                    } catch (Exception e) {
+                        log.error(
+                                "Error of saving UserRegistration with user: {}, conference: {}",
+                                user.get().getUserId(),
+                                conference.getId()
+                        );
                     }
                     users.add(user.get());
                 }
             }
-            conferenceRepository.saveAll(conferences);
         }
         else {
             log.warn("Don't have user with chatId in registration: {}", chatId);

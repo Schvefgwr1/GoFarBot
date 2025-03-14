@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 34
+      author: vsevolod schetov
+      changes:
+        - addColumn:
+            tableName: messages
+            columns:
+              - column:
+                  name: allow_for_link
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+                  defaultValue: false
+              - column:
+                  name: link_name
+                  type: VARCHAR
+                  constraints:
+                    nullable: true
+      rollback:
+        - dropColumn:
+            tableName: messages
+            columnName: allow_for_link
+        - dropColumn:
+            tableName: messages
+            columnName: link_name

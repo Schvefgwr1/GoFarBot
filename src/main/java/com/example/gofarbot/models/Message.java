@@ -47,6 +47,13 @@ public class Message {
     @Nullable
     private Long delay;
 
+    @Column(name= "allow_for_link")
+    private boolean allowForLink;
+
+    @Column(name = "link_name")
+    @Nullable
+    private String linkName;
+
     @Nullable
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Button.class)
     @JoinTable(

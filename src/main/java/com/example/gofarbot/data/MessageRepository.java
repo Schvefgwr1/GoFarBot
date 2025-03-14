@@ -30,4 +30,6 @@ public interface MessageRepository extends CrudRepository<Message, Long> {
         LIMIT 1
     """, nativeQuery = true)
     Optional<Message> findPreviousMessageInChain(@Param("next_message_id") long messageId);
+
+    List<Message> findMessagesByLinkName(String linkName);
 }
