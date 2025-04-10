@@ -51,10 +51,10 @@ public interface ConferenceRepository extends CrudRepository<Conference, Long> {
     long findCountOfUserConferences(@Param("userId") long userId);
 
     @Query(value = """
-        SELECT u.*
+        SELECT u.chat_id
         FROM users u
         JOIN conferences_users_rel ur ON u.id = ur.user_id
         WHERE ur.conference = :conferenceId
     """, nativeQuery = true)
-    List<User> findUsersOfConference(@Param("conferenceId") long conferenceId);
+    List<Long> findUsersOfConference(@Param("conferenceId") long conferenceId);
 }

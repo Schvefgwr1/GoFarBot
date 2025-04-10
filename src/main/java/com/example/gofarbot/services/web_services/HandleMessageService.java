@@ -51,9 +51,15 @@ public class HandleMessageService {
     public SendHandleMessageToUsersResponse sendToRegUsers(@NotNull SendHandleMessageToRegUsersRequest request) {
         HashSet<Long> chatIds = new HashSet<>();
         for(Long conferenceId: request.getConferenceIds()) {
-            List<User> users = conferenceRepository.findUsersOfConference(conferenceId);
-            for(User user: users) {
-                chatIds.add(user.getChatId());
+            try {
+                List<Long> usersIdsOfConf = conferenceRepository.findUsersOfConference(conferenceId);
+                chatIds.addAll(usersIdsOfConf);
+            } catch (Exception e) {
+                log.error("Exception in findUsersOfConference: {}", e.getMessage());
+                return SendHandleMessageToUsersResponse.builder()
+                        .code((short) 500)
+                        .message("Error with db sql")
+                        .build();
             }
         }
         return sendMessage(chatIds, request.getUploadFileRequest(), request.getMessage());
@@ -61,9 +67,17 @@ public class HandleMessageService {
 
     public SendHandleMessageToUsersResponse sendToAllUsers(@NotNull SendHandleMessageToAllUsersRequest request) {
         HashSet<Long> chatIds = new HashSet<>();
-        userRepository.findAll().forEach(user ->
-            chatIds.add(user.getChatId())
-        );
+        try {
+            userRepository.findAll().forEach(user ->
+                    chatIds.add(user.getChatId())
+            );
+        } catch (Exception e) {
+            log.error("Exception in userRepository.findAll(): {}", e.getMessage());
+            return SendHandleMessageToUsersResponse.builder()
+                    .code((short) 500)
+                    .message("Error with db sql")
+                    .build();
+        }
         return sendMessage(chatIds, request.getUploadFileRequest(), request.getMessage());
     }
 
