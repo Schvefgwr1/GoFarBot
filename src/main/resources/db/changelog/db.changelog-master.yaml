@@ -84,3 +84,6 @@ databaseChangeLog:
   #Add links metric table
   - include:
       file: db/changelog/changeset/create-links-metric-table.yaml
+  #Create resources tables
+  - include:
+      file: db/changelog/changeset/create-resources-tables.yaml
