@@ -4,7 +4,6 @@ import com.example.gofarbot.data.ResourceRepository;
 import com.example.gofarbot.exceptions.InvalidGoogleFormConfigException;
 import com.example.gofarbot.models.Resource;
 import com.example.gofarbot.services.resources.ResourceRule;
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +48,7 @@ public class GoogleFormFindUserRule implements ResourceRule {
     @Override
     public boolean isChecked() {
         try {
-            return googleFormService.userExistsByTelegramUsername(username);
+            return googleFormService.notUserExistsByTelegramUsername(username);
         } catch (IOException e) {
             log.error(e.getMessage());
             return false;

@@ -1,9 +1,11 @@
 package com.example.gofarbot.models;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 @Entity
 @Table(name = "react_to_res")
+@Data
 public class ReactToRes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

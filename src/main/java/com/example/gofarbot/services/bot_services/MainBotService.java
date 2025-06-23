@@ -5,6 +5,8 @@ import com.example.gofarbot.dto.ExceptionMessage;
 import com.example.gofarbot.exceptions.BackMessageException;
 import com.example.gofarbot.exceptions.UserException;
 import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
+
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,7 +30,7 @@ public class MainBotService {
             return buildExceptionMessage(chatId);
         } catch (BackMessageException e) {
             log.error(e.toString());
-            return this.getStandardMessage(chatId, "/start");
+            return this.getStandardMessage(chatId, "/start", null, null);
         }
     }
 
@@ -36,12 +38,13 @@ public class MainBotService {
         return handleMessage(() -> messageService.getLinkMessage(link, chatId), chatId);
     }
 
-    public MessageServiceDTO getStandardMessage(long chatId, String code) {
-        return handleMessage(() -> messageService.getMessage(code, chatId), chatId);
+    // Методы с передачей накопленных результатов проверки ресурсов
+    public MessageServiceDTO getStandardMessage(long chatId, String code, String username, Map<Long, Boolean> validatedResources) {
+        return handleMessage(() -> messageService.getMessage(code, chatId, username, validatedResources), chatId);
     }
 
-    public MessageServiceDTO getStandardMessage(long chatId, Long id) {
-        return handleMessage(() -> messageService.getMessage(id, chatId), chatId);
+    public MessageServiceDTO getStandardMessage(long chatId, Long id, String username, Map<Long, Boolean> validatedResources) {
+        return handleMessage(() -> messageService.getMessage(id, chatId, username, validatedResources), chatId);
     }
 
     private MessageServiceDTO handleMessage(MessageSupplier messageSupplier, long chatId) {

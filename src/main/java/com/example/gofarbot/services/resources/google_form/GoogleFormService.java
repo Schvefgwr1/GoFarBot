@@ -3,13 +3,12 @@ package com.example.gofarbot.services.resources.google_form;
 import com.example.gofarbot.exceptions.InvalidGoogleFormConfigException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.sheets.v4.Sheets;
 import com.google.api.services.sheets.v4.model.ValueRange;
 import com.google.auth.http.HttpCredentialsAdapter;
 import com.google.auth.oauth2.ServiceAccountCredentials;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -63,13 +62,16 @@ public class GoogleFormService {
         }
 
         try {
+            ServiceAccountCredentials credentials = ServiceAccountCredentials
+                    .fromStream(new FileInputStream(config.getCredentialsPath()));
+            
             this.sheetsService = new Sheets.Builder(
                     GoogleNetHttpTransport.newTrustedTransport(),
-                    JacksonFactory.getDefaultInstance(),
-                    new HttpCredentialsAdapter(
-                            ServiceAccountCredentials.fromStream(new FileInputStream(config.getCredentialsPath()))
-                    )
-            ).setApplicationName("GoFarBot").build();
+                    GsonFactory.getDefaultInstance(),
+                    new HttpCredentialsAdapter(credentials)
+            )
+            .setApplicationName("GoFarBot")
+            .build();
         } catch (IOException e) {
             throw new InvalidGoogleFormConfigException(
                     configPath,
@@ -87,7 +89,7 @@ public class GoogleFormService {
         }
     }
 
-    public boolean userExistsByTelegramUsername(String username) throws IOException {
+    public boolean notUserExistsByTelegramUsername(String username) throws IOException {
         ValueRange valueRange = sheetsService.spreadsheets().values()
                 .get(config.getSpreadsheetId(), config.getSheetName())
                 .execute();
@@ -111,17 +113,18 @@ public class GoogleFormService {
             throw new IOException("Column '" + config.getColumnName() + "' not found in Google Sheet: " + config.getSheetName());
         }
 
+        boolean isUserExists = false;
         for (int i = 1; i < rows.size(); i++) {
             List<Object> row = rows.get(i);
             if (nicknameCol < row.size()) {
                 String cell = row.get(nicknameCol).toString().trim();
-                if (Objects.equals(cell, username)) {
-                    return true;
+                if (Objects.equals(cell, username) || Objects.equals(cell.replace("@", ""), username)) {
+                    isUserExists = true;
                 }
             }
         }
 
-        return false;
+        return !isUserExists;
     }
 
 }
