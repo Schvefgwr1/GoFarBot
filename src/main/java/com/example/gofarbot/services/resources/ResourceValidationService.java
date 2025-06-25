@@ -9,8 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -63,8 +61,7 @@ public class ResourceValidationService {
         
         try {
             if (rule.installService(resource.getId())) {
-                if (rule instanceof GoogleFormFindUserRule) {
-                    GoogleFormFindUserRule googleFormRule = (GoogleFormFindUserRule) rule;
+                if (rule instanceof GoogleFormFindUserRule googleFormRule) {
                     googleFormRule.setUsername(username);
                     googleFormRule.setMessageId(messageId);
                     googleFormRule.setUserChatId(userChatId);
