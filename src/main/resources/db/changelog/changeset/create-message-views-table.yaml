@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 35
+      author: vsevolod schetov
+      changes:
+        - createTable:
+            tableName: message_views
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: message_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_message_views_message
+                    references: messages(id)
+              - column:
+                  name: user_chat_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: view_count
+                  type: INTEGER
+                  constraints:
+                    nullable: false
+                  defaultValue: 1
+              - column:
+                  name: first_viewed_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_viewed_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+        - addUniqueConstraint:
+            tableName: message_views
+            columnNames: message_id, user_chat_id
+            constraintName: uk_message_views_message_user
+        - createIndex:
+            tableName: message_views
+            indexName: idx_message_views_message_id
+            columns:
+              - column:
+                  name: message_id
+        - createIndex:
+            tableName: message_views
+            indexName: idx_message_views_user_chat_id
+            columns:
+              - column:
+                  name: user_chat_id 

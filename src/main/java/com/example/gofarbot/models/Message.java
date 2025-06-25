@@ -55,6 +55,10 @@ public class Message {
     @Nullable
     private String linkName;
 
+    @Column(name = "is_logging")
+    @Builder.Default
+    private boolean isLogging = false;
+
     @Nullable
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Button.class)
     @JoinTable(

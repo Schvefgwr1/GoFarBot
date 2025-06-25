@@ -12,6 +12,7 @@ import com.example.gofarbot.models.Message;
 import com.example.gofarbot.models.User;
 import com.example.gofarbot.services.bot_services.dto.MessageServiceDTO;
 import com.example.gofarbot.services.resources.ResourceValidationService;
+import com.example.gofarbot.services.MessageViewService;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,7 @@ public class MessageService {
     private final UserRepository userRepository;
     private final LinkMetricRepository linkMetricRepository;
     private final ResourceValidationService resourceValidationService;
+    private final MessageViewService messageViewService;
 
     public MessageServiceDTO getBackMessageToUser(long chatId) throws UserException, BackMessageException {
         User user = userRepository.findUserByChatId(chatId)
@@ -127,6 +129,11 @@ public class MessageService {
     private @NotNull MessageServiceDTO getMessageDTO(@NotNull Message message, long chatId, String username, Map<Long, Boolean> inheritedValidatedResources) {
         userRepository.updateUserState(chatId, message.getId());
         
+        // Логирование просмотра сообщения если включено
+        if (messageViewService.shouldLogView(message)) {
+            messageViewService.logMessageView(message, chatId);
+        }
+        
         // Объединение наследованных и новых результатов проверки ресурсов
         Map<Long, Boolean> validatedResources = new HashMap<>();
         if (inheritedValidatedResources != null) {
@@ -135,7 +142,7 @@ public class MessageService {
         
         // Проверка ресурсов текущего сообщения если передан username
         if (username != null && !username.isEmpty()) {
-            Map<Long, Boolean> currentMessageResources = collectValidatedResources(message, username);
+            Map<Long, Boolean> currentMessageResources = collectValidatedResources(message, username, chatId);
             validatedResources.putAll(currentMessageResources);
         }
         
@@ -221,13 +228,13 @@ public class MessageService {
                 .orElseThrow(() -> new MessageException("Message not found in DB for id: " + messageId));
     }
 
-    private Map<Long, Boolean> collectValidatedResources(Message message, String username) {
+    private Map<Long, Boolean> collectValidatedResources(Message message, String username, Long userChatId) {
         Map<Long, Boolean> validatedResources = new HashMap<>();
         
         if (message.getResourcesInMessage() != null && !message.getResourcesInMessage().isEmpty()) {
             for (var resInMes : message.getResourcesInMessage()) {
                 Long resourceId = resInMes.getResource().getId();
-                boolean isValid = resourceValidationService.validateMessageResources(message, username);
+                boolean isValid = resourceValidationService.validateMessageResources(message, username, userChatId);
                 validatedResources.put(resourceId, isValid);
                 
                 log.info("Resource ID: {} validation result: {} for user: {}", resourceId, isValid, username);

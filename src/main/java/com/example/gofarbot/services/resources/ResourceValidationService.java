@@ -19,14 +19,15 @@ import java.util.Map;
 public class ResourceValidationService {
     
     private final GoogleFormFindUserRule googleFormFindUserRule;
-    
+
     /**
-     * Проверяет все ресурсы прикрепленные к сообщению
+     * Проверяет все ресурсы прикрепленные к сообщению с передачей ID пользователя
      * @param message сообщение для проверки
      * @param username имя пользователя Telegram
+     * @param userChatId ID пользователя в чате
      * @return true если все ресурсы прошли проверку или нет ресурсов для проверки
      */
-    public boolean validateMessageResources(Message message, String username) {
+    public boolean validateMessageResources(Message message, String username, Long userChatId) {
         if (message.getResourcesInMessage() == null || message.getResourcesInMessage().isEmpty()) {
             return true; // Нет ресурсов для проверки
         }
@@ -35,7 +36,7 @@ public class ResourceValidationService {
         
         for (ResInMes resInMes : message.getResourcesInMessage()) {
             Resource resource = resInMes.getResource();
-            if (!validateResource(resource, username)) {
+            if (!validateResource(resource, username, message.getId(), userChatId)) {
                 log.warn("Resource validation failed for resource ID: {} and user: {}", resource.getId(), username);
                 return false;
             }
@@ -44,14 +45,16 @@ public class ResourceValidationService {
         log.info("All resources validated successfully for message ID: {} and user: {}", message.getId(), username);
         return true;
     }
-    
+
     /**
-     * Проверяет отдельный ресурс
+     * Проверяет отдельный ресурс с дополнительными параметрами
      * @param resource ресурс для проверки
      * @param username имя пользователя Telegram
+     * @param messageId ID сообщения
+     * @param userChatId ID пользователя в чате
      * @return true если ресурс прошел проверку
      */
-    private boolean validateResource(Resource resource, String username) {
+    private boolean validateResource(Resource resource, String username, Long messageId, Long userChatId) {
         ResourceRule rule = getResourceRule(resource.getType());
         if (rule == null) {
             log.warn("No validation rule found for resource type: {}", resource.getType().getId());
@@ -61,7 +64,10 @@ public class ResourceValidationService {
         try {
             if (rule.installService(resource.getId())) {
                 if (rule instanceof GoogleFormFindUserRule) {
-                    ((GoogleFormFindUserRule) rule).setUsername(username);
+                    GoogleFormFindUserRule googleFormRule = (GoogleFormFindUserRule) rule;
+                    googleFormRule.setUsername(username);
+                    googleFormRule.setMessageId(messageId);
+                    googleFormRule.setUserChatId(userChatId);
                 }
                 return rule.isChecked();
             } else {
