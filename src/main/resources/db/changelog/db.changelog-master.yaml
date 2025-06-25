@@ -84,3 +84,12 @@ databaseChangeLog:
   #Add links metric table
   - include:
       file: db/changelog/changeset/create-links-metric-table.yaml
+  #Create resources tables
+  - include:
+      file: db/changelog/changeset/create-resources-tables.yaml
+  #Create message views table for logging
+  - include:
+      file: db/changelog/changeset/create-message-views-table.yaml
+  #Add is_logging field to messages
+  - include:
+      file: db/changelog/changeset/add-is-logging-to-messages.yaml

@@ -47,10 +47,14 @@ public class MainBotController extends TelegramLongPollingBot {
         boolean haveLinkParam = false;
         String statParam = "";
         String linkParam = "";
+        String username = null; // Никнейм пользователя для проверки ресурсов
 
         if (update.hasMessage() && update.getMessage().hasText()) {
             long chatId = update.getMessage().getChatId();
             long userId = update.getMessage().getFrom().getId();
+            
+            // Получаем никнейм пользователя из Telegram API
+            username = update.getMessage().getFrom().getUserName();
 
             Message message = update.getMessage();
             if (message.hasText() && message.getText().startsWith("/")) {
@@ -70,7 +74,7 @@ public class MainBotController extends TelegramLongPollingBot {
                             linkParam = parameter;
                         } else {
                             try {
-                                sendMessagesForCommand(chatId, message.getText().split(" ")[0]);
+                                sendMessagesForCommand(chatId, message.getText().split(" ")[0], username);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -78,7 +82,7 @@ public class MainBotController extends TelegramLongPollingBot {
                     }
                 } else {
                     try {
-                        sendMessagesForCommand(chatId, message.getText());
+                        sendMessagesForCommand(chatId, message.getText(), username);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -96,6 +100,10 @@ public class MainBotController extends TelegramLongPollingBot {
             String call_data;
             if(!haveRegisterParam && !haveLinkParam) {
                 call_data = update.getCallbackQuery().getData();
+                // Получаем никнейм пользователя из callback query если он не был получен ранее
+                if (username == null) {
+                    username = update.getCallbackQuery().getFrom().getUserName();
+                }
             }
             else {
                 if(haveRegisterParam) {
@@ -122,11 +130,12 @@ public class MainBotController extends TelegramLongPollingBot {
                 }
             }
 
-            sendMessagesForCommand(chatId, call_data);
+            sendMessagesForCommand(chatId, call_data, username);
         }
     }
 
-    private void sendMessagesForCommand(long chatId, String command) {
+    // Основной метод с поддержкой проверки ресурсов
+    private void sendMessagesForCommand(long chatId, String command, String username) {
         MessageServiceDTO messageServiceDTO;
         if(Objects.equals(command, "back_button")) {
             messageServiceDTO = mainBotService.getBackMessage(chatId);
@@ -135,9 +144,9 @@ public class MainBotController extends TelegramLongPollingBot {
                 String[] partsParam = command.split("_");
                 messageServiceDTO = partsParam.length > 1 ?
                     mainBotService.getMessageForLink(chatId, partsParam[1]) :
-                    mainBotService.getStandardMessage(chatId, "/start");
+                    mainBotService.getStandardMessage(chatId, "/start", username, null);
             } else {
-                messageServiceDTO = mainBotService.getStandardMessage(chatId, command);
+                messageServiceDTO = mainBotService.getStandardMessage(chatId, command, username, null);
             }
         }
 
@@ -156,8 +165,11 @@ public class MainBotController extends TelegramLongPollingBot {
             if(lambdaDTO.getDelay() != null && lambdaDTO.getDelay() > 0) {
                 accumulatedDelay += lambdaDTO.getDelay();
             }
+            
+            // Получаем следующее сообщение с передачей username и validatedResources из текущего DTO
+            String nextUsername = lambdaDTO.getUsername() != null ? lambdaDTO.getUsername() : username;
             messageServiceDTO = lambdaDTO.getNextMessageId() != null
-                    ? mainBotService.getStandardMessage(chatId, lambdaDTO.getNextMessageId())
+                    ? mainBotService.getStandardMessage(chatId, lambdaDTO.getNextMessageId(), nextUsername, lambdaDTO.getValidatedResources())
                     : null;
         }
     }

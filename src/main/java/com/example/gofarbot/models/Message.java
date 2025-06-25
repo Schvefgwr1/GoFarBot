@@ -12,6 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -54,6 +55,10 @@ public class Message {
     @Nullable
     private String linkName;
 
+    @Column(name = "is_logging")
+    @Builder.Default
+    private boolean isLogging = false;
+
     @Nullable
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Button.class)
     @JoinTable(
@@ -67,5 +72,11 @@ public class Message {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ResInMes> resourcesInMessage = new ArrayList<>();
+
+    @OneToMany(mappedBy = "message", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<ReactToRes> reactionsToResources = new ArrayList<>();
 }
 

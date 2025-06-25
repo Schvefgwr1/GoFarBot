@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: 36
+      author: vsevolod schetov
+      changes:
+        - addColumn:
+            tableName: messages
+            columns:
+              - column:
+                  name: is_logging
+                  type: BOOLEAN
+                  constraints:
+                    nullable: false
+                  defaultValue: false
+        - createIndex:
+            tableName: messages
+            indexName: idx_messages_is_logging
+            columns:
+              - column:
+                  name: is_logging 

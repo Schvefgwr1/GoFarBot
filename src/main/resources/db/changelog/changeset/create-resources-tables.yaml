@@ -1,0 +1,127 @@
+databaseChangeLog:
+  - changeSet:
+      id: 20250619-01-create-res-types
+      author: vsevolod
+      changes:
+        - createTable:
+            tableName: res_types
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+  - changeSet:
+      id: 20250619-02-create-resources
+      author: vsevolod
+      changes:
+        - createTable:
+            tableName: resources
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: link
+                  type: VARCHAR(1024)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: type_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: resources
+            baseColumnNames: type_id
+            constraintName: fk_resources_type
+            referencedTableName: res_types
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 20250619-03-create-res-in-mes
+      author: vsevolod
+      changes:
+        - createTable:
+            tableName: res_in_mes
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: message_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: resource_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: res_in_mes
+            baseColumnNames: message_id
+            constraintName: fk_res_in_mes_message
+            referencedTableName: messages
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: res_in_mes
+            baseColumnNames: resource_id
+            constraintName: fk_res_in_mes_resource
+            referencedTableName: resources
+            referencedColumnNames: id
+            onDelete: CASCADE
+
+  - changeSet:
+      id: 20250619-04-create-react-to-res
+      author: vsevolod
+      changes:
+        - createTable:
+            tableName: react_to_res
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: message_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: resource_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: react_to_res
+            baseColumnNames: message_id
+            constraintName: fk_react_to_res_message
+            referencedTableName: messages
+            referencedColumnNames: id
+            onDelete: CASCADE
+        - addForeignKeyConstraint:
+            baseTableName: react_to_res
+            baseColumnNames: resource_id
+            constraintName: fk_react_to_res_resource
+            referencedTableName: resources
+            referencedColumnNames: id
+            onDelete: CASCADE
