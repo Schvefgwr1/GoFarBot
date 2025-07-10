@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rugged-weft-432513-m4",
+  "private_key_id": "fa033171c9eb4e643e5d435356dac1eadef68eed",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC+w5qmNG46Yl5z\nFayPl7537M056edQ0/ceU2RflIPxaxZR2oLK7h2bkGNml6xLoCmyM2UhEQsO4S/Y\nvSz+8d+N8RZcmoTRSHm4u/hmi6OX92RvdvjC8A36jkQ/0GcVeNBXeRb5943ivrAj\nMk3SOXh3nSQylw7o0VP8+7e+7J/+fHyvghpjRGBy3LejdcrOh0yymQ4QSF4vSlTO\nWsWVgdkryCdq4dkEAVpd9/dfGcScu/EwpKcn1W64Xyba4jQwfInVjwkIXZrlfaUo\nuO5jOYHsDI455WwEkVGtz6CvI7WRzLQvtxfUaR9cKveYg1e/8jx+X9b5DT3HGW+8\nw02e7roBAgMBAAECggEAANDxbnI2+1HEbOJtp8efoJlT+Q8Pieb+RBQmdjCg4X2M\nNBlzo2g7zcvJjeM3cRnKukdCA+kAwei9ind0vW20TFuSgh7r7PSBOmsdEVzZ/FWq\nPL5AXjhZg8LsEKHU1XpI2eoot2hGirvQh4LSYzd5VOAVPl1eSo/qt60tohSwTCej\nGylOy1mrrzXySjS3XGKtmhhO2FbzoAuelIqqLYrZQnpnlZ+nWJPFmGIIURmhw61U\nIu3QhEYI3vc3sO1whourCPkOnBrrMEi8mFUCf/h2Ak1ZVcq5dqWlIWAgEIdHMCED\nfGifeNHl5MqHaYRhJYecp1FE8CqKAm03pDgPk5zUyQKBgQDgxcGkNG3LG1+Q/fYg\nRpajqSMVfExQZx4nOKYGLxLL9AXJciVileCCUvvqTgnUvNqqEASqcnWiC6V5iy1v\nTs3fZZl2EATOG/uO1YVGvLnBOdXK6YYBL3XbyKf0tHl66jUbpO9HXHXKjkw9HcJN\nqDWe94ZdSPgt8dhxAhtcQnHarwKBgQDZRE6P4EMyTN6/hedpQFOjlWltNq5Mx8RB\n43Nznbx4d/l0OPmo+yrpbkqos0Et25ho2ur+Fr4R4N32N6qthdeVxDwSdPFdZpvx\nj3RDycaeZtcMaA5LRPCSLccKspd/fK45Y5sBLsG+ci+dllVumoN6WaLUCmWb6mka\nohg+WY8iTwKBgB1h3IFRlTSivGhgumbXs2NrfbmWSQeNo0RvREy0pJliqcr+j+KG\nQxXmMSYc024qzc7DT0jUs4neSeBMkEDnpUPZrSjgyTAEOmsegFCR5RpcLBVdV3Ya\nNSbo4QO8/9BQg2a8tca3UHKNDWxD0p2CKphANSFGo6Kl5axIITl7OhTjAoGBAIku\nm/w0Obl01+BOCANo3maXXG3c7MkGCWEg4DDME8hs2FEN+HU9waaKQRGrvSfbU6xB\nLccpTPG07fEczOOrcqfZs6RjulKjCyvGzD5RFNvHS1lGCmB0MwHZbafPg+C3NLp/\nrctdXm+FYZM67M5dOU7zceA4gFel9p8eYfhcTAf5AoGAfIg4bEFb1H9iyXE+26xm\n6LWXqSvYvH30cjbtObYYLZoJSeHV63pVql6rf9DVSCon20qPHDyYn2Z1sXNiSjPK\nNGEgQ78SUtqOJ/2yKW3jIcWdxA11p1ndW2D1KxNH9yNhqoDn/jLr2cSQ/TC8zjBD\n8HzWQQ8jFN/xk0lsFK+Yl0k=\n-----END PRIVATE KEY-----\n",
+  "client_email": "gofarbotgoogleapi@rugged-weft-432513-m4.iam.gserviceaccount.com",
+  "client_id": "107298755383591047326",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/gofarbotgoogleapi%40rugged-weft-432513-m4.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

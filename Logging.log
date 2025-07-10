@@ -1,0 +1,335 @@
+2025-06-25T20:08:54.900+03:00  INFO 3180 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Starting GoFarBotApplication using Java 17.0.2 with PID 3180 (C:\Users\Сева Счетов\IdeaProjects\GoFarBot\target\classes started by vsevolod in C:\Users\Сева Счетов\IdeaProjects\GoFarBot)
+2025-06-25T20:08:54.906+03:00  INFO 3180 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-06-25T20:08:54.969+03:00  INFO 3180 --- [GoFarBot] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-25T20:08:54.970+03:00  INFO 3180 --- [GoFarBot] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-25T20:08:56.776+03:00  INFO 3180 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-25T20:08:56.884+03:00  INFO 3180 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 100 ms. Found 11 JPA repository interfaces.
+2025-06-25T20:08:58.037+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-25T20:08:58.053+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-25T20:08:58.054+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2025-06-25T20:08:58.139+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-25T20:08:58.139+03:00  INFO 3180 --- [GoFarBot] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3169 ms
+2025-06-25T20:08:58.468+03:00  INFO 3180 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-25T20:08:58.709+03:00  INFO 3180 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@1fa88f9b
+2025-06-25T20:08:58.711+03:00  INFO 3180 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-25T20:08:58.927+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-25T20:08:59.773+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:08:59.978+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.lockservice                    : Successfully acquired change log lock
+2025-06-25T20:08:59.981+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.command                        : Using deploymentId: 0871339980
+2025-06-25T20:08:59.982+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:09:00.008+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.ui                             : Running Changeset: db/changelog/changeset/create-message-views-table.yaml::35::vsevolod schetov
+2025-06-25T20:09:00.090+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Table message_views created
+2025-06-25T20:09:00.096+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Unique constraint added to message_views(message_id, user_chat_id)
+2025-06-25T20:09:00.099+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Index idx_message_views_message_id created
+2025-06-25T20:09:00.101+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Index idx_message_views_user_chat_id created
+2025-06-25T20:09:00.103+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : ChangeSet db/changelog/changeset/create-message-views-table.yaml::35::vsevolod schetov ran successfully in 94ms
+2025-06-25T20:09:00.114+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.ui                             : Running Changeset: db/changelog/changeset/add-is-logging-to-messages.yaml::36::vsevolod schetov
+2025-06-25T20:09:00.118+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Columns is_logging(BOOLEAN) added to messages
+2025-06-25T20:09:00.127+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Index idx_messages_is_logging created
+2025-06-25T20:09:00.128+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.changelog                      : ChangeSet db/changelog/changeset/add-is-logging-to-messages.yaml::36::vsevolod schetov ran successfully in 13ms
+2025-06-25T20:09:00.137+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-25T20:09:00.137+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : Run:                          2
+2025-06-25T20:09:00.137+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : Previously run:              39
+2025-06-25T20:09:00.137+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-25T20:09:00.137+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-25T20:09:00.137+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : Total change sets:           41
+2025-06-25T20:09:00.138+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-25T20:09:00.141+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.command                        : Update command completed successfully.
+2025-06-25T20:09:00.141+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 2
+2025-06-25T20:09:00.144+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2025-06-25T20:09:00.145+03:00  INFO 3180 --- [GoFarBot] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-25T20:09:00.275+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-25T20:09:00.364+03:00  INFO 3180 --- [GoFarBot] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-06-25T20:09:00.416+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-25T20:09:00.795+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-25T20:09:02.300+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-25T20:09:02.305+03:00  INFO 3180 --- [GoFarBot] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:09:02.794+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-25T20:09:03.341+03:00  WARN 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.config.SpecialMessages      : Don't have 'unsupported' special message in DB, use standard variant
+2025-06-25T20:09:03.843+03:00  INFO 3180 --- [GoFarBot] [restartedMain] c.example.gofarbot.config.MinioConfig    : Minio URL: http://localhost:9000
+2025-06-25T20:09:04.129+03:00  INFO 3180 --- [GoFarBot] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-06-25T20:09:04.130+03:00  WARN 3180 --- [GoFarBot] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-06-25T20:09:04.182+03:00  WARN 3180 --- [GoFarBot] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-25T20:09:04.759+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-06-25T20:09:04.852+03:00 DEBUG 3180 --- [GoFarBot] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTAuthFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-06-25T20:09:05.092+03:00  WARN 3180 --- [GoFarBot] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-06-25T20:09:05.496+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-25T20:09:05.575+03:00  INFO 3180 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-25T20:09:06.098+03:00  INFO 3180 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Started GoFarBotApplication in 11.751 seconds (process running for 14.507)
+2025-06-25T20:09:06.276+03:00  INFO 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Successful creating of notifications to actual conferences in  database
+2025-06-25T20:09:06.402+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:09:06.403+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:09:06.406+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:09:06.406+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:09:06.422+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:09:06.422+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:09:06.425+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:09:06.425+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:09:06.427+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:09:06.428+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:09:06.467+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:09:06.467+03:00 ERROR 3180 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:09:06.956+03:00  INFO 3180 --- [GoFarBot] [RMI TCP Connection(3)-192.168.56.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-25T20:09:06.956+03:00  INFO 3180 --- [GoFarBot] [RMI TCP Connection(3)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-25T20:09:06.959+03:00  INFO 3180 --- [GoFarBot] [RMI TCP Connection(3)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-25T20:10:20.511+03:00  INFO 3180 --- [GoFarBot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:10:20.514+03:00  INFO 3180 --- [GoFarBot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-25T20:10:20.524+03:00  INFO 3180 --- [GoFarBot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-25T20:19:07.932+03:00  INFO 19292 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Starting GoFarBotApplication using Java 17.0.2 with PID 19292 (C:\Users\Сева Счетов\IdeaProjects\GoFarBot\target\classes started by vsevolod in C:\Users\Сева Счетов\IdeaProjects\GoFarBot)
+2025-06-25T20:19:07.935+03:00  INFO 19292 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-06-25T20:19:07.991+03:00  INFO 19292 --- [GoFarBot] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-25T20:19:07.991+03:00  INFO 19292 --- [GoFarBot] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-25T20:19:09.203+03:00  INFO 19292 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-25T20:19:09.306+03:00  INFO 19292 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93 ms. Found 11 JPA repository interfaces.
+2025-06-25T20:19:10.319+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-25T20:19:10.333+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-25T20:19:10.334+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2025-06-25T20:19:10.412+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-25T20:19:10.412+03:00  INFO 19292 --- [GoFarBot] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2420 ms
+2025-06-25T20:19:10.719+03:00  INFO 19292 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-25T20:19:10.897+03:00  INFO 19292 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5cd7ac77
+2025-06-25T20:19:10.899+03:00  INFO 19292 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-25T20:19:11.059+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-25T20:19:11.598+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:19:11.673+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-25T20:19:11.674+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:19:11.692+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-25T20:19:11.692+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-25T20:19:11.692+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : Previously run:              41
+2025-06-25T20:19:11.692+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-25T20:19:11.692+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-25T20:19:11.692+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : Total change sets:           41
+2025-06-25T20:19:11.693+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-25T20:19:11.709+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2025-06-25T20:19:11.710+03:00  INFO 19292 --- [GoFarBot] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-25T20:19:11.783+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-25T20:19:11.827+03:00  INFO 19292 --- [GoFarBot] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-06-25T20:19:11.855+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-25T20:19:12.061+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-25T20:19:12.937+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-25T20:19:12.940+03:00  INFO 19292 --- [GoFarBot] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:19:13.234+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-25T20:19:13.542+03:00  WARN 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.config.SpecialMessages      : Don't have 'unsupported' special message in DB, use standard variant
+2025-06-25T20:19:13.839+03:00  INFO 19292 --- [GoFarBot] [restartedMain] c.example.gofarbot.config.MinioConfig    : Minio URL: http://localhost:9000
+2025-06-25T20:19:14.000+03:00  INFO 19292 --- [GoFarBot] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-06-25T20:19:14.001+03:00  WARN 19292 --- [GoFarBot] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-06-25T20:19:14.032+03:00  WARN 19292 --- [GoFarBot] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-25T20:19:14.381+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-06-25T20:19:14.432+03:00 DEBUG 19292 --- [GoFarBot] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTAuthFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-06-25T20:19:14.566+03:00  WARN 19292 --- [GoFarBot] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-06-25T20:19:14.808+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-25T20:19:14.857+03:00  INFO 19292 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-25T20:19:15.292+03:00  INFO 19292 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Started GoFarBotApplication in 7.84 seconds (process running for 8.767)
+2025-06-25T20:19:15.366+03:00  INFO 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Successful creating of notifications to actual conferences in  database
+2025-06-25T20:19:15.434+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:19:15.434+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:19:15.436+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:19:15.436+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:19:15.438+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:19:15.438+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:19:15.439+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:19:15.439+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:19:15.441+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:19:15.441+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:19:15.442+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:19:15.442+03:00 ERROR 19292 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:19:15.819+03:00  INFO 19292 --- [GoFarBot] [RMI TCP Connection(4)-192.168.56.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-25T20:19:15.819+03:00  INFO 19292 --- [GoFarBot] [RMI TCP Connection(4)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-25T20:19:15.820+03:00  INFO 19292 --- [GoFarBot] [RMI TCP Connection(4)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2025-06-25T20:23:06.229+03:00  INFO 19292 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:23:06.387+03:00  INFO 19292 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : All resources validated successfully for message ID: 3 and user: minasithili
+2025-06-25T20:23:06.388+03:00  INFO 19292 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: true for user: minasithili
+2025-06-25T20:23:31.907+03:00  INFO 19292 --- [GoFarBot] [http-nio-8080-exec-1] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name [0x160x030x010x060xe00x010x000x060xdc0x030x030x0b20xb50xc20x970x870xdaV0x0fB0x130xc5oz]afL0xdf0xbf10x0d^0xa80xday}"0xf10xbf0xb90xe6 ]. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:407) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:257) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63) ~[tomcat-embed-core-10.1.28.jar:10.1.28]
+	at java.base/java.lang.Thread.run(Thread.java:833) ~[na:na]
+
+2025-06-25T20:24:14.349+03:00  INFO 19292 --- [GoFarBot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:24:14.352+03:00  INFO 19292 --- [GoFarBot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-25T20:24:14.363+03:00  INFO 19292 --- [GoFarBot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-25T20:25:45.729+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Starting GoFarBotApplication using Java 17.0.2 with PID 29136 (C:\Users\Сева Счетов\IdeaProjects\GoFarBot\target\classes started by vsevolod in C:\Users\Сева Счетов\IdeaProjects\GoFarBot)
+2025-06-25T20:25:45.733+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-06-25T20:25:45.804+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-06-25T20:25:45.804+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-06-25T20:25:47.143+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-25T20:25:47.261+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 109 ms. Found 11 JPA repository interfaces.
+2025-06-25T20:25:48.408+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-25T20:25:48.426+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-25T20:25:48.427+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2025-06-25T20:25:48.511+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-25T20:25:48.512+03:00  INFO 29136 --- [GoFarBot] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2707 ms
+2025-06-25T20:25:48.851+03:00  INFO 29136 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-25T20:25:49.050+03:00  INFO 29136 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@179455f7
+2025-06-25T20:25:49.052+03:00  INFO 29136 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-25T20:25:49.239+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-25T20:25:49.864+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:25:49.985+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-25T20:25:49.988+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:25:50.012+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-25T20:25:50.012+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-25T20:25:50.012+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Previously run:              41
+2025-06-25T20:25:50.012+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-25T20:25:50.012+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-25T20:25:50.012+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Total change sets:           41
+2025-06-25T20:25:50.013+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-25T20:25:50.038+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2025-06-25T20:25:50.040+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-25T20:25:50.179+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-25T20:25:50.269+03:00  INFO 29136 --- [GoFarBot] [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.2.Final
+2025-06-25T20:25:50.325+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-25T20:25:50.704+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-25T20:25:52.178+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-25T20:25:52.182+03:00  INFO 29136 --- [GoFarBot] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:25:52.661+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-25T20:25:53.157+03:00  WARN 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.config.SpecialMessages      : Don't have 'unsupported' special message in DB, use standard variant
+2025-06-25T20:25:53.613+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.config.MinioConfig    : Minio URL: http://localhost:9000
+2025-06-25T20:25:53.878+03:00  INFO 29136 --- [GoFarBot] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-06-25T20:25:53.880+03:00  WARN 29136 --- [GoFarBot] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-06-25T20:25:53.939+03:00  WARN 29136 --- [GoFarBot] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-25T20:25:54.574+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-06-25T20:25:54.660+03:00 DEBUG 29136 --- [GoFarBot] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTAuthFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-06-25T20:25:54.907+03:00  WARN 29136 --- [GoFarBot] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-06-25T20:25:55.333+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-25T20:25:55.415+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-25T20:25:55.912+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Started GoFarBotApplication in 10.734 seconds (process running for 11.701)
+2025-06-25T20:25:56.022+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Successful creating of notifications to actual conferences in  database
+2025-06-25T20:25:56.155+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:25:56.156+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:25:56.183+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:25:56.183+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:25:56.199+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:25:56.199+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:25:56.214+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:25:56.214+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:25:56.216+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:25:56.216+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:25:56.218+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:25:56.218+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:25:56.645+03:00  INFO 29136 --- [GoFarBot] [RMI TCP Connection(3)-192.168.56.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-25T20:25:56.646+03:00  INFO 29136 --- [GoFarBot] [RMI TCP Connection(3)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-25T20:25:56.648+03:00  INFO 29136 --- [GoFarBot] [RMI TCP Connection(3)-192.168.56.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2025-06-25T20:26:08.553+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:26:08.680+03:00  WARN 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Resource validation failed for resource ID: 1 and user: minasithili
+2025-06-25T20:26:08.681+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: false for user: minasithili
+2025-06-25T20:26:08.884+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Message ID: 13 will be skipped due to failed resource validation for resource ID: 1
+2025-06-25T20:26:10.917+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:26:10.923+03:00  WARN 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Resource validation failed for resource ID: 1 and user: minasithili
+2025-06-25T20:26:10.924+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: false for user: minasithili
+2025-06-25T20:26:11.058+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Message ID: 13 will be skipped due to failed resource validation for resource ID: 1
+2025-06-25T20:26:13.823+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:26:13.829+03:00  WARN 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Resource validation failed for resource ID: 1 and user: minasithili
+2025-06-25T20:26:13.829+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: false for user: minasithili
+2025-06-25T20:26:13.947+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Message ID: 13 will be skipped due to failed resource validation for resource ID: 1
+2025-06-25T20:26:36.473+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:26:37.807+03:00  WARN 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Resource validation failed for resource ID: 1 and user: minasithili
+2025-06-25T20:26:37.807+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: false for user: minasithili
+2025-06-25T20:26:37.916+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Message ID: 13 will be skipped due to failed resource validation for resource ID: 1
+2025-06-25T20:26:46.741+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:26:47.748+03:00  WARN 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Resource validation failed for resource ID: 1 and user: minasithili
+2025-06-25T20:26:47.748+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: false for user: minasithili
+2025-06-25T20:26:47.889+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Message ID: 13 will be skipped due to failed resource validation for resource ID: 1
+2025-06-25T20:27:15.644+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:27:16.681+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : All resources validated successfully for message ID: 3 and user: minasithili
+2025-06-25T20:27:16.681+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: true for user: minasithili
+2025-06-25T20:27:20.311+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : Validating resources for message ID: 3 and user: minasithili
+2025-06-25T20:27:21.271+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.r.ResourceValidationService      : All resources validated successfully for message ID: 3 and user: minasithili
+2025-06-25T20:27:21.271+03:00  INFO 29136 --- [GoFarBot] [goFarBot_localtest Telegram Executor] c.e.g.s.bot_services.MessageService      : Resource ID: 1 validation result: true for user: minasithili
+2025-06-25T20:30:58.856+03:00  INFO 29136 --- [GoFarBot] [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2025-06-25T20:31:00.778+03:00  INFO 29136 --- [GoFarBot] [Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:31:00.782+03:00  INFO 29136 --- [GoFarBot] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-25T20:31:00.791+03:00  INFO 29136 --- [GoFarBot] [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2025-06-25T20:31:00.910+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Starting GoFarBotApplication using Java 17.0.2 with PID 29136 (C:\Users\Сева Счетов\IdeaProjects\GoFarBot\target\classes started by vsevolod in C:\Users\Сева Счетов\IdeaProjects\GoFarBot)
+2025-06-25T20:31:00.910+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : No active profile set, falling back to 1 default profile: "default"
+2025-06-25T20:31:01.456+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-25T20:31:01.503+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 45 ms. Found 11 JPA repository interfaces.
+2025-06-25T20:31:01.737+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2025-06-25T20:31:01.738+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-25T20:31:01.738+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.28]
+2025-06-25T20:31:01.775+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-25T20:31:01.775+03:00  INFO 29136 --- [GoFarBot] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 861 ms
+2025-06-25T20:31:01.908+03:00  INFO 29136 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2025-06-25T20:31:01.987+03:00  INFO 29136 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@d79cb3f
+2025-06-25T20:31:01.987+03:00  INFO 29136 --- [GoFarBot] [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2025-06-25T20:31:02.006+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.database                       : Set default schema name to public
+2025-06-25T20:31:02.284+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:31:02.343+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.ui                             : Database is up to date, no changesets to execute
+2025-06-25T20:31:02.343+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : UPDATE SUMMARY
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Run:                          0
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Previously run:              41
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Filtered out:                 0
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : -------------------------------
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Total change sets:           41
+2025-06-25T20:31:02.363+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.util                           : Update summary generated
+2025-06-25T20:31:02.370+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2025-06-25T20:31:02.371+03:00  INFO 29136 --- [GoFarBot] [restartedMain] liquibase.command                        : Command execution complete
+2025-06-25T20:31:02.411+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-25T20:31:02.417+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-06-25T20:31:02.430+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-25T20:31:02.705+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-06-25T20:31:02.705+03:00  INFO 29136 --- [GoFarBot] [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:31:02.865+03:00  WARN 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.config.SpecialMessages      : Don't have 'unsupported' special message in DB, use standard variant
+2025-06-25T20:31:03.046+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.config.MinioConfig    : Minio URL: http://localhost:9000
+2025-06-25T20:31:03.104+03:00  INFO 29136 --- [GoFarBot] [restartedMain] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-06-25T20:31:03.105+03:00  WARN 29136 --- [GoFarBot] [restartedMain] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2025-06-25T20:31:03.137+03:00  WARN 29136 --- [GoFarBot] [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-25T20:31:03.450+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2025-06-25T20:31:03.490+03:00 DEBUG 29136 --- [GoFarBot] [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with filters: DisableEncodeUrlFilter, WebAsyncManagerIntegrationFilter, SecurityContextHolderFilter, HeaderWriterFilter, CorsFilter, LogoutFilter, JWTAuthFilter, RequestCacheAwareFilter, SecurityContextHolderAwareRequestFilter, AnonymousAuthenticationFilter, SessionManagementFilter, ExceptionTranslationFilter, AuthorizationFilter
+2025-06-25T20:31:03.610+03:00  WARN 29136 --- [GoFarBot] [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2025-06-25T20:31:03.863+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2025-06-25T20:31:03.896+03:00  INFO 29136 --- [GoFarBot] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2025-06-25T20:31:04.163+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.example.gofarbot.GoFarBotApplication   : Started GoFarBotApplication in 3.293 seconds (process running for 319.951)
+2025-06-25T20:31:04.228+03:00  INFO 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Successful creating of notifications to actual conferences in  database
+2025-06-25T20:31:04.237+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:31:04.237+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:31:04.240+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:31:04.241+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:31:04.244+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:31:04.244+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:31:04.247+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:31:04.247+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:31:04.250+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:31:04.250+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:31:04.277+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.g.services.web_services.FileService  : java.net.ConnectException: Failed to connect to localhost/[0:0:0:0:0:0:0:1]:9000
+2025-06-25T20:31:04.277+03:00 ERROR 29136 --- [GoFarBot] [restartedMain] c.e.gofarbot.services.StartupRunner      : Unsupported exception: document is marked non-null but is null
+2025-06-25T20:31:04.279+03:00  INFO 29136 --- [GoFarBot] [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2025-06-25T20:31:04.363+03:00 ERROR 29136 --- [GoFarBot] [goFarBot_localtest Telegram Connection] o.t.t.u.DefaultBotSession                : Error executing org.telegram.telegrambots.meta.api.methods.updates.GetUpdates query: [409] Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Error executing org.telegram.telegrambots.meta.api.methods.updates.GetUpdates query: [409] Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+	at org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod.deserializeResponseInternal(PartialBotApiMethod.java:54) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod.deserializeResponseArray(PartialBotApiMethod.java:39) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.meta.api.methods.updates.GetUpdates.deserializeResponse(GetUpdates.java:86) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$ReaderThread.getUpdatesFromServer(DefaultBotSession.java:258) ~[telegrambots-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$ReaderThread.run(DefaultBotSession.java:188) ~[telegrambots-6.9.7.1.jar:na]
+
+2025-06-25T20:31:07.938+03:00 ERROR 29136 --- [GoFarBot] [goFarBot_localtest Telegram Connection] o.t.t.u.DefaultBotSession                : Error executing org.telegram.telegrambots.meta.api.methods.updates.GetUpdates query: [409] Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Error executing org.telegram.telegrambots.meta.api.methods.updates.GetUpdates query: [409] Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+	at org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod.deserializeResponseInternal(PartialBotApiMethod.java:54) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod.deserializeResponseArray(PartialBotApiMethod.java:39) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.meta.api.methods.updates.GetUpdates.deserializeResponse(GetUpdates.java:86) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$ReaderThread.getUpdatesFromServer(DefaultBotSession.java:258) ~[telegrambots-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$ReaderThread.run(DefaultBotSession.java:188) ~[telegrambots-6.9.7.1.jar:na]
+
+2025-06-25T20:31:08.500+03:00 ERROR 29136 --- [GoFarBot] [goFarBot_localtest Telegram Connection] o.t.t.u.DefaultBotSession                : Error executing org.telegram.telegrambots.meta.api.methods.updates.GetUpdates query: [409] Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+
+org.telegram.telegrambots.meta.exceptions.TelegramApiRequestException: Error executing org.telegram.telegrambots.meta.api.methods.updates.GetUpdates query: [409] Conflict: terminated by other getUpdates request; make sure that only one bot instance is running
+	at org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod.deserializeResponseInternal(PartialBotApiMethod.java:54) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod.deserializeResponseArray(PartialBotApiMethod.java:39) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.meta.api.methods.updates.GetUpdates.deserializeResponse(GetUpdates.java:86) ~[telegrambots-meta-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$ReaderThread.getUpdatesFromServer(DefaultBotSession.java:258) ~[telegrambots-6.9.7.1.jar:na]
+	at org.telegram.telegrambots.updatesreceivers.DefaultBotSession$ReaderThread.run(DefaultBotSession.java:188) ~[telegrambots-6.9.7.1.jar:na]
+
+2025-06-25T20:31:11.486+03:00  INFO 29136 --- [GoFarBot] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-25T20:31:11.487+03:00  INFO 29136 --- [GoFarBot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2025-06-25T20:31:11.494+03:00  INFO 29136 --- [GoFarBot] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
