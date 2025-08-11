@@ -74,7 +74,7 @@ public class MainBotController extends TelegramLongPollingBot {
                             linkParam = parameter;
                         } else {
                             try {
-                                sendMessagesForCommand(chatId, message.getText().split(" ")[0], username);
+                                sendMessagesForCommand(chatId, message.getText().split(" ")[0], username, statParam);
                             } catch (Exception e) {
                                 throw new RuntimeException(e);
                             }
@@ -82,7 +82,7 @@ public class MainBotController extends TelegramLongPollingBot {
                     }
                 } else {
                     try {
-                        sendMessagesForCommand(chatId, message.getText(), username);
+                        sendMessagesForCommand(chatId, message.getText(), username, statParam);
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
@@ -120,22 +120,15 @@ public class MainBotController extends TelegramLongPollingBot {
                 chatId = update.getMessage().getChatId();
             }
 
-            if(Objects.equals(call_data, "registration")) {
-                if(registrationService.haveActiveConference()) {
-                    registrationService.registerUserToAllConference(chatId, statParam);
-                }
-                else {
-                    call_data = "null_registration";
-                    registrationService.createOldNotification(chatId);
-                }
-            }
-
-            sendMessagesForCommand(chatId, call_data, username);
+            sendMessagesForCommand(chatId, call_data, username, statParam);
         }
     }
 
     // Основной метод с поддержкой проверки ресурсов
-    private void sendMessagesForCommand(long chatId, String command, String username) {
+    private void sendMessagesForCommand(long chatId, String command, String username, String statParam) {
+        if((Objects.equals(command, "registration")) && (!registrationService.haveActiveConference())) {
+            command = "null_registration";
+        }
         MessageServiceDTO messageServiceDTO;
         if(Objects.equals(command, "back_button")) {
             messageServiceDTO = mainBotService.getBackMessage(chatId);
@@ -147,6 +140,15 @@ public class MainBotController extends TelegramLongPollingBot {
                     mainBotService.getStandardMessage(chatId, "/start", username, null);
             } else {
                 messageServiceDTO = mainBotService.getStandardMessage(chatId, command, username, null);
+            }
+        }
+
+        if(Objects.equals(command, "registration")) {
+            if(registrationService.haveActiveConference()) {
+                registrationService.registerUserToAllConference(chatId, statParam);
+            }
+            else {
+                registrationService.createOldNotification(chatId);
             }
         }
 
